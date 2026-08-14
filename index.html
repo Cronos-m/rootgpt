@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>RootGPT</title>
+    
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="config.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+        const app = initializeApp(window.FIREBASE_CONFIG);
+        const db = getDatabase(app);
+        window.firebaseDb = { db, ref, onValue, set };
+    </script>
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { 'cgp-black': '#000000', 'cgp-sidebar': '#171717', 'cgp-input': '#2f2f2f', 'cgp-text': '#ececec', 'cgp-text-secondary': '#b4b4b4' }, fontFamily: { 'sans': ['Inter', 'system-ui', 'sans-serif'] } } }
+        }
+    </script>
+    <style>
+        body { background-color: #000000; color: #ececec; font-family: 'Inter', system-ui, sans-serif; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #424242; border-radius: 4px; }
+        .typing-dot { animation: typingBounce 1.4s infinite ease-in-out both; }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes typingBounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+        
+        .ghost-key { 
+            background: rgba(30, 30, 30, 0.4); 
+            border: 1px solid rgba(100, 100, 100, 0.2); 
+            color: rgba(200, 200, 200, 0.25); 
+            transition: all 0.1s; 
+            border-radius: 12px; 
+            font-size: 1.5rem; 
+            font-weight: 400; 
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+        .ghost-key:active { 
+            background: rgba(50, 50, 50, 0.6); 
+            color: rgba(220, 220, 220, 0.5); 
+            transform: scale(0.95);
+        }
+        .ghost-cancel {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: rgba(239, 68, 68, 0.3);
+        }
+        .ghost-cancel:active {
+            background: rgba(239, 68, 68, 0.2);
+            color: rgba(239, 68, 68, 0.5);
+        }
+        .ghost-confirm { 
+            background: rgba(16, 163, 127, 0.15); 
+            border: 1px solid rgba(16, 163, 127, 0.3); 
+            color: rgba(16, 163, 127, 0.4); 
+        }
+        .ghost-confirm:active { 
+            background: rgba(16, 163, 127, 0.3); 
+            color: rgba(16, 163, 127, 0.6); 
+        }
+        
+        #send-btn { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+    </style>
+</head>
+<body class="h-full overflow-hidden flex flex-col">
+
+    <div class="flex h-full">
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-72 bg-cgp-sidebar flex flex-col h-full transform -translate-x-full md:relative md:translate-x-0 transition-transform duration-300">
+            <div class="flex items-center justify-between px-4 py-3">
+                <div class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white w-6 h-6 md:w-8 md:h-8">
+                        <line x1="8" y1="6" x2="21" y2="6"></line>
+                        <line x1="8" y1="12" x2="21" y2="12"></line>
+                        <line x1="8" y1="18" x2="21" y2="18"></line>
+                        <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                        <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                        <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                    </svg>
+                </div>
+                <button onclick="toggleSidebar()" class="md:hidden p-2 rounded-full hover:bg-[#2f2f2f]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="flex-1 overflow-y-auto px-2 py-2 space-y-1">
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-[#2f2f2f] transition-colors text-sm font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> Nuevo chat
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-[#2f2f2f] transition-colors text-sm font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg> Imágenes
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-[#2f2f2f] transition-colors text-sm font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Complementos
+                </a>
+                <div class="border-t border-[#2f2f2f] my-3"></div>
+                <div class="px-3 py-4">
+                    <h3 class="text-base font-semibold text-white mb-2">Obtén respuestas personalizadas</h3>
+                    <p class="text-sm text-cgp-text-secondary mb-4">Inicia sesión para obtener respuestas basadas en chats guardados.</p>
+                    <button onclick="resetPosition()" class="w-full bg-[#2f2f2f] hover:bg-[#3a3a3a] text-white font-medium py-3 rounded-lg transition-colors mb-2">Iniciar sesión</button>
+                    <button class="w-full bg-transparent border border-[#424242] hover:bg-[#2f2f2f] text-white font-medium py-3 rounded-lg transition-colors">Regístrate gratis</button>
+                </div>
+            </div>
+        </aside>
+        <div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden md:hidden" onclick="toggleSidebar()"></div>
+
+        <main class="flex-1 flex flex-col h-full bg-cgp-black relative">
+            <header class="flex items-center justify-between px-4 py-3 md:hidden">
+                <button onclick="toggleSidebar()" class="p-2 rounded-full hover:bg-[#2f2f2f]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                </button>
+                <div class="flex items-center gap-2">
+                    <button onclick="resetPosition()" class="px-4 py-2 bg-white text-black font-medium rounded-full text-sm hover:bg-gray-200 transition-colors">Iniciar sesión</button>
+                </div>
+            </header>
+
+            <div id="chat-container" class="flex-1 overflow-y-auto px-4 py-4">
+                <div id="welcome-screen" class="h-full flex flex-col items-center justify-center">
+                    <h1 class="text-3xl md:text-4xl font-semibold text-white mb-8">¿Por dónde empezamos?</h1>
+                </div>
+                <div id="messages-area" class="max-w-3xl mx-auto space-y-6 hidden"></div>
+            </div>
+
+            <div class="w-full px-4 pb-4 pt-2">
+                <div class="max-w-3xl mx-auto">
+                    <div class="relative bg-cgp-input rounded-3xl border border-[#424242] focus-within:border-[#555] transition-colors">
+                        <div class="flex items-center px-4 py-3">
+                            <button class="p-2 rounded-full hover:bg-[#3a3a3a] transition-colors text-cgp-text-secondary mr-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            </button>
+                            <textarea id="user-input" rows="1" placeholder="Preguntar lo que quieras" class="flex-1 bg-transparent text-cgp-text placeholder-cgp-text-secondary resize-none focus:outline-none text-base max-h-40" onkeydown="handleKeyDown(event)"></textarea>
+                            <button id="send-btn" class="p-2 rounded-full bg-white text-black hover:bg-gray-200 transition-colors ml-2 cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <p class="text-center text-xs text-cgp-text-secondary mt-4 px-4" id="footer-text">
+                        ChatGPT es IA. Al usarlo, aceptas los <a href="#" class="underline hover:text-white">Términos</a> y la <a href="#" class="underline hover:text-white">Política de privacidad</a>. vs.-
+                    </p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="invisible-panel" class="fixed inset-0 z-[100] hidden bg-black bg-opacity-95">
+        <div class="grid grid-cols-4 gap-3 p-6 h-full w-full max-w-lg mx-auto content-center">
+            <button class="ghost-key h-16 w-full" data-key="1">1</button>
+            <button class="ghost-key h-16 w-full" data-key="2">2</button>
+            <button class="ghost-key h-16 w-full" data-key="3">3</button>
+            <button class="ghost-key ghost-cancel h-16 w-full" data-key="cancel">X</button>
+
+            <button class="ghost-key h-16 w-full" data-key="4">4</button>
+            <button class="ghost-key h-16 w-full" data-key="5">5</button>
+            <button class="ghost-key h-16 w-full" data-key="6">6</button>
+            <button class="ghost-key h-16 w-full" data-key="C">C</button>
+
+            <button class="ghost-key h-16 w-full" data-key="7">7</button>
+            <button class="ghost-key h-16 w-full" data-key="8">8</button>
+            <button class="ghost-key h-16 w-full" data-key="9">9</button>
+            <button class="ghost-key ghost-confirm h-16 w-full" data-key="confirm">✓</button>
+
+            <button class="ghost-key h-16 w-full col-span-2" data-key="0">0</button>
+            <div class="col-span-2"></div>
+        </div>
+    </div>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) {
+                    registration.unregister();
+                }
+            });
+        }
+        
+        let allConfigs = [];
+        let globalPosition = 1;
+        let tempForcePosition = '';
+        let lastTapTime = 0;
+        let geoData = null;
+        
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('-translate-x-full');
+            document.getElementById('sidebar-overlay').classList.toggle('hidden');
+        }
+
+        const userInput = document.getElementById('user-input');
+        const chatContainer = document.getElementById('chat-container');
+        const messagesArea = document.getElementById('messages-area');
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const sendBtn = document.getElementById('send-btn');
+
+        userInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+
+        function handleKeyDown(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+
+        sendBtn.addEventListener('dblclick', (e) => {
+            if (userInput.value.trim() === '') {
+                e.preventDefault();
+                openInvisiblePanel();
+            }
+        });
+
+        sendBtn.addEventListener('touchend', (e) => {
+            const currentTime = new Date().getTime();
+            const tapLength = currentTime - lastTapTime;
+
+            if (userInput.value.trim() !== '') {
+                e.preventDefault();
+                sendMessage();
+            } else {
+                if (tapLength < 300 && tapLength > 0) {
+                    e.preventDefault();
+                    openInvisiblePanel();
+                }
+            }
+            lastTapTime = currentTime;
+        });
+
+        window.addEventListener('load', () => {
+            const { db, ref, onValue } = window.firebaseDb;
+            
+            onValue(ref(db, 'config/lists'), (snapshot) => {
+                const data = snapshot.val();
+                allConfigs = data ? Object.entries(data).map(([id, val]) => ({ id, ...val })) : [];
+            });
+
+            onValue(ref(db, 'config/forcePosition'), (snapshot) => {
+                globalPosition = snapshot.val() || 1;
+                updateFooter();
+            });
+
+            loadGeoData();
+        });
+
+        function normalizeStr(s) {
+            return (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+        }
+
+        async function loadGeoData() {
+            try {
+                const res = await fetch('https://restcountries.com/v3.1/all?fields=name,translations,capital,capitalInfo');
+                const data = await res.json();
+                const map = {};
+                data.forEach(c => {
+                    const capital = (c.capital && c.capital[0]) || null;
+                    const ll = (c.capitalInfo && c.capitalInfo.latlng && c.capitalInfo.latlng.length === 2) ? c.capitalInfo.latlng : null;
+                    const entry = {
+                        country: (c.translations && c.translations.spa && c.translations.spa.common) || c.name.common,
+                        capital: capital,
+                        lat: ll ? ll[0] : null,
+                        lng: ll ? ll[1] : null
+                    };
+                    const keys = new Set();
+                    if (c.translations && c.translations.spa) keys.add(normalizeStr(c.translations.spa.common));
+                    keys.add(normalizeStr(c.name.common));
+                    (c.name.altSpellings || []).forEach(a => keys.add(normalizeStr(a)));
+                    keys.forEach(k => { if (k && !map[k]) map[k] = entry; });
+                });
+                geoData = map;
+                console.log('Datos geográficos cargados:', Object.keys(map).length, 'países');
+            } catch (err) {
+                console.error('Error al cargar datos geográficos:', err);
+                geoData = {};
+            }
+        }
+
+        function tryCapitalEffect(text) {
+            const m = text.match(/capital\s+de\s+(.+)/i);
+            if (!m || !geoData) return null;
+
+            let query = normalizeStr(m[1]).replace(/[?!.]+$/, '').trim();
+            if (query.length < 3) return null;
+
+            let entry = geoData[query];
+            if (!entry) {
+                const keys = Object.keys(geoData);
+                for (const k of keys) {
+                    if (k && (k.includes(query) || query.includes(k))) { entry = geoData[k]; break; }
+                }
+            }
+            if (!entry || !entry.capital || entry.lat === null) return null;
+            return entry;
+        }
+
+        function resetPosition() {
+            const { db, ref, set } = window.firebaseDb;
+            set(ref(db, 'config/forcePosition'), 1)
+                .then(() => {
+                    globalPosition = 1;
+                    updateFooter();
+                })
+                .catch(err => console.error('Error al resetear la posición:', err));
+
+            set(ref(db, 'config/mapEvent'), null)
+                .catch(err => console.error('Error al limpiar el mapa:', err));
+        }
+
+        function updateFooter() {
+            const footer = document.getElementById('footer-text');
+            const isPanelOpen = !document.getElementById('invisible-panel').classList.contains('hidden');
+            
+            let pos;
+            if (isPanelOpen) {
+                pos = tempForcePosition || globalPosition;
+            } else {
+                pos = globalPosition;
+            }
+            
+            footer.innerHTML = `ChatGPT es IA. Al usarlo, aceptas los <a href="#" class="underline hover:text-white">Términos</a> y la <a href="#" class="underline hover:text-white">Política de privacidad</a>. vs.${pos}`;
+        }
+
+        function openInvisiblePanel() {
+            if (userInput.value.trim() !== '') return;
+            document.getElementById('invisible-panel').classList.remove('hidden');
+            tempForcePosition = '';
+            updateFooter();
+        }
+
+        document.addEventListener('pointerup', function(e) {
+            const key = e.target.closest('[data-key]');
+            if (!key) return;
+            const keyValue = key.getAttribute('data-key');
+            
+            if (keyValue === 'cancel') {
+                document.getElementById('invisible-panel').classList.add('hidden');
+                tempForcePosition = '';
+                updateFooter();
+            } else if (keyValue === 'C') {
+                tempForcePosition = '';
+                updateFooter();
+            } else if (keyValue === 'confirm') {
+                if (tempForcePosition) {
+                    const { db, ref, set } = window.firebaseDb;
+                    set(ref(db, 'config/forcePosition'), parseInt(tempForcePosition, 10))
+                        .then(() => {
+                            document.getElementById('invisible-panel').classList.add('hidden');
+                            tempForcePosition = '';
+                            updateFooter();
+                        })
+                        .catch(err => console.error('Error:', err));
+                } else {
+                    document.getElementById('invisible-panel').classList.add('hidden');
+                    updateFooter();
+                }
+            } else {
+                if (tempForcePosition.length < 2) {
+                    tempForcePosition += keyValue;
+                    updateFooter();
+                }
+            }
+        });
+
+        async function sendMessage() {
+            const text = userInput.value.trim();
+            if (!text) return;
+
+            welcomeScreen.classList.add('hidden');
+            messagesArea.classList.remove('hidden');
+
+            appendMessage('user', text);
+            userInput.value = '';
+            userInput.style.height = 'auto';
+
+            const matched = allConfigs.length
+                ? allConfigs.find(c => c.trigger && text.toLowerCase().includes(c.trigger.toLowerCase()))
+                : null;
+
+            if (matched) {
+                const triggerIndex = text.toLowerCase().indexOf(matched.trigger.toLowerCase());
+                let requestText = text.substring(triggerIndex + matched.trigger.length).trim();
+                if (!requestText) requestText = matched.trigger;
+
+                const processedList = processForcedList(matched);
+                const responseText = `Aquí tienes una lista de ${requestText}:\n\n${processedList.join('\n')}`;
+                await simulateAIResponse(responseText);
+                return;
+            }
+
+            const geo = tryCapitalEffect(text);
+            if (geo) {
+                const { db, ref, set } = window.firebaseDb;
+                set(ref(db, 'config/mapEvent'), {
+                    country: geo.country,
+                    capital: geo.capital,
+                    lat: geo.lat,
+                    lng: geo.lng,
+                    query: text,
+                    updatedAt: Date.now()
+                }).catch(err => console.error('Error al publicar el evento de mapa:', err));
+
+                await simulateAIResponse(`La capital de ${geo.country} es ${geo.capital}.`);
+                return;
+            }
+
+            if (allConfigs.length === 0) {
+                await simulateAIResponse("Error de configuración: No se detectó ninguna lista guardada. Por favor, verifica que hayas creado una lista desde secret.html.");
+            } else {
+                await simulateAIResponse("Esta es una respuesta simulada. El texto ingresado no coincide con ningún trigger configurado.");
+            }
+        }
+
+        function processForcedList(config) {
+            const pos = globalPosition || 1;
+            
+            let rawList = config.list;
+            if (rawList && typeof rawList === 'object' && !Array.isArray(rawList)) {
+                rawList = Object.values(rawList);
+            }
+
+            let newList = (rawList || []).map(item => String(item).replace(/^\d+\.\s*/, '').trim()).filter(item => item);
+
+            const forcedItemNormalized = config.forcedItem.toLowerCase().trim();
+            let originalIndex = -1;
+
+            for (let i = 0; i < newList.length; i++) {
+                if (newList[i].toLowerCase() === forcedItemNormalized) {
+                    originalIndex = i;
+                    break;
+                }
+            }
+
+            if (originalIndex !== -1) {
+                newList.splice(originalIndex, 1);
+            }
+
+            let adjustedPosition = pos - 1;
+            if (adjustedPosition < 0) adjustedPosition = 0;
+            if (adjustedPosition > newList.length) adjustedPosition = newList.length;
+
+            newList.splice(adjustedPosition, 0, config.forcedItem);
+
+            return newList.map((item, index) => `${index + 1}. ${item}`);
+        }
+
+        function appendMessage(role, content) {
+            const messageDiv = document.createElement('div');
+            if (role === 'user') {
+                messageDiv.className = `flex justify-end mb-6`;
+                messageDiv.innerHTML = `<div class="bg-cgp-input rounded-2xl px-4 py-3 max-w-[80%] md:max-w-[70%]"><p class="text-cgp-text whitespace-pre-wrap break-words">${escapeHTML(content)}</p></div>`;
+            } else {
+                messageDiv.className = `flex justify-start mb-6`;
+                messageDiv.innerHTML = `<div class="max-w-[80%] md:max-w-[85%]"><p class="text-cgp-text whitespace-pre-wrap break-words ai-response-text text-base leading-relaxed"></p></div>`;
+            }
+            messagesArea.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            return messageDiv;
+        }
+
+        async function simulateAIResponse(inputText) {
+            const aiMessageDiv = appendMessage('ai', '');
+            const textElement = aiMessageDiv.querySelector('.ai-response-text');
+            textElement.innerHTML = `<div class="flex space-x-1 pt-2"><div class="w-2 h-2 bg-cgp-text-secondary rounded-full typing-dot"></div><div class="w-2 h-2 bg-cgp-text-secondary rounded-full typing-dot"></div><div class="w-2 h-2 bg-cgp-text-secondary rounded-full typing-dot"></div></div>`;
+            await new Promise(resolve => setTimeout(resolve, 100)); 
+            textElement.innerHTML = '';
+            await typeWriter(textElement, inputText, 2); 
+        }
+
+        async function typeWriter(element, text, speed) {
+            const actualSpeed = text.includes('\n') ? 1 : speed;
+            for (let i = 0; i < text.length; i++) {
+                element.innerHTML += text.charAt(i);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                await new Promise(resolve => setTimeout(resolve, actualSpeed));
+            }
+        }
+
+        function escapeHTML(str) {
+            const div = document.createElement('div');
+            div.appendChild(document.createTextNode(str));
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>

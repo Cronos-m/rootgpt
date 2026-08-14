@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RootGPT Maps</title>
+    <script src="config.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+        const app = initializeApp(window.FIREBASE_CONFIG);
+        const db = getDatabase(app);
+        window.firebaseDb = { db, ref, onValue };
+    </script>
+    <style>
+        html, body { height: 100%; margin: 0; background: #000; overflow: hidden; font-family: 'Inter', system-ui, sans-serif; }
+
+        #map-frame {
+            position: fixed; inset: 0; width: 100%; height: 100%; border: 0;
+            opacity: 0; transition: opacity 0.8s ease;
+        }
+        #map-frame.visible { opacity: 1; }
+
+        #title-bar {
+            position: fixed; top: 0; left: 0; right: 0; padding: 20px 28px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.85), rgba(0,0,0,0));
+            color: #fff; z-index: 5; opacity: 0; transition: opacity 0.8s ease;
+            pointer-events: none;
+        }
+        #title-bar.visible { opacity: 1; }
+        #title-country { font-size: 14px; letter-spacing: 0.25em; text-transform: uppercase; color: #b4b4b4; margin-bottom: 4px; }
+        #title-capital { font-size: 34px; font-weight: 700; }
+
+        #idle-overlay {
+            position: fixed; inset: 0; background: #000; z-index: 10;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+            transition: opacity 0.6s ease;
+        }
+        #idle-overlay.hidden { opacity: 0; pointer-events: none; }
+        #idle-overlay svg { opacity: 0.12; }
+        #idle-text { color: #2a2a2a; font-size: 12px; letter-spacing: 0.4em; }
+    </style>
+</head>
+<body>
+
+    <iframe id="map-frame" title="Mapa de la capital"></iframe>
+
+    <div id="title-bar">
+        <div id="title-country"></div>
+        <div id="title-capital"></div>
+    </div>
+
+    <div id="idle-overlay">
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+        </svg>
+        <div id="idle-text">EN ESPERA</div>
+    </div>
+
+    <script>
+        let lastTs = 0;
+
+        window.addEventListener('load', () => {
+            const { db, ref, onValue } = window.firebaseDb;
+            onValue(ref(db, 'config/mapEvent'), (snapshot) => {
+                render(snapshot.val());
+            });
+        });
+
+        function render(ev) {
+            const frame = document.getElementById('map-frame');
+            const idle = document.getElementById('idle-overlay');
+            const bar = document.getElementById('title-bar');
+
+            if (!ev) {
+                idle.classList.remove('hidden');
+                frame.classList.remove('visible');
+                bar.classList.remove('visible');
+                lastTs = 0;
+                return;
+            }
+
+            if (ev.updatedAt === lastTs) return;
+            lastTs = ev.updatedAt;
+
+            const src = `https://maps.google.com/maps?q=${ev.lat},${ev.lng}&hl=es&z=12&output=embed`;
+            frame.src = src;
+
+            document.getElementById('title-country').textContent = 'Capital de ' + ev.country;
+            document.getElementById('title-capital').textContent = ev.capital;
+
+            idle.classList.add('hidden');
+            frame.onload = () => {
+                frame.classList.add('visible');
+                bar.classList.add('visible');
+            };
+        }
+    </script>
+</body>
+</html>
