@@ -195,8 +195,122 @@
         let globalPosition = 1;
         let tempForcePosition = '';
         let lastTapTime = 0;
-        let geoData = null;
-        
+
+        // =====================================================
+        // DICCIONARIO GEOGRÁFICO LOCAL (100+ países)
+        // Incrustado para eliminar dependencias de CORS y APIs externas.
+        // Claves en minúsculas y sin acentos para búsqueda flexible.
+        // =====================================================
+        const geoDict = {
+            "colombia": {country: "Colombia", capital: "Bogotá", lat: 4.711, lng: -74.072},
+            "argentina": {country: "Argentina", capital: "Buenos Aires", lat: -34.603, lng: -58.381},
+            "chile": {country: "Chile", capital: "Santiago", lat: -33.448, lng: -70.669},
+            "peru": {country: "Perú", capital: "Lima", lat: -12.046, lng: -77.042},
+            "ecuador": {country: "Ecuador", capital: "Quito", lat: -0.180, lng: -78.467},
+            "venezuela": {country: "Venezuela", capital: "Caracas", lat: 10.480, lng: -66.903},
+            "bolivia": {country: "Bolivia", capital: "La Paz", lat: -16.500, lng: -68.150},
+            "paraguay": {country: "Paraguay", capital: "Asunción", lat: -25.263, lng: -57.575},
+            "uruguay": {country: "Uruguay", capital: "Montevideo", lat: -34.901, lng: -55.164},
+            "brasil": {country: "Brasil", capital: "Brasilia", lat: -15.794, lng: -47.882},
+            "mexico": {country: "México", capital: "Ciudad de México", lat: 19.432, lng: -99.133},
+            "estados unidos": {country: "Estados Unidos", capital: "Washington D.C.", lat: 38.907, lng: -77.036},
+            "eeuu": {country: "Estados Unidos", capital: "Washington D.C.", lat: 38.907, lng: -77.036},
+            "usa": {country: "Estados Unidos", capital: "Washington D.C.", lat: 38.907, lng: -77.036},
+            "canada": {country: "Canadá", capital: "Ottawa", lat: 45.421, lng: -75.697},
+            "espana": {country: "España", capital: "Madrid", lat: 40.416, lng: -3.703},
+            "francia": {country: "Francia", capital: "París", lat: 48.856, lng: 2.352},
+            "italia": {country: "Italia", capital: "Roma", lat: 41.902, lng: 12.496},
+            "alemania": {country: "Alemania", capital: "Berlín", lat: 52.520, lng: 13.405},
+            "reino unido": {country: "Reino Unido", capital: "Londres", lat: 51.507, lng: -0.127},
+            "inglaterra": {country: "Reino Unido", capital: "Londres", lat: 51.507, lng: -0.127},
+            "portugal": {country: "Portugal", capital: "Lisboa", lat: 38.722, lng: -9.139},
+            "paises bajos": {country: "Países Bajos", capital: "Ámsterdam", lat: 52.367, lng: 4.900},
+            "holanda": {country: "Países Bajos", capital: "Ámsterdam", lat: 52.367, lng: 4.900},
+            "belgica": {country: "Bélgica", capital: "Bruselas", lat: 50.850, lng: 4.351},
+            "suiza": {country: "Suiza", capital: "Berna", lat: 46.948, lng: 7.447},
+            "austria": {country: "Austria", capital: "Viena", lat: 48.208, lng: 16.373},
+            "polonia": {country: "Polonia", capital: "Varsovia", lat: 52.229, lng: 21.012},
+            "republica checa": {country: "República Checa", capital: "Praga", lat: 50.075, lng: 14.437},
+            "hungria": {country: "Hungría", capital: "Budapest", lat: 47.497, lng: 19.040},
+            "rumania": {country: "Rumania", capital: "Bucarest", lat: 44.426, lng: 26.102},
+            "grecia": {country: "Grecia", capital: "Atenas", lat: 37.983, lng: 23.727},
+            "turquia": {country: "Turquía", capital: "Ankara", lat: 39.933, lng: 32.859},
+            "rusia": {country: "Rusia", capital: "Moscú", lat: 55.755, lng: 37.617},
+            "ucrania": {country: "Ucrania", capital: "Kiev", lat: 50.450, lng: 30.523},
+            "suecia": {country: "Suecia", capital: "Estocolmo", lat: 59.329, lng: 18.068},
+            "noruega": {country: "Noruega", capital: "Oslo", lat: 59.913, lng: 10.752},
+            "dinamarca": {country: "Dinamarca", capital: "Copenhague", lat: 55.676, lng: 12.568},
+            "finlandia": {country: "Finlandia", capital: "Helsinki", lat: 60.169, lng: 24.938},
+            "islandia": {country: "Islandia", capital: "Reikiavik", lat: 64.146, lng: -21.942},
+            "irlanda": {country: "Irlanda", capital: "Dublín", lat: 53.349, lng: -6.260},
+            "china": {country: "China", capital: "Pekín", lat: 39.904, lng: 116.407},
+            "japon": {country: "Japón", capital: "Tokio", lat: 35.676, lng: 139.650},
+            "corea del sur": {country: "Corea del Sur", capital: "Seúl", lat: 37.566, lng: 126.978},
+            "corea del norte": {country: "Corea del Norte", capital: "Pionyang", lat: 39.039, lng: 125.762},
+            "india": {country: "India", capital: "Nueva Delhi", lat: 28.613, lng: 77.209},
+            "pakistan": {country: "Pakistán", capital: "Islamabad", lat: 33.684, lng: 73.047},
+            "bangladesh": {country: "Bangladés", capital: "Daca", lat: 23.810, lng: 90.412},
+            "tailandia": {country: "Tailandia", capital: "Bangkok", lat: 13.756, lng: 100.501},
+            "vietnam": {country: "Vietnam", capital: "Hanói", lat: 21.027, lng: 105.834},
+            "indonesia": {country: "Indonesia", capital: "Yakarta", lat: -6.208, lng: 106.845},
+            "malasia": {country: "Malasia", capital: "Kuala Lumpur", lat: 3.139, lng: 101.686},
+            "singapur": {country: "Singapur", capital: "Singapur", lat: 1.352, lng: 103.819},
+            "filipinas": {country: "Filipinas", capital: "Manila", lat: 14.599, lng: 120.984},
+            "australia": {country: "Australia", capital: "Canberra", lat: -35.280, lng: 149.130},
+            "nueva zelanda": {country: "Nueva Zelanda", capital: "Wellington", lat: -41.286, lng: 174.776},
+            "egipto": {country: "Egipto", capital: "El Cairo", lat: 30.044, lng: 31.235},
+            "marruecos": {country: "Marruecos", capital: "Rabat", lat: 34.020, lng: -6.841},
+            "argelia": {country: "Argelia", capital: "Argel", lat: 36.753, lng: 3.058},
+            "tunez": {country: "Túnez", capital: "Túnez", lat: 36.806, lng: 10.181},
+            "libia": {country: "Libia", capital: "Trípoli", lat: 32.887, lng: 13.180},
+            "sudafrica": {country: "Sudáfrica", capital: "Pretoria", lat: -25.747, lng: 28.229},
+            "nigeria": {country: "Nigeria", capital: "Abuya", lat: 9.076, lng: 7.398},
+            "kenia": {country: "Kenia", capital: "Nairobi", lat: -1.292, lng: 36.821},
+            "etiopia": {country: "Etiopía", capital: "Adís Abeba", lat: 9.032, lng: 38.746},
+            "tanzania": {country: "Tanzania", capital: "Dodoma", lat: -6.162, lng: 35.751},
+            "ghana": {country: "Ghana", capital: "Acra", lat: 5.603, lng: -0.186},
+            "senegal": {country: "Senegal", capital: "Dakar", lat: 14.716, lng: -17.467},
+            "costa de marfil": {country: "Costa de Marfil", capital: "Yamusukro", lat: 6.827, lng: -5.289},
+            "camerun": {country: "Camerún", capital: "Yaundé", lat: 3.848, lng: 11.502},
+            "angola": {country: "Angola", capital: "Luanda", lat: -8.839, lng: 13.289},
+            "mozambique": {country: "Mozambique", capital: "Maputo", lat: -25.969, lng: 32.573},
+            "madagascar": {country: "Madagascar", capital: "Antananarivo", lat: -18.879, lng: 47.507},
+            "mauricio": {country: "Mauricio", capital: "Port Louis", lat: -20.160, lng: 57.501},
+            "arabia saudita": {country: "Arabia Saudita", capital: "Riad", lat: 24.713, lng: 46.675},
+            "emiratos arabes unidos": {country: "Emiratos Árabes Unidos", capital: "Abu Dabi", lat: 24.453, lng: 54.377},
+            "israel": {country: "Israel", capital: "Jerusalén", lat: 31.768, lng: 35.213},
+            "jordania": {country: "Jordania", capital: "Amán", lat: 31.945, lng: 35.928},
+            "libano": {country: "Líbano", capital: "Beirut", lat: 33.893, lng: 35.501},
+            "siria": {country: "Siria", capital: "Damasco", lat: 33.513, lng: 36.291},
+            "irak": {country: "Irak", capital: "Bagdad", lat: 33.315, lng: 44.366},
+            "iran": {country: "Irán", capital: "Teherán", lat: 35.689, lng: 51.388},
+            "afganistan": {country: "Afganistán", capital: "Kabul", lat: 34.555, lng: 69.207},
+            "cuba": {country: "Cuba", capital: "La Habana", lat: 23.113, lng: -82.366},
+            "republica dominicana": {country: "República Dominicana", capital: "Santo Domingo", lat: 18.486, lng: -69.931},
+            "puerto rico": {country: "Puerto Rico", capital: "San Juan", lat: 18.467, lng: -66.118},
+            "haiti": {country: "Haití", capital: "Puerto Príncipe", lat: 18.594, lng: -72.307},
+            "jamaica": {country: "Jamaica", capital: "Kingston", lat: 17.997, lng: -76.803},
+            "trinidad y tobago": {country: "Trinidad y Tobago", capital: "Puerto España", lat: 10.691, lng: -61.222},
+            "costa rica": {country: "Costa Rica", capital: "San José", lat: 9.928, lng: -84.090},
+            "panama": {country: "Panamá", capital: "Ciudad de Panamá", lat: 8.982, lng: -79.519},
+            "guatemala": {country: "Guatemala", capital: "Ciudad de Guatemala", lat: 14.634, lng: -90.506},
+            "honduras": {country: "Honduras", capital: "Tegucigalpa", lat: 14.072, lng: -87.192},
+            "el salvador": {country: "El Salvador", capital: "San Salvador", lat: 13.692, lng: -89.218},
+            "nicaragua": {country: "Nicaragua", capital: "Managua", lat: 12.114, lng: -86.236},
+            "belice": {country: "Belice", capital: "Belmopán", lat: 17.251, lng: -88.759},
+            "luxemburgo": {country: "Luxemburgo", capital: "Luxemburgo", lat: 49.611, lng: 6.129},
+            "monaco": {country: "Mónaco", capital: "Mónaco", lat: 43.738, lng: 7.424},
+            "vaticano": {country: "Vaticano", capital: "Ciudad del Vaticano", lat: 41.902, lng: 12.453},
+            "croacia": {country: "Croacia", capital: "Zagreb", lat: 45.815, lng: 15.981},
+            "serbia": {country: "Serbia", capital: "Belgrado", lat: 44.786, lng: 20.448},
+            "bulgaria": {country: "Bulgaria", capital: "Sofía", lat: 42.697, lng: 23.321},
+            "eslovaquia": {country: "Eslovaquia", capital: "Bratislava", lat: 48.148, lng: 17.107},
+            "eslovenia": {country: "Eslovenia", capital: "Liubliana", lat: 46.056, lng: 14.505},
+            "lituania": {country: "Lituania", capital: "Vilna", lat: 54.687, lng: 25.279},
+            "letonia": {country: "Letonia", capital: "Riga", lat: 56.949, lng: 24.105},
+            "estonia": {country: "Estonia", capital: "Tallin", lat: 59.437, lng: 24.753}
+        };
+
         function toggleSidebar() {
             document.getElementById('sidebar').classList.toggle('-translate-x-full');
             document.getElementById('sidebar-overlay').classList.toggle('hidden');
@@ -255,58 +369,27 @@
                 globalPosition = snapshot.val() || 1;
                 updateFooter();
             });
-
-            loadGeoData();
         });
 
         function normalizeStr(s) {
             return (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
         }
 
-        async function loadGeoData() {
-            try {
-                const res = await fetch('https://restcountries.com/v3.1/all?fields=name,translations,capital,capitalInfo');
-                const data = await res.json();
-                const map = {};
-                data.forEach(c => {
-                    const capital = (c.capital && c.capital[0]) || null;
-                    const ll = (c.capitalInfo && c.capitalInfo.latlng && c.capitalInfo.latlng.length === 2) ? c.capitalInfo.latlng : null;
-                    const entry = {
-                        country: (c.translations && c.translations.spa && c.translations.spa.common) || c.name.common,
-                        capital: capital,
-                        lat: ll ? ll[0] : null,
-                        lng: ll ? ll[1] : null
-                    };
-                    const keys = new Set();
-                    if (c.translations && c.translations.spa) keys.add(normalizeStr(c.translations.spa.common));
-                    keys.add(normalizeStr(c.name.common));
-                    (c.name.altSpellings || []).forEach(a => keys.add(normalizeStr(a)));
-                    keys.forEach(k => { if (k && !map[k]) map[k] = entry; });
-                });
-                geoData = map;
-                console.log('Datos geográficos cargados:', Object.keys(map).length, 'países');
-            } catch (err) {
-                console.error('Error al cargar datos geográficos:', err);
-                geoData = {};
-            }
-        }
-
         function tryCapitalEffect(text) {
             const m = text.match(/capital\s+de\s+(.+)/i);
-            if (!m || !geoData) return null;
+            if (!m) return null;
 
             let query = normalizeStr(m[1]).replace(/[?!.]+$/, '').trim();
             if (query.length < 3) return null;
 
-            let entry = geoData[query];
+            let entry = geoDict[query];
             if (!entry) {
-                const keys = Object.keys(geoData);
-                for (const k of keys) {
-                    if (k && (k.includes(query) || query.includes(k))) { entry = geoData[k]; break; }
+                // Búsqueda flexible: contiene o está contenido
+                for (const k of Object.keys(geoDict)) {
+                    if (k.includes(query) || query.includes(k)) { entry = geoDict[k]; break; }
                 }
             }
-            if (!entry || !entry.capital || entry.lat === null) return null;
-            return entry;
+            return entry || null;
         }
 
         function resetPosition() {
@@ -388,6 +471,7 @@
             userInput.value = '';
             userInput.style.height = 'auto';
 
+            // PRIORIDAD 1: Modo magia
             const matched = allConfigs.length
                 ? allConfigs.find(c => c.trigger && text.toLowerCase().includes(c.trigger.toLowerCase()))
                 : null;
@@ -403,6 +487,7 @@
                 return;
             }
 
+            // PRIORIDAD 2: Efecto de capitales
             const geo = tryCapitalEffect(text);
             if (geo) {
                 const { db, ref, set } = window.firebaseDb;
@@ -419,10 +504,11 @@
                 return;
             }
 
+            // PRIORIDAD 3: Respuesta simulada
             if (allConfigs.length === 0) {
-                await simulateAIResponse("Error de configuración: No se detectó ninguna lista guardada. Por favor, verifica que hayas creado una lista desde secret.html.");
+                await simulateAIResponse("Esta es una respuesta simulada. No hay listas guardadas ni el texto coincide con el efecto de capitales.");
             } else {
-                await simulateAIResponse("Esta es una respuesta simulada. El texto ingresado no coincide con ningún trigger configurado.");
+                await simulateAIResponse("Esta es una respuesta simulada. El texto ingresado no coincide con ningún trigger ni efecto configurado.");
             }
         }
 
