@@ -9,9 +9,41 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-        const app = initializeApp(window.FIREBASE_CONFIG);
-        const db = getDatabase(app);
-        window.firebaseDb = { db, ref, onValue };
+        // Diagnóstico defensivo: si config.js no cargó, mostramos el error en pantalla
+        const debugPanel = document.getElementById('debug');
+        if (!window.FIREBASE_CONFIG) {
+            debugPanel.innerHTML = `
+                <strong style="color:#ef4444">ERROR: config.js no se cargó</strong><br>
+                window.FIREBASE_CONFIG es undefined.<br><br>
+                <strong>Causas posibles:</strong><br>
+                1. Abriste map.html con file:// en lugar de http(s)://<br>
+                2. config.js no está en la misma carpeta que map.html<br>
+                3. El navegador cacheó un config.js vacío (Ctrl+F5 para limpiar)<br>
+                4. En GitHub, config.js no está en la raíz del repo
+            `;
+            debugPanel.style.display = 'block';
+            throw new Error('config.js no se cargó correctamente');
+        }
+
+        debugPanel.innerHTML = '✓ config.js cargado correctamente. Conectando a Firebase...';
+
+        try {
+            const app = initializeApp(window.FIREBASE_CONFIG);
+            const db = getDatabase(app);
+            window.firebaseDb = { db, ref, onValue };
+            debugPanel.innerHTML = '✓ Firebase conectado. Escuchando config/mapEvent...';
+
+            onValue(ref(db, 'config/mapEvent'), (snapshot) => {
+                const val = snapshot.val();
+                debugPanel.innerHTML = val
+                    ? `✓ Evento recibido: ${val.country} → ${val.capital} (${val.lat}, ${val.lng})`
+                    : '⏳ Sin eventos. Esperando consulta desde index.html...';
+                render(val);
+            });
+        } catch (err) {
+            debugPanel.innerHTML = `<strong style="color:#ef4444">ERROR Firebase:</strong><br>${err.message}`;
+            console.error(err);
+        }
     </script>
     <style>
         html, body { height: 100%; margin: 0; background: #000; overflow: hidden; font-family: 'Inter', system-ui, sans-serif; }
@@ -40,6 +72,14 @@
         #idle-overlay.hidden { opacity: 0; pointer-events: none; }
         #idle-overlay svg { opacity: 0.12; }
         #idle-text { color: #2a2a2a; font-size: 12px; letter-spacing: 0.4em; }
+
+        #debug {
+            position: fixed; bottom: 20px; left: 20px; right: 20px; z-index: 100;
+            background: rgba(20, 20, 20, 0.95); border: 1px solid #424242;
+            color: #ececec; padding: 16px; border-radius: 8px;
+            font-family: 'SF Mono', 'Consolas', monospace; font-size: 13px;
+            line-height: 1.5; max-width: 600px;
+        }
     </style>
 </head>
 <body>
@@ -63,20 +103,16 @@
         <div id="idle-text">EN ESPERA</div>
     </div>
 
+    <div id="debug">Iniciando diagnóstico...</div>
+
     <script>
         let lastTs = 0;
-
-        window.addEventListener('load', () => {
-            const { db, ref, onValue } = window.firebaseDb;
-            onValue(ref(db, 'config/mapEvent'), (snapshot) => {
-                render(snapshot.val());
-            });
-        });
 
         function render(ev) {
             const frame = document.getElementById('map-frame');
             const idle = document.getElementById('idle-overlay');
             const bar = document.getElementById('title-bar');
+            const debug = document.getElementById('debug');
 
             if (!ev) {
                 idle.classList.remove('hidden');
@@ -96,6 +132,7 @@
             document.getElementById('title-capital').textContent = ev.capital;
 
             idle.classList.add('hidden');
+            debug.style.display = 'none'; // Ocultar diagnóstico cuando funciona
             frame.onload = () => {
                 frame.classList.add('visible');
                 bar.classList.add('visible');
