@@ -11,7 +11,7 @@ const SYSTEM_PROMPT = `Eres un asistente de inteligencia artificial útil, preci
 Responde en español. Sé directo y evita preámbulos innecesarios.
 Si te preguntan algo que no sabes, admítelo con honestidad.`;
 
-const GROQ_MODEL = "llama-3.1-70b-versatile";
+const GROQ_MODEL = "llama3-8b-8192";
 const GROQ_ENDPOINT = "https://api.groq.com/openai/v1/chat/completions";
 
 // Preflight CORS (necesario para peticiones desde el navegador)
@@ -75,7 +75,6 @@ export async function onRequestPost(context) {
                     { role: "user", content: userMessage },
                 ],
                 temperature: 0.7,
-                max_completion_tokens: 1024,
             }),
         });
 
@@ -83,7 +82,7 @@ export async function onRequestPost(context) {
             const errText = await groqResponse.text();
             console.error("Groq error:", groqResponse.status, errText);
             return new Response(
-                JSON.stringify({ error: `Groq respondió ${groqResponse.status}` }),
+                JSON.stringify({ error: `Groq respondió ${groqResponse.status}`, detail: errText }),
                 { status: 502, headers: corsHeaders }
             );
         }
