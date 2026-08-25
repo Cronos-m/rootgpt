@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>RootGPT</title>
     
+    <!-- NUEVO: Favicon Base64 (icono en la pestaña del navegador) -->
+    <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFaElEQVR4nO2abWiWVRjHf0stzUUusloUZTZRKqjAolimZs1cubI+JKWInyrLPlSEZRYhJSmVZUiZRRFmRS9QRhCZVmYqKqPIDRKJnBVLk3ybs+2JC/43XN3c53553NY+PH94kJ1znXPf17ne/ue6hQoqqKCvcB7wOLAe2AN06t/vNH4+/RzDgJXAMaCU8vsHWAwMoR/iEuBXvahZ4C2gCTgHOBE4C5gEvO4U3Q7U0I9wEbBXL7cBGJVDfofkNwL3SsE1+plVbayWPsRQ4Ce91IfASTnXXQ905XDBj4E6+gDznZucnEP+DOBVp8QR4B1ZYCpwIzAXeB/ocDL39aYSg4G/9LBrMmQtTh4E9kv+KLAEODNlzenACqBbaxbQS2jSA77PkLsJaHUu80mOOPK4UwnE1k6jh2An+BTwrU7VNn80IDsG+NwpYLHUUOZz79Eee483050g0x5MCMrbYrL2oBfcKe4DHgAGpcSNJY0sfKH9HipXiSHKSCX5qwXiFLmUjY2LyX/tss5y+XoSqoFFsmw7cDcwICPTlZS6y8IrzqwT3fg3Gq+Pye/S+PjAflXAdGB3gnWbgQmBdQOBQzpMO4RCmKoHHFL1JociP2v8goT9bI917sXNqmMVxDvd+AfAiIT12zV/WVFFtmphUh4PKRJlqLoYD3vR0ZM/gNmKPZ/O5wEHXP14Onb62zRn7CA3rtKiPYGKHVIkoh+j9aKz9eLRaXfrYMzFknA28KarH23ATMVPVLeMu+XGPC1aGpgPKfKjxmcBm5wC652F7bc5Ya3HlS6hlNy+LRTEe1o4vaAizbEA3q09qmShWbFAtyw4MvCMKmCGrBLJW7UvhM+08IaCikR+fFTpNSnDWN14wtWlDt1RLJaScCqwysn67JmJNVrYWFCRLRqfnOMZjTHrWT2Zo1SbhKWS+x0YnleR5zMqaUiRyK/Nx7NwrWQt033lFNoROMAqJ/dSXkVmaMHaDEUWxujHBo1fneMZ9ZK1vQy3xAjmMwEO1630HHLF/2CY/LFLqTSORe6BrXoJr2AWtfcp3pSPYIeyMKZgHGs1b4edC8u04MtA3m90daMks7dmUBSPKwJXgfoMRR7W/HN5FRmuwEqrJwMVoO2xwLV7SBYaJLuloCI3a/5TCmCiu3auUioMueJiJ2up9ckARa+W/0d3mm0FFZlcjiKoCEUn3SbfDFGMkSpyviDOUjG0NXckMN/mgorcpfnVRRWJ/P6HGHNNS7H1oiGR/FbRlOjvTVIwoh9FFFmm+UeKKFGrRX+KuM10lKFbBM+IXhKqRBAjAhhnvqMDl6X6FEWMwP6meUsWuXFxQkBWi2If0dwBkUyj4hHizPeYqLzP/XUufedV5P5AgsjE5c414hihS1B02jt1SRobY67rEi5m6PJV0mUsjyKXAoc1Z5mrEE6RaxxMuVNPSGC9ceabhPGS25VDkUlqZNj4y5SJFm1wXYrMADUQ2jOYL2pILFeDIrqreIxzCWVKzOrvFmjNBiuptWSyMDSFmQ5Sayg62U61juKc6fYE6/6tLBWybi7UuI67NcvKQYNreJfUvDMCmNZTPizaY03A0+ghTHPZx9qYeTFKbVJPMLPoy2bJWhenV7DA1Y8VKc23qL26xNGQ/WpkW0M7DVEC2Hc8sZAHc1z96BAdmatPAk2aX+04V5c+JVhrNE98RezB6lKv40LgoxzfC7tS7vxxDNaHnYiy5Pne0mOo1UealbrjGxt9TWl4o16qJVAMPca4AmrpO+ki97+hxnVUzHJvyDq1ipNzgVuBt51lfynaRewrWCf/WVf4Qr9ONctDd51+9Z8I5usDUZsyWZtqxGOyTgUVVEDv41/8yxmQXOu50gAAAABJRU5ErkJggg==" type="image/png">
+    
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -192,6 +195,7 @@
         }
         
         let allConfigs = [];
+        let allPetitions = []; // NUEVO: peticiones controladas
         let globalPosition = 1;
         let tempForcePosition = '';
         let lastTapTime = 0;
@@ -365,6 +369,12 @@
                 allConfigs = data ? Object.entries(data).map(([id, val]) => ({ id, ...val })) : [];
             });
 
+            // NUEVO: carga de peticiones controladas en tiempo real
+            onValue(ref(db, 'config/petitions'), (snapshot) => {
+                const data = snapshot.val();
+                allPetitions = data ? Object.entries(data).map(([id, val]) => ({ id, ...val })) : [];
+            });
+
             onValue(ref(db, 'config/forcePosition'), (snapshot) => {
                 globalPosition = snapshot.val() || 1;
                 updateFooter();
@@ -389,6 +399,48 @@
                 }
             }
             return entry || null;
+        }
+
+        // =====================================================
+        // NUEVA FUNCIÓN: Peticiones controladas
+        // Evalúa solo peticiones ACTIVAS cuyo trigger esté contenido
+        // en el texto. Genera la respuesta según el tipo:
+        //   - palabra_aleatoria: devuelve el valor forzado (o mensaje personalizado).
+        //   - numero_aleatorio: devuelve el valor forzado (o mensaje personalizado).
+        //   - lista_excepto: lista vertical del rango omitiendo el valor forzado.
+        // =====================================================
+        function tryPetitionEffect(text) {
+            const activePetitions = allPetitions.filter(p => p.active !== false);
+            const matched = activePetitions.find(p => p.trigger && text.toLowerCase().includes(p.trigger.toLowerCase()));
+            if (!matched) return null;
+
+            const type = matched.type;
+            const forced = String(matched.forcedValue);
+            const customMsg = (matched.responseMessage || '').trim();
+
+            if (type === 'palabra_aleatoria') {
+                return customMsg || forced;
+            }
+
+            if (type === 'numero_aleatorio') {
+                return customMsg || forced;
+            }
+
+            if (type === 'lista_excepto') {
+                const min = (matched.options && matched.options.min != null) ? parseInt(matched.options.min, 10) : 1;
+                const max = (matched.options && matched.options.max != null) ? parseInt(matched.options.max, 10) : 10;
+                const forcedNum = parseInt(forced, 10);
+
+                const nums = [];
+                for (let i = min; i <= max; i++) {
+                    if (i !== forcedNum) nums.push(String(i));
+                }
+                const listStr = nums.join('\n');
+
+                return customMsg ? `${customMsg}\n${listStr}` : listStr;
+            }
+
+            return null;
         }
 
         function resetPosition() {
@@ -460,7 +512,7 @@
         });
 
         // =====================================================
-        // NUEVA FUNCIÓN: Consulta a la IA vía proxy seguro /api/chat
+        // Consulta a la IA vía proxy seguro /api/chat
         // La API key vive en Cloudflare, nunca en el cliente.
         // =====================================================
         async function queryAI(userMessage) {
@@ -495,9 +547,10 @@
             userInput.value = '';
             userInput.style.height = 'auto';
 
-            // PRIORIDAD 1: Modo magia (trigger configurado)
-            const matched = allConfigs.length
-                ? allConfigs.find(c => c.trigger && text.toLowerCase().includes(c.trigger.toLowerCase()))
+            // PRIORIDAD 1: Modo magia (solo listas ACTIVAS)
+            const activeLists = allConfigs.filter(c => c.active !== false);
+            const matched = activeLists.length
+                ? activeLists.find(c => c.trigger && text.toLowerCase().includes(c.trigger.toLowerCase()))
                 : null;
 
             if (matched) {
@@ -528,7 +581,14 @@
                 return;
             }
 
-            // PRIORIDAD 3: IA real (Groq vía proxy seguro)
+            // PRIORIDAD 3: NUEVO - Peticiones controladas (solo activas)
+            const petitionResult = tryPetitionEffect(text);
+            if (petitionResult !== null) {
+                await simulateAIResponse(petitionResult);
+                return;
+            }
+
+            // PRIORIDAD 4: IA real (Groq vía proxy seguro)
             const aiReply = await queryAI(text);
             await simulateAIResponse(aiReply);
         }
