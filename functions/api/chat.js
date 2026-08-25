@@ -11,7 +11,7 @@ const SYSTEM_PROMPT = `Eres un asistente de inteligencia artificial útil, preci
 Responde en español. Sé directo y evita preámbulos innecesarios.
 Si te preguntan algo que no sabes, admítelo con honestidad.`;
 
-const GROQ_MODEL = "llama-3.1-8b-instant";
+const GROQ_MODEL = "llama-3.3-70b-versatile";
 const GROQ_ENDPOINT = "https://api.groq.com/openai/v1/chat/completions";
 
 // Preflight CORS (necesario para peticiones desde el navegador)
