@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>RootGPT</title>
+    
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDvm_CLGW6aYpqR_2HjP-n0rT9-xx3Cldw",
+            authDomain: "rootgpt-9e49a.firebaseapp.com",
+            databaseURL: "https://rootgpt-9e49a-default-rtdb.firebaseio.com",
+            projectId: "rootgpt-9e49a",
+            storageBucket: "rootgpt-9e49a.firebasestorage.app",
+            messagingSenderId: "490661288434",
+            appId: "1:490661288434:web:57548834cdaccde6b5f36b"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        window.firebaseDb = { db, ref, onValue, set };
+    </script>
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { 'cgp-black': '#000000', 'cgp-sidebar': '#171717', 'cgp-input': '#2f2f2f', 'cgp-text': '#ececec', 'cgp-text-secondary': '#b4b4b4' }, fontFamily: { 'sans': ['Inter', 'system-ui', 'sans-serif'] } } }
+        }
+    </script>
+    <style>
+        body { background-color: #000000; color: #ececec; font-family: 'Inter', system-ui, sans-serif; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #424242; border-radius: 4px; }
+        .typing-dot { animation: typingBounce 1.4s infinite ease-in-out both; }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes typingBounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+        
+        .ghost-key { 
+            background: rgba(30, 30, 30, 0.4); 
+            border: 1px solid rgba(100, 100, 100, 0.2); 
+            color: rgba(200, 200, 200, 0.25); 
+            transition: all 0.1s; 
+            border-radius: 12px; 
+            font-size: 1.5rem; 
+            font-weight: 400; 
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+        .ghost-key:active { 
+            background: rgba(50, 50, 50, 0.6); 
+            color: rgba(220, 220, 220, 0.5); 
+            transform: scale(0.95);
+        }
+        .ghost-cancel {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: rgba(239, 68, 68, 0.3);
+        }
+        .ghost-cancel:active {
+            background: rgba(239, 68, 68, 0.2);
+            color: rgba(239, 68, 68, 0.5);
+        }
+        .ghost-confirm { 
+            background: rgba(16, 163, 127, 0.15); 
+            border: 1px solid rgba(16, 163, 127, 0.3); 
+            color: rgba(16, 163, 127, 0.4); 
+        }
+        .ghost-confirm:active { 
+            background: rgba(16, 163, 127, 0.3); 
+            color: rgba(16, 163, 127, 0.6); 
+        }
+        
+        #send-btn { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+    </style>
+</head>
+<body class="h-full overflow-hidden flex flex-col">
+
+    <div class="flex h-full">
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-72 bg-cgp-sidebar flex flex-col h-full transform -translate-x-full md:relative md:translate-x-0 transition-transform duration-300">
+            <div class="flex items-center justify-between px-4 py-3">
+                <div class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white w-6 h-6 md:w-8 md:h-8">
+                        <line x1="8" y1="6" x2="21" y2="6"></line>
+                        <line x1="8" y1="12" x2="21" y2="12"></line>
+                        <line x1="8" y1="18" x2="21" y2="18"></line>
+                        <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                        <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                        <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                    </svg>
+                </div>
+                <button onclick="toggleSidebar()" class="md:hidden p-2 rounded-full hover:bg-[#2f2f2f]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="flex-1 overflow-y-auto px-2 py-2 space-y-1">
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-[#2f2f2f] transition-colors text-sm font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> Nuevo chat
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-[#2f2f2f] transition-colors text-sm font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg> Imágenes
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-[#2f2f2f] transition-colors text-sm font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Complementos
+                </a>
+                <div class="border-t border-[#2f2f2f] my-3"></div>
+                <div class="px-3 py-4">
+                    <h3 class="text-base font-semibold text-white mb-2">Obtén respuestas personalizadas</h3>
+                    <p class="text-sm text-cgp-text-secondary mb-4">Inicia sesión para obtener respuestas basadas en chats guardados.</p>
+                    <button onclick="resetPosition()" class="w-full bg-[#2f2f2f] hover:bg-[#3a3a3a] text-white font-medium py-3 rounded-lg transition-colors mb-2">Iniciar sesión</button>
+                    <button class="w-full bg-transparent border border-[#424242] hover:bg-[#2f2f2f] text-white font-medium py-3 rounded-lg transition-colors">Regístrate gratis</button>
+                </div>
+            </div>
+        </aside>
+        <div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden md:hidden" onclick="toggleSidebar()"></div>
+
+        <main class="flex-1 flex flex-col h-full bg-cgp-black relative">
+            <header class="flex items-center justify-between px-4 py-3 md:hidden">
+                <button onclick="toggleSidebar()" class="p-2 rounded-full hover:bg-[#2f2f2f]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                </button>
+                <div class="flex items-center gap-2">
+                    <button onclick="resetPosition()" class="px-4 py-2 bg-white text-black font-medium rounded-full text-sm hover:bg-gray-200 transition-colors">Iniciar sesión</button>
+                </div>
+            </header>
+
+            <div id="chat-container" class="flex-1 overflow-y-auto px-4 py-4">
+                <div id="welcome-screen" class="h-full flex flex-col items-center justify-center">
+                    <h1 class="text-3xl md:text-4xl font-semibold text-white mb-8">¿Por dónde empezamos?</h1>
+                </div>
+                <div id="messages-area" class="max-w-3xl mx-auto space-y-6 hidden"></div>
+            </div>
+
+            <div class="w-full px-4 pb-4 pt-2">
+                <div class="max-w-3xl mx-auto">
+                    <div class="relative bg-cgp-input rounded-3xl border border-[#424242] focus-within:border-[#555] transition-colors">
+                        <div class="flex items-center px-4 py-3">
+                            <button class="p-2 rounded-full hover:bg-[#3a3a3a] transition-colors text-cgp-text-secondary mr-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            </button>
+                            <textarea id="user-input" rows="1" placeholder="Preguntar lo que quieras" class="flex-1 bg-transparent text-cgp-text placeholder-cgp-text-secondary resize-none focus:outline-none text-base max-h-40" onkeydown="handleKeyDown(event)"></textarea>
+                            <button id="send-btn" class="p-2 rounded-full bg-white text-black hover:bg-gray-200 transition-colors ml-2 cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <p class="text-center text-xs text-cgp-text-secondary mt-4 px-4" id="footer-text">
+                        ChatGPT es IA. Al usarlo, aceptas los <a href="#" class="underline hover:text-white">Términos</a> y la <a href="#" class="underline hover:text-white">Política de privacidad</a>. vs.-
+                    </p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="invisible-panel" class="fixed inset-0 z-[100] hidden bg-black bg-opacity-95">
+        <div class="grid grid-cols-4 gap-3 p-6 h-full w-full max-w-lg mx-auto content-center">
+            <button class="ghost-key h-16 w-full" data-key="1">1</button>
+            <button class="ghost-key h-16 w-full" data-key="2">2</button>
+            <button class="ghost-key h-16 w-full" data-key="3">3</button>
+            <button class="ghost-key ghost-cancel h-16 w-full" data-key="cancel">X</button>
+
+            <button class="ghost-key h-16 w-full" data-key="4">4</button>
+            <button class="ghost-key h-16 w-full" data-key="5">5</button>
+            <button class="ghost-key h-16 w-full" data-key="6">6</button>
+            <button class="ghost-key h-16 w-full" data-key="C">C</button>
+
+            <button class="ghost-key h-16 w-full" data-key="7">7</button>
+            <button class="ghost-key h-16 w-full" data-key="8">8</button>
+            <button class="ghost-key h-16 w-full" data-key="9">9</button>
+            <button class="ghost-key ghost-confirm h-16 w-full" data-key="confirm">✓</button>
+
+            <button class="ghost-key h-16 w-full col-span-2" data-key="0">0</button>
+            <div class="col-span-2"></div>
+        </div>
+    </div>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) {
+                    registration.unregister();
+                }
+            });
+        }
+        
+        let allConfigs = [];
+        let globalPosition = 1;
+        let tempForcePosition = '';
+        let lastTapTime = 0;
+
+        // =====================================================
+        // DICCIONARIO GEOGRÁFICO LOCAL (100+ países)
+        // Incrustado para eliminar dependencias de CORS y APIs externas.
+        // Claves en minúsculas y sin acentos para búsqueda flexible.
+        // =====================================================
+        const geoDict = {
+            "colombia": {country: "Colombia", capital: "Bogotá", lat: 4.711, lng: -74.072},
+            "argentina": {country: "Argentina", capital: "Buenos Aires", lat: -34.603, lng: -58.381},
+            "chile": {country: "Chile", capital: "Santiago", lat: -33.448, lng: -70.669},
+            "peru": {country: "Perú", capital: "Lima", lat: -12.046, lng: -77.042},
+            "ecuador": {country: "Ecuador", capital: "Quito", lat: -0.180, lng: -78.467},
+            "venezuela": {country: "Venezuela", capital: "Caracas", lat: 10.480, lng: -66.903},
+            "bolivia": {country: "Bolivia", capital: "La Paz", lat: -16.500, lng: -68.150},
+            "paraguay": {country: "Paraguay", capital: "Asunción", lat: -25.263, lng: -57.575},
+            "uruguay": {country: "Uruguay", capital: "Montevideo", lat: -34.901, lng: -55.164},
+            "brasil": {country: "Brasil", capital: "Brasilia", lat: -15.794, lng: -47.882},
+            "mexico": {country: "México", capital: "Ciudad de México", lat: 19.432, lng: -99.133},
+            "estados unidos": {country: "Estados Unidos", capital: "Washington D.C.", lat: 38.907, lng: -77.036},
+            "eeuu": {country: "Estados Unidos", capital: "Washington D.C.", lat: 38.907, lng: -77.036},
+            "usa": {country: "Estados Unidos", capital: "Washington D.C.", lat: 38.907, lng: -77.036},
+            "canada": {country: "Canadá", capital: "Ottawa", lat: 45.421, lng: -75.697},
+            "espana": {country: "España", capital: "Madrid", lat: 40.416, lng: -3.703},
+            "francia": {country: "Francia", capital: "París", lat: 48.856, lng: 2.352},
+            "italia": {country: "Italia", capital: "Roma", lat: 41.902, lng: 12.496},
+            "alemania": {country: "Alemania", capital: "Berlín", lat: 52.520, lng: 13.405},
+            "reino unido": {country: "Reino Unido", capital: "Londres", lat: 51.507, lng: -0.127},
+            "inglaterra": {country: "Reino Unido", capital: "Londres", lat: 51.507, lng: -0.127},
+            "portugal": {country: "Portugal", capital: "Lisboa", lat: 38.722, lng: -9.139},
+            "paises bajos": {country: "Países Bajos", capital: "Ámsterdam", lat: 52.367, lng: 4.900},
+            "holanda": {country: "Países Bajos", capital: "Ámsterdam", lat: 52.367, lng: 4.900},
+            "belgica": {country: "Bélgica", capital: "Bruselas", lat: 50.850, lng: 4.351},
+            "suiza": {country: "Suiza", capital: "Berna", lat: 46.948, lng: 7.447},
+            "austria": {country: "Austria", capital: "Viena", lat: 48.208, lng: 16.373},
+            "polonia": {country: "Polonia", capital: "Varsovia", lat: 52.229, lng: 21.012},
+            "republica checa": {country: "República Checa", capital: "Praga", lat: 50.075, lng: 14.437},
+            "hungria": {country: "Hungría", capital: "Budapest", lat: 47.497, lng: 19.040},
+            "rumania": {country: "Rumania", capital: "Bucarest", lat: 44.426, lng: 26.102},
+            "grecia": {country: "Grecia", capital: "Atenas", lat: 37.983, lng: 23.727},
+            "turquia": {country: "Turquía", capital: "Ankara", lat: 39.933, lng: 32.859},
+            "rusia": {country: "Rusia", capital: "Moscú", lat: 55.755, lng: 37.617},
+            "ucrania": {country: "Ucrania", capital: "Kiev", lat: 50.450, lng: 30.523},
+            "suecia": {country: "Suecia", capital: "Estocolmo", lat: 59.329, lng: 18.068},
+            "noruega": {country: "Noruega", capital: "Oslo", lat: 59.913, lng: 10.752},
+            "dinamarca": {country: "Dinamarca", capital: "Copenhague", lat: 55.676, lng: 12.568},
+            "finlandia": {country: "Finlandia", capital: "Helsinki", lat: 60.169, lng: 24.938},
+            "islandia": {country: "Islandia", capital: "Reikiavik", lat: 64.146, lng: -21.942},
+            "irlanda": {country: "Irlanda", capital: "Dublín", lat: 53.349, lng: -6.260},
+            "china": {country: "China", capital: "Pekín", lat: 39.904, lng: 116.407},
+            "japon": {country: "Japón", capital: "Tokio", lat: 35.676, lng: 139.650},
+            "corea del sur": {country: "Corea del Sur", capital: "Seúl", lat: 37.566, lng: 126.978},
+            "corea del norte": {country: "Corea del Norte", capital: "Pionyang", lat: 39.039, lng: 125.762},
+            "india": {country: "India", capital: "Nueva Delhi", lat: 28.613, lng: 77.209},
+            "pakistan": {country: "Pakistán", capital: "Islamabad", lat: 33.684, lng: 73.047},
+            "bangladesh": {country: "Bangladés", capital: "Daca", lat: 23.810, lng: 90.412},
+            "tailandia": {country: "Tailandia", capital: "Bangkok", lat: 13.756, lng: 100.501},
+            "vietnam": {country: "Vietnam", capital: "Hanói", lat: 21.027, lng: 105.834},
+            "indonesia": {country: "Indonesia", capital: "Yakarta", lat: -6.208, lng: 106.845},
+            "malasia": {country: "Malasia", capital: "Kuala Lumpur", lat: 3.139, lng: 101.686},
+            "singapur": {country: "Singapur", capital: "Singapur", lat: 1.352, lng: 103.819},
+            "filipinas": {country: "Filipinas", capital: "Manila", lat: 14.599, lng: 120.984},
+            "australia": {country: "Australia", capital: "Canberra", lat: -35.280, lng: 149.130},
+            "nueva zelanda": {country: "Nueva Zelanda", capital: "Wellington", lat: -41.286, lng: 174.776},
+            "egipto": {country: "Egipto", capital: "El Cairo", lat: 30.044, lng: 31.235},
+            "marruecos": {country: "Marruecos", capital: "Rabat", lat: 34.020, lng: -6.841},
+            "argelia": {country: "Argelia", capital: "Argel", lat: 36.753, lng: 3.058},
+            "tunez": {country: "Túnez", capital: "Túnez", lat: 36.806, lng: 10.181},
+            "libia": {country: "Libia", capital: "Trípoli", lat: 32.887, lng: 13.180},
+            "sudafrica": {country: "Sudáfrica", capital: "Pretoria", lat: -25.747, lng: 28.229},
+            "nigeria": {country: "Nigeria", capital: "Abuya", lat: 9.076, lng: 7.398},
+            "kenia": {country: "Kenia", capital: "Nairobi", lat: -1.292, lng: 36.821},
+            "etiopia": {country: "Etiopía", capital: "Adís Abeba", lat: 9.032, lng: 38.746},
+            "tanzania": {country: "Tanzania", capital: "Dodoma", lat: -6.162, lng: 35.751},
+            "ghana": {country: "Ghana", capital: "Acra", lat: 5.603, lng: -0.186},
+            "senegal": {country: "Senegal", capital: "Dakar", lat: 14.716, lng: -17.467},
+            "costa de marfil": {country: "Costa de Marfil", capital: "Yamusukro", lat: 6.827, lng: -5.289},
+            "camerun": {country: "Camerún", capital: "Yaundé", lat: 3.848, lng: 11.502},
+            "angola": {country: "Angola", capital: "Luanda", lat: -8.839, lng: 13.289},
+            "mozambique": {country: "Mozambique", capital: "Maputo", lat: -25.969, lng: 32.573},
+            "madagascar": {country: "Madagascar", capital: "Antananarivo", lat: -18.879, lng: 47.507},
+            "mauricio": {country: "Mauricio", capital: "Port Louis", lat: -20.160, lng: 57.501},
+            "arabia saudita": {country: "Arabia Saudita", capital: "Riad", lat: 24.713, lng: 46.675},
+            "emiratos arabes unidos": {country: "Emiratos Árabes Unidos", capital: "Abu Dabi", lat: 24.453, lng: 54.377},
+            "israel": {country: "Israel", capital: "Jerusalén", lat: 31.768, lng: 35.213},
+            "jordania": {country: "Jordania", capital: "Amán", lat: 31.945, lng: 35.928},
+            "libano": {country: "Líbano", capital: "Beirut", lat: 33.893, lng: 35.501},
+            "siria": {country: "Siria", capital: "Damasco", lat: 33.513, lng: 36.291},
+            "irak": {country: "Irak", capital: "Bagdad", lat: 33.315, lng: 44.366},
+            "iran": {country: "Irán", capital: "Teherán", lat: 35.689, lng: 51.388},
+            "afganistan": {country: "Afganistán", capital: "Kabul", lat: 34.555, lng: 69.207},
+            "cuba": {country: "Cuba", capital: "La Habana", lat: 23.113, lng: -82.366},
+            "republica dominicana": {country: "República Dominicana", capital: "Santo Domingo", lat: 18.486, lng: -69.931},
+            "puerto rico": {country: "Puerto Rico", capital: "San Juan", lat: 18.467, lng: -66.118},
+            "haiti": {country: "Haití", capital: "Puerto Príncipe", lat: 18.594, lng: -72.307},
+            "jamaica": {country: "Jamaica", capital: "Kingston", lat: 17.997, lng: -76.803},
+            "trinidad y tobago": {country: "Trinidad y Tobago", capital: "Puerto España", lat: 10.691, lng: -61.222},
+            "costa rica": {country: "Costa Rica", capital: "San José", lat: 9.928, lng: -84.090},
+            "panama": {country: "Panamá", capital: "Ciudad de Panamá", lat: 8.982, lng: -79.519},
+            "guatemala": {country: "Guatemala", capital: "Ciudad de Guatemala", lat: 14.634, lng: -90.506},
+            "honduras": {country: "Honduras", capital: "Tegucigalpa", lat: 14.072, lng: -87.192},
+            "el salvador": {country: "El Salvador", capital: "San Salvador", lat: 13.692, lng: -89.218},
+            "nicaragua": {country: "Nicaragua", capital: "Managua", lat: 12.114, lng: -86.236},
+            "belice": {country: "Belice", capital: "Belmopán", lat: 17.251, lng: -88.759},
+            "luxemburgo": {country: "Luxemburgo", capital: "Luxemburgo", lat: 49.611, lng: 6.129},
+            "monaco": {country: "Mónaco", capital: "Mónaco", lat: 43.738, lng: 7.424},
+            "vaticano": {country: "Vaticano", capital: "Ciudad del Vaticano", lat: 41.902, lng: 12.453},
+            "croacia": {country: "Croacia", capital: "Zagreb", lat: 45.815, lng: 15.981},
+            "serbia": {country: "Serbia", capital: "Belgrado", lat: 44.786, lng: 20.448},
+            "bulgaria": {country: "Bulgaria", capital: "Sofía", lat: 42.697, lng: 23.321},
+            "eslovaquia": {country: "Eslovaquia", capital: "Bratislava", lat: 48.148, lng: 17.107},
+            "eslovenia": {country: "Eslovenia", capital: "Liubliana", lat: 46.056, lng: 14.505},
+            "lituania": {country: "Lituania", capital: "Vilna", lat: 54.687, lng: 25.279},
+            "letonia": {country: "Letonia", capital: "Riga", lat: 56.949, lng: 24.105},
+            "estonia": {country: "Estonia", capital: "Tallin", lat: 59.437, lng: 24.753}
+        };
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('-translate-x-full');
+            document.getElementById('sidebar-overlay').classList.toggle('hidden');
+        }
+
+        const userInput = document.getElementById('user-input');
+        const chatContainer = document.getElementById('chat-container');
+        const messagesArea = document.getElementById('messages-area');
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const sendBtn = document.getElementById('send-btn');
+
+        userInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+
+        function handleKeyDown(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+
+        sendBtn.addEventListener('dblclick', (e) => {
+            if (userInput.value.trim() === '') {
+                e.preventDefault();
+                openInvisiblePanel();
+            }
+        });
+
+        sendBtn.addEventListener('touchend', (e) => {
+            const currentTime = new Date().getTime();
+            const tapLength = currentTime - lastTapTime;
+
+            if (userInput.value.trim() !== '') {
+                e.preventDefault();
+                sendMessage();
+            } else {
+                if (tapLength < 300 && tapLength > 0) {
+                    e.preventDefault();
+                    openInvisiblePanel();
+                }
+            }
+            lastTapTime = currentTime;
+        });
+
+        window.addEventListener('load', () => {
+            const { db, ref, onValue } = window.firebaseDb;
+            
+            onValue(ref(db, 'config/lists'), (snapshot) => {
+                const data = snapshot.val();
+                allConfigs = data ? Object.entries(data).map(([id, val]) => ({ id, ...val })) : [];
+            });
+
+            onValue(ref(db, 'config/forcePosition'), (snapshot) => {
+                globalPosition = snapshot.val() || 1;
+                updateFooter();
+            });
+        });
+
+        function normalizeStr(s) {
+            return (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+        }
+
+        function tryCapitalEffect(text) {
+            const m = text.match(/capital\s+de\s+(.+)/i);
+            if (!m) return null;
+
+            let query = normalizeStr(m[1]).replace(/[?!.]+$/, '').trim();
+            if (query.length < 3) return null;
+
+            let entry = geoDict[query];
+            if (!entry) {
+                for (const k of Object.keys(geoDict)) {
+                    if (k.includes(query) || query.includes(k)) { entry = geoDict[k]; break; }
+                }
+            }
+            return entry || null;
+        }
+
+        function resetPosition() {
+            const { db, ref, set } = window.firebaseDb;
+            set(ref(db, 'config/forcePosition'), 1)
+                .then(() => {
+                    globalPosition = 1;
+                    updateFooter();
+                })
+                .catch(err => console.error('Error al resetear la posición:', err));
+
+            set(ref(db, 'config/mapEvent'), null)
+                .catch(err => console.error('Error al limpiar el mapa:', err));
+        }
+
+        function updateFooter() {
+            const footer = document.getElementById('footer-text');
+            const isPanelOpen = !document.getElementById('invisible-panel').classList.contains('hidden');
+            
+            let pos;
+            if (isPanelOpen) {
+                pos = tempForcePosition || globalPosition;
+            } else {
+                pos = globalPosition;
+            }
+            
+            footer.innerHTML = `ChatGPT es IA. Al usarlo, aceptas los <a href="#" class="underline hover:text-white">Términos</a> y la <a href="#" class="underline hover:text-white">Política de privacidad</a>. vs.${pos}`;
+        }
+
+        function openInvisiblePanel() {
+            if (userInput.value.trim() !== '') return;
+            document.getElementById('invisible-panel').classList.remove('hidden');
+            tempForcePosition = '';
+            updateFooter();
+        }
+
+        document.addEventListener('pointerup', function(e) {
+            const key = e.target.closest('[data-key]');
+            if (!key) return;
+            const keyValue = key.getAttribute('data-key');
+            
+            if (keyValue === 'cancel') {
+                document.getElementById('invisible-panel').classList.add('hidden');
+                tempForcePosition = '';
+                updateFooter();
+            } else if (keyValue === 'C') {
+                tempForcePosition = '';
+                updateFooter();
+            } else if (keyValue === 'confirm') {
+                if (tempForcePosition) {
+                    const { db, ref, set } = window.firebaseDb;
+                    set(ref(db, 'config/forcePosition'), parseInt(tempForcePosition, 10))
+                        .then(() => {
+                            document.getElementById('invisible-panel').classList.add('hidden');
+                            tempForcePosition = '';
+                            updateFooter();
+                        })
+                        .catch(err => console.error('Error:', err));
+                } else {
+                    document.getElementById('invisible-panel').classList.add('hidden');
+                    updateFooter();
+                }
+            } else {
+                if (tempForcePosition.length < 2) {
+                    tempForcePosition += keyValue;
+                    updateFooter();
+                }
+            }
+        });
+
+        // =====================================================
+        // NUEVA FUNCIÓN: Consulta a la IA vía proxy seguro /api/chat
+        // La API key vive en Cloudflare, nunca en el cliente.
+        // =====================================================
+        async function queryAI(userMessage) {
+            try {
+                const res = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: userMessage })
+                });
+
+                if (!res.ok) {
+                    const err = await res.json().catch(() => ({ error: 'Respuesta inválida del servidor' }));
+                    throw new Error(err.error || `HTTP ${res.status}`);
+                }
+
+                const data = await res.json();
+                return data.reply || 'Sin respuesta del modelo.';
+            } catch (err) {
+                console.error('Error al consultar la IA:', err);
+                return `Lo siento, hubo un problema al conectar con la IA: ${err.message}. Por favor, intenta de nuevo en unos segundos.`;
+            }
+        }
+
+        async function sendMessage() {
+            const text = userInput.value.trim();
+            if (!text) return;
+
+            welcomeScreen.classList.add('hidden');
+            messagesArea.classList.remove('hidden');
+
+            appendMessage('user', text);
+            userInput.value = '';
+            userInput.style.height = 'auto';
+
+            // PRIORIDAD 1: Modo magia (trigger configurado)
+            const matched = allConfigs.length
+                ? allConfigs.find(c => c.trigger && text.toLowerCase().includes(c.trigger.toLowerCase()))
+                : null;
+
+            if (matched) {
+                const triggerIndex = text.toLowerCase().indexOf(matched.trigger.toLowerCase());
+                let requestText = text.substring(triggerIndex + matched.trigger.length).trim();
+                if (!requestText) requestText = matched.trigger;
+
+                const processedList = processForcedList(matched);
+                const responseText = `Aquí tienes una lista de ${requestText}:\n\n${processedList.join('\n')}`;
+                await simulateAIResponse(responseText);
+                return;
+            }
+
+            // PRIORIDAD 2: Efecto de capitales (mapa en segunda pantalla)
+            const geo = tryCapitalEffect(text);
+            if (geo) {
+                const { db, ref, set } = window.firebaseDb;
+                set(ref(db, 'config/mapEvent'), {
+                    country: geo.country,
+                    capital: geo.capital,
+                    lat: geo.lat,
+                    lng: geo.lng,
+                    query: text,
+                    updatedAt: Date.now()
+                }).catch(err => console.error('Error al publicar el evento de mapa:', err));
+
+                await simulateAIResponse(`La capital de ${geo.country} es ${geo.capital}.`);
+                return;
+            }
+
+            // PRIORIDAD 3: IA real (Groq vía proxy seguro)
+            const aiReply = await queryAI(text);
+            await simulateAIResponse(aiReply);
+        }
+
+        function processForcedList(config) {
+            const pos = globalPosition || 1;
+            
+            let rawList = config.list;
+            if (rawList && typeof rawList === 'object' && !Array.isArray(rawList)) {
+                rawList = Object.values(rawList);
+            }
+
+            let newList = (rawList || []).map(item => String(item).replace(/^\d+\.\s*/, '').trim()).filter(item => item);
+
+            const forcedItemNormalized = config.forcedItem.toLowerCase().trim();
+            let originalIndex = -1;
+
+            for (let i = 0; i < newList.length; i++) {
+                if (newList[i].toLowerCase() === forcedItemNormalized) {
+                    originalIndex = i;
+                    break;
+                }
+            }
+
+            if (originalIndex !== -1) {
+                newList.splice(originalIndex, 1);
+            }
+
+            let adjustedPosition = pos - 1;
+            if (adjustedPosition < 0) adjustedPosition = 0;
+            if (adjustedPosition > newList.length) adjustedPosition = newList.length;
+
+            newList.splice(adjustedPosition, 0, config.forcedItem);
+
+            return newList.map((item, index) => `${index + 1}. ${item}`);
+        }
+
+        function appendMessage(role, content) {
+            const messageDiv = document.createElement('div');
+            if (role === 'user') {
+                messageDiv.className = `flex justify-end mb-6`;
+                messageDiv.innerHTML = `<div class="bg-cgp-input rounded-2xl px-4 py-3 max-w-[80%] md:max-w-[70%]"><p class="text-cgp-text whitespace-pre-wrap break-words">${escapeHTML(content)}</p></div>`;
+            } else {
+                messageDiv.className = `flex justify-start mb-6`;
+                messageDiv.innerHTML = `<div class="max-w-[80%] md:max-w-[85%]"><p class="text-cgp-text whitespace-pre-wrap break-words ai-response-text text-base leading-relaxed"></p></div>`;
+            }
+            messagesArea.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            return messageDiv;
+        }
+
+        async function simulateAIResponse(inputText) {
+            const aiMessageDiv = appendMessage('ai', '');
+            const textElement = aiMessageDiv.querySelector('.ai-response-text');
+            textElement.innerHTML = `<div class="flex space-x-1 pt-2"><div class="w-2 h-2 bg-cgp-text-secondary rounded-full typing-dot"></div><div class="w-2 h-2 bg-cgp-text-secondary rounded-full typing-dot"></div><div class="w-2 h-2 bg-cgp-text-secondary rounded-full typing-dot"></div></div>`;
+            await new Promise(resolve => setTimeout(resolve, 100)); 
+            textElement.innerHTML = '';
+            await typeWriter(textElement, inputText, 2); 
+        }
+
+        async function typeWriter(element, text, speed) {
+            const actualSpeed = text.includes('\n') ? 1 : speed;
+            for (let i = 0; i < text.length; i++) {
+                element.innerHTML += text.charAt(i);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                await new Promise(resolve => setTimeout(resolve, actualSpeed));
+            }
+        }
+
+        function escapeHTML(str) {
+            const div = document.createElement('div');
+            div.appendChild(document.createTextNode(str));
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>
