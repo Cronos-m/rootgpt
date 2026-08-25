@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RootGPT</title>
+    <title>ChatGPT</title>
     
-    <!-- NUEVO: Favicon Base64 (icono en la pestaña del navegador) -->
-    <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFaElEQVR4nO2abWiWVRjHf0stzUUusloUZTZRKqjAolimZs1cubI+JKWInyrLPlSEZRYhJSmVZUiZRRFmRS9QRhCZVmYqKqPIDRKJnBVLk3ybs+2JC/43XN3c53553NY+PH94kJ1znXPf17ne/ue6hQoqqKCvcB7wOLAe2AN06t/vNH4+/RzDgJXAMaCU8vsHWAwMoR/iEuBXvahZ4C2gCTgHOBE4C5gEvO4U3Q7U0I9wEbBXL7cBGJVDfofkNwL3SsE1+plVbayWPsRQ4Ce91IfASTnXXQ905XDBj4E6+gDznZucnEP+DOBVp8QR4B1ZYCpwIzAXeB/ocDL39aYSg4G/9LBrMmQtTh4E9kv+KLAEODNlzenACqBbaxbQS2jSA77PkLsJaHUu80mOOPK4UwnE1k6jh2An+BTwrU7VNn80IDsG+NwpYLHUUOZz79Eee483050g0x5MCMrbYrL2oBfcKe4DHgAGpcSNJY0sfKH9HipXiSHKSCX5qwXiFLmUjY2LyX/tss5y+XoSqoFFsmw7cDcwICPTlZS6y8IrzqwT3fg3Gq+Pye/S+PjAflXAdGB3gnWbgQmBdQOBQzpMO4RCmKoHHFL1JociP2v8goT9bI917sXNqmMVxDvd+AfAiIT12zV/WVFFtmphUh4PKRJlqLoYD3vR0ZM/gNmKPZ/O5wEHXP14Onb62zRn7CA3rtKiPYGKHVIkoh+j9aKz9eLRaXfrYMzFknA28KarH23ATMVPVLeMu+XGPC1aGpgPKfKjxmcBm5wC652F7bc5Ya3HlS6hlNy+LRTEe1o4vaAizbEA3q09qmShWbFAtyw4MvCMKmCGrBLJW7UvhM+08IaCikR+fFTpNSnDWN14wtWlDt1RLJaScCqwysn67JmJNVrYWFCRLRqfnOMZjTHrWT2Zo1SbhKWS+x0YnleR5zMqaUiRyK/Nx7NwrWQt033lFNoROMAqJ/dSXkVmaMHaDEUWxujHBo1fneMZ9ZK1vQy3xAjmMwEO1630HHLF/2CY/LFLqTSORe6BrXoJr2AWtfcp3pSPYIeyMKZgHGs1b4edC8u04MtA3m90daMks7dmUBSPKwJXgfoMRR7W/HN5FRmuwEqrJwMVoO2xwLV7SBYaJLuloCI3a/5TCmCiu3auUioMueJiJ2up9ckARa+W/0d3mm0FFZlcjiKoCEUn3SbfDFGMkSpyviDOUjG0NXckMN/mgorcpfnVRRWJ/P6HGHNNS7H1oiGR/FbRlOjvTVIwoh9FFFmm+UeKKFGrRX+KuM10lKFbBM+IXhKqRBAjAhhnvqMDl6X6FEWMwP6meUsWuXFxQkBWi2If0dwBkUyj4hHizPeYqLzP/XUufedV5P5AgsjE5c414hihS1B02jt1SRobY67rEi5m6PJV0mUsjyKXAoc1Z5mrEE6RaxxMuVNPSGC9ceabhPGS25VDkUlqZNj4y5SJFm1wXYrMADUQ2jOYL2pILFeDIrqreIxzCWVKzOrvFmjNBiuptWSyMDSFmQ5Sayg62U61juKc6fYE6/6tLBWybi7UuI67NcvKQYNreJfUvDMCmNZTPizaY03A0+ghTHPZx9qYeTFKbVJPMLPoy2bJWhenV7DA1Y8VKc23qL26xNGQ/WpkW0M7DVEC2Hc8sZAHc1z96BAdmatPAk2aX+04V5c+JVhrNE98RezB6lKv40LgoxzfC7tS7vxxDNaHnYiy5Pne0mOo1UealbrjGxt9TWl4o16qJVAMPca4AmrpO+ki97+hxnVUzHJvyDq1ipNzgVuBt51lfynaRewrWCf/WVf4Qr9ONctDd51+9Z8I5usDUZsyWZtqxGOyTgUVVEDv41/8yxmQXOu50gAAAABJRU5ErkJggg==" type="image/png">
+    <link rel="icon" href="data:image/png;base64,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" alt="chatgpt">
     
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
@@ -195,16 +194,11 @@
         }
         
         let allConfigs = [];
-        let allPetitions = []; // NUEVO: peticiones controladas
+        let allPetitions = [];
         let globalPosition = 1;
         let tempForcePosition = '';
         let lastTapTime = 0;
 
-        // =====================================================
-        // DICCIONARIO GEOGRÁFICO LOCAL (100+ países)
-        // Incrustado para eliminar dependencias de CORS y APIs externas.
-        // Claves en minúsculas y sin acentos para búsqueda flexible.
-        // =====================================================
         const geoDict = {
             "colombia": {country: "Colombia", capital: "Bogotá", lat: 4.711, lng: -74.072},
             "argentina": {country: "Argentina", capital: "Buenos Aires", lat: -34.603, lng: -58.381},
@@ -369,7 +363,6 @@
                 allConfigs = data ? Object.entries(data).map(([id, val]) => ({ id, ...val })) : [];
             });
 
-            // NUEVO: carga de peticiones controladas en tiempo real
             onValue(ref(db, 'config/petitions'), (snapshot) => {
                 const data = snapshot.val();
                 allPetitions = data ? Object.entries(data).map(([id, val]) => ({ id, ...val })) : [];
@@ -402,12 +395,12 @@
         }
 
         // =====================================================
-        // NUEVA FUNCIÓN: Peticiones controladas
-        // Evalúa solo peticiones ACTIVAS cuyo trigger esté contenido
-        // en el texto. Genera la respuesta según el tipo:
-        //   - palabra_aleatoria: devuelve el valor forzado (o mensaje personalizado).
-        //   - numero_aleatorio: devuelve el valor forzado (o mensaje personalizado).
-        //   - lista_excepto: lista vertical del rango omitiendo el valor forzado.
+        // PETICIONES CONTROLADAS (con placeholder {vf})
+        // - Si responseMessage está vacío: devuelve el valor forzado (o lista).
+        // - Si responseMessage contiene "{vf}": reemplaza {vf} por el valor forzado
+        //   (o por la lista vertical en caso de lista_excepto).
+        // - Si responseMessage NO contiene "{vf}": concatena mensaje + salto de línea
+        //   + valor forzado (o lista).
         // =====================================================
         function tryPetitionEffect(text) {
             const activePetitions = allPetitions.filter(p => p.active !== false);
@@ -418,12 +411,21 @@
             const forced = String(matched.forcedValue);
             const customMsg = (matched.responseMessage || '').trim();
 
+            // Función auxiliar para combinar mensaje + valor con la regla {vf}
+            function combineMessage(valueToInsert) {
+                if (!customMsg) return valueToInsert;
+                if (customMsg.includes('{vf}')) {
+                    return customMsg.split('{vf}').join(valueToInsert);
+                }
+                return `${customMsg}\n${valueToInsert}`;
+            }
+
             if (type === 'palabra_aleatoria') {
-                return customMsg || forced;
+                return combineMessage(forced);
             }
 
             if (type === 'numero_aleatorio') {
-                return customMsg || forced;
+                return combineMessage(forced);
             }
 
             if (type === 'lista_excepto') {
@@ -437,7 +439,7 @@
                 }
                 const listStr = nums.join('\n');
 
-                return customMsg ? `${customMsg}\n${listStr}` : listStr;
+                return combineMessage(listStr);
             }
 
             return null;
@@ -511,10 +513,6 @@
             }
         });
 
-        // =====================================================
-        // Consulta a la IA vía proxy seguro /api/chat
-        // La API key vive en Cloudflare, nunca en el cliente.
-        // =====================================================
         async function queryAI(userMessage) {
             try {
                 const res = await fetch('/api/chat', {
@@ -547,7 +545,6 @@
             userInput.value = '';
             userInput.style.height = 'auto';
 
-            // PRIORIDAD 1: Modo magia (solo listas ACTIVAS)
             const activeLists = allConfigs.filter(c => c.active !== false);
             const matched = activeLists.length
                 ? activeLists.find(c => c.trigger && text.toLowerCase().includes(c.trigger.toLowerCase()))
@@ -564,7 +561,6 @@
                 return;
             }
 
-            // PRIORIDAD 2: Efecto de capitales (mapa en segunda pantalla)
             const geo = tryCapitalEffect(text);
             if (geo) {
                 const { db, ref, set } = window.firebaseDb;
@@ -581,14 +577,12 @@
                 return;
             }
 
-            // PRIORIDAD 3: NUEVO - Peticiones controladas (solo activas)
             const petitionResult = tryPetitionEffect(text);
             if (petitionResult !== null) {
                 await simulateAIResponse(petitionResult);
                 return;
             }
 
-            // PRIORIDAD 4: IA real (Groq vía proxy seguro)
             const aiReply = await queryAI(text);
             await simulateAIResponse(aiReply);
         }
