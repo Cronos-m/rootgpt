@@ -381,6 +381,26 @@
             return (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
         }
 
+                // =====================================================
+        // NUEVA FUNCIÓN: limpiar Markdown de la respuesta de la IA
+        // El modelo puede devolver asteriscos, negritas, viñetas o
+        // encabezados. El chat tipea texto plano, así que se
+        // convierten a texto limpio antes de mostrarlos.
+        // =====================================================
+        function cleanMarkdown(text) {
+            return String(text)
+                .replace(/```[\s\S]*?```/g, '')          // bloques de código
+                .replace(/`([^`]+)`/g, '$1')             // código en línea
+                .replace(/\*\*([^*]+)\*\*/g, '$1')       // negrita **texto**
+                .replace(/\*([^*]+)\*/g, '$1')           // cursiva *texto*
+                .replace(/^#{1,6}\s*/gm, '')             // encabezados #
+                .replace(/^\s*[-•*]\s+/gm, '')           // viñetas - o * o •
+                .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1') // enlaces [texto](url)
+                .replace(/\s{3,}/g, '\n\n')              // espacios excesivos
+                .trim();
+        }
+
+
         function tryCapitalEffect(text) {
             const m = text.match(/capital\s+de\s+(.+)/i);
             if (!m) return null;
@@ -529,7 +549,7 @@
                 }
 
                 const data = await res.json();
-                return data.reply || 'Sin respuesta del modelo.';
+                return cleanMarkdown(data.reply || 'Sin respuesta del modelo.');
             } catch (err) {
                 console.error('Error al consultar la IA:', err);
                 return `Lo siento, hubo un problema al conectar con la IA: ${err.message}. Por favor, intenta de nuevo en unos segundos.`;
