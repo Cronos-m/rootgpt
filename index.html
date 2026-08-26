@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ChatGPT</title>
+    <title>RootGPT</title>
     
     <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFaElEQVR4nO2abWiWVRjHf0stzUUusloUZTZRKqjAolimZs1cubI+JKWInyrLPlSEZRYhJSmVZUiZRRFmRS9QRhCZVmYqKqPIDRKJnBVLk3ybs+2JC/43XN3c53553NY+PH94kJ1znXPf17ne/ue6hQoqqKCvcB7wOLAe2AN06t/vNH4+/RzDgJXAMaCU8vsHWAwMoR/iEuBXvahZ4C2gCTgHOBE4C5gEvO4U3Q7U0I9wEbBXL7cBGJVDfofkNwL3SsE1+plVbayWPsRQ4Ce91IfASTnXXQ905XDBj4E6+gDznZucnEP+DOBVp8QR4B1ZYCpwIzAXeB/ocDL39aYSg4G/9LBrMmQtTh4E9kv+KLAEODNlzenACqBbaxbQS2jSA77PkLsJaHUu80mOOPK4UwnE1k6jh2An+BTwrU7VNn80IDsG+NwpYLHUUOZz79Eee483050g0x5MCMrbYrL2oBfcKe4DHgAGpcSNJY0sfKH9HipXiSHKSCX5qwXiFLmUjY2LyX/tss5y+XoSqoFFsmw7cDcwICPTlZS6y8IrzqwT3fg3Gq+Pye/S+PjAflXAdGB3gnWbgQmBdQOBQzpMO4RCmKoHHFL1JociP2v8goT9bI917sXNqmMVxDvd+AfAiIT12zV/WVFFtmphUh4PKRJlqLoYD3vR0ZM/gNmKPZ/O5wEHXP14Onb62zRn7CA3rtKiPYGKHVIkoh+j9aKz9eLRaXfrYMzFknA28KarH23ATMVPVLeMu+XGPC1aGpgPKfKjxmcBm5wC652F7bc5Ya3HlS6hlNy+LRTEe1o4vaAizbEA3q09qmShWbFAtyw4MvCMKmCGrBLJW7UvhM+08IaCikR+fFTpNSnDWN14wtWlDt1RLJaScCqwysn67JmJNVrYWFCRLRqfnOMZjTHrWT2Zo1SbhKWS+x0YnleR5zMqaUiRyK/Nx7NwrWQt033lFNoROMAqJ/dSXkVmaMHaDEUWxujHBo1fneMZ9ZK1vQy3xAjmMwEO1630HHLF/2CY/LFLqTSORe6BrXoJr2AWtfcp3pSPYIeyMKZgHGs1b4edC8u04MtA3m90daMks7dmUBSPKwJXgfoMRR7W/HN5FRmuwEqrJwMVoO2xwLV7SBYaJLuloCI3a/5TCmCiu3auUioMueJiJ2up9ckARa+W/0d3mm0FFZlcjiKoCEUn3SbfDFGMkSpyviDOUjG0NXckMN/mgorcpfnVRRWJ/P6HGHNNS7H1oiGR/FbRlOjvTVIwoh9FFFmm+UeKKFGrRX+KuM10lKFbBM+IXhKqRBAjAhhnvqMDl6X6FEWMwP6meUsWuXFxQkBWi2If0dwBkUyj4hHizPeYqLzP/XUufedV5P5AgsjE5c414hihS1B02jt1SRobY67rEi5m6PJV0mUsjyKXAoc1Z5mrEE6RaxxMuVNPSGC9ceabhPGS25VDkUlqZNj4y5SJFm1wXYrMADUQ2jOYL2pILFeDIrqreIxzCWVKzOrvFmjNBiuptWSyMDSFmQ5Sayg62U61juKc6fYE6/6tLBWybi7UuI67NcvKQYNreJfUvDMCmNZTPizaY03A0+ghTHPZx9qYeTFKbVJPMLPoy2bJWhenV7DA1Y8VKc23qL26xNGQ/WpkW0M7DVEC2Hc8sZAHc1z96BAdmatPAk2aX+04V5c+JVhrNE98RezB6lKv40LgoxzfC7tS7vxxDNaHnYiy5Pne0mOo1UealbrjGxt9TWl4o16qJVAMPca4AmrpO+ki97+hxnVUzHJvyDq1ipNzgVuBt51lfynaRewrWCf/WVf4Qr9ONctDd51+9Z8I5usDUZsyWZtqxGOyTgUVVEDv41/8yxmQXOu50gAAAABJRU5ErkJggg==" type="image/png">
     
@@ -103,46 +103,53 @@
 
             <div id="chat-container" class="flex-1 overflow-y-auto px-4 py-4">
 
-                <!-- PANTALLA DE INICIO estilo ChatGPT nuevo -->
-                <div id="welcome-screen" class="h-full flex flex-col items-center justify-center px-2">
-                    <h1 class="text-3xl md:text-4xl font-semibold text-white mb-8">¿Qué toca hoy?</h1>
+                <!-- PANTALLA DE INICIO: centrada en escritorio, composer abajo en móvil -->
+                <div id="welcome-screen" class="h-full flex flex-col px-2">
+                    <div class="flex-1 flex items-end justify-center pb-6 md:pb-8">
+                        <h1 class="text-3xl md:text-4xl font-semibold text-white text-center">¿Qué toca hoy?</h1>
+                    </div>
 
-                    <div class="w-full max-w-2xl bg-cgp-input rounded-3xl border border-[#424242] focus-within:border-[#555] transition-colors mb-8">
-                        <div class="flex items-center px-3 py-3 gap-1">
-                            <button onclick="newChat()" class="p-2 rounded-full hover:bg-[#3a3a3a] text-cgp-text-secondary" title="Nuevo chat">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    <div class="w-full max-w-2xl mx-auto pb-4 md:pb-0">
+                        <div class="bg-cgp-input rounded-3xl border border-[#424242] focus-within:border-[#555] transition-colors mb-4 md:mb-8">
+                            <div class="flex items-center px-3 py-3 gap-1">
+                                <button onclick="newChat()" class="p-2 rounded-full hover:bg-[#3a3a3a] text-cgp-text-secondary" title="Nuevo chat">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                                </button>
+                                <textarea id="home-input" rows="1" placeholder="Pregunta lo que quieras" class="flex-1 bg-transparent text-cgp-text placeholder-cgp-text-secondary resize-none focus:outline-none text-base max-h-40"></textarea>
+                                <button onclick="toggleThink()" class="think-btn hidden md:flex items-center gap-1 p-2 rounded-full hover:bg-[#3a3a3a] text-cgp-text-secondary" title="Pensar">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 0-7 7c0 2.4 1.2 4.5 3 5.7V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.3c1.8-1.2 3-3.3 3-5.7a7 7 0 0 0-7-7z"/></svg>
+                                    <span class="text-sm">Pensar</span>
+                                </button>
+                                <button onclick="startDictation('home-input', this)" class="mic-btn p-2 rounded-full hover:bg-[#3a3a3a] text-cgp-text-secondary" title="Dictar">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+                                </button>
+                                <button onclick="toggleVoiceMode()" class="voice-btn p-2 rounded-full bg-blue-600 hover:bg-blue-500 text-white" title="Modo voz">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M8 6v12M4 10v4M16 6v12M20 10v4"/></svg>
+                                </button>
+                                <button id="home-send" class="p-2 rounded-full bg-white text-black hover:bg-gray-200 ml-1 cursor-pointer">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Opciones: chips horizontales en móvil, lista vertical en escritorio -->
+                        <div class="flex md:flex-col gap-2 overflow-x-auto md:overflow-visible pb-2 md:pb-0 -mx-2 px-2 md:mx-0 md:px-0">
+                            <button onclick="prefill('dibuja una imagen de ')" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#1a1a1a] text-cgp-text-secondary text-sm text-left whitespace-nowrap md:whitespace-normal flex-shrink-0 md:flex-shrink md:w-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                                Crea una imagen o pegatina
                             </button>
-                            <textarea id="home-input" rows="1" placeholder="Pregunta lo que quieras" class="flex-1 bg-transparent text-cgp-text placeholder-cgp-text-secondary resize-none focus:outline-none text-base max-h-40"></textarea>
-                            <button onclick="toggleThink()" class="think-btn flex items-center gap-1 p-2 rounded-full hover:bg-[#3a3a3a] text-cgp-text-secondary" title="Pensar">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 0-7 7c0 2.4 1.2 4.5 3 5.7V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.3c1.8-1.2 3-3.3 3-5.7a7 7 0 0 0-7-7z"/></svg>
-                                <span class="hidden md:inline text-sm">Pensar</span>
+                            <button onclick="prefill('escribe un texto sobre ')" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#1a1a1a] text-cgp-text-secondary text-sm text-left whitespace-nowrap md:whitespace-normal flex-shrink-0 md:flex-shrink md:w-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                                Escribir o editar
                             </button>
-                            <button onclick="startDictation('home-input', this)" class="mic-btn p-2 rounded-full hover:bg-[#3a3a3a] text-cgp-text-secondary" title="Dictar">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
-                            </button>
-                            <button onclick="toggleVoiceMode()" class="voice-btn p-2 rounded-full bg-blue-600 hover:bg-blue-500 text-white" title="Modo voz">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M8 6v12M4 10v4M16 6v12M20 10v4"/></svg>
-                            </button>
-                            <button id="home-send" class="p-2 rounded-full bg-white text-black hover:bg-gray-200 ml-1 cursor-pointer">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+                            <button onclick="prefill('busca en la web ')" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#1a1a1a] text-cgp-text-secondary text-sm text-left whitespace-nowrap md:whitespace-normal flex-shrink-0 md:flex-shrink md:w-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                                Buscar en la web
                             </button>
                         </div>
                     </div>
 
-                    <div class="w-full max-w-2xl space-y-1">
-                        <button onclick="prefill('dibuja una imagen de ')" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#1a1a1a] text-cgp-text-secondary text-sm text-left">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                            Crea una imagen o pegatina
-                        </button>
-                        <button onclick="prefill('escribe un texto sobre ')" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#1a1a1a] text-cgp-text-secondary text-sm text-left">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-                            Escribir o editar
-                        </button>
-                        <button onclick="prefill('busca en la web ')" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#1a1a1a] text-cgp-text-secondary text-sm text-left">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                            Buscar en la web
-                        </button>
-                    </div>
+                    <div class="flex-1 hidden md:block"></div>
                 </div>
 
                 <div id="messages-area" class="max-w-3xl mx-auto space-y-6 hidden"></div>
@@ -157,9 +164,9 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                             </button>
                             <textarea id="user-input" rows="1" placeholder="Pregunta lo que quieras" class="flex-1 bg-transparent text-cgp-text placeholder-cgp-text-secondary resize-none focus:outline-none text-base max-h-40" onkeydown="handleKeyDown(event)"></textarea>
-                            <button onclick="toggleThink()" class="think-btn flex items-center gap-1 p-2 rounded-full hover:bg-[#3a3a3a] text-cgp-text-secondary" title="Pensar">
+                            <button onclick="toggleThink()" class="think-btn hidden md:flex items-center gap-1 p-2 rounded-full hover:bg-[#3a3a3a] text-cgp-text-secondary" title="Pensar">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 0-7 7c0 2.4 1.2 4.5 3 5.7V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.3c1.8-1.2 3-3.3 3-5.7a7 7 0 0 0-7-7z"/></svg>
-                                <span class="hidden md:inline text-sm">Pensar</span>
+                                <span class="text-sm">Pensar</span>
                             </button>
                             <button onclick="startDictation('user-input', this)" class="mic-btn p-2 rounded-full hover:bg-[#3a3a3a] text-cgp-text-secondary" title="Dictar">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
@@ -175,7 +182,6 @@
                 </div>
             </div>
 
-            <!-- Footer siempre visible (necesario para el panel invisible) -->
             <p class="text-center text-xs text-cgp-text-secondary pb-4 px-4" id="footer-text">
                 ChatGPT es IA. Al usarlo, aceptas los <a href="#" class="underline hover:text-white">Términos</a> y la <a href="#" class="underline hover:text-white">Política de privacidad</a>. vs.-
             </p>
@@ -255,7 +261,6 @@
         function handleKeyDown(event) { if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); sendMessage(); } }
         homeInput.addEventListener('keydown', function(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(this.value); } });
 
-        // NUEVO: limpiar todo y volver al inicio
         function newChat() {
             voiceMode = false;
             document.querySelectorAll('.voice-btn').forEach(b => b.classList.remove('voice-on'));
@@ -268,20 +273,17 @@
             autoResize(userInput); autoResize(homeInput);
         }
 
-        // NUEVO: precargar texto desde las opciones de inicio
         function prefill(text) {
             homeInput.value = text; autoResize(homeInput);
             userInput.value = text; autoResize(userInput);
             homeInput.focus();
         }
 
-        // NUEVO: modo Pensar
         function toggleThink() {
             thinkMode = !thinkMode;
             document.querySelectorAll('.think-btn').forEach(b => b.classList.toggle('think-on', thinkMode));
         }
 
-        // ===================== VOZ: dictado y conversación =====================
         function getRecognition() {
             const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
             if (!SR) return null;
@@ -335,7 +337,6 @@
             if (activeRecognition) { try { activeRecognition.stop(); } catch (e) {} activeRecognition = null; }
         }
 
-        // Botones de envío: doble tap con campo vacío abre panel invisible, click envía si hay texto
         function bindSendButton(btn, getInput) {
             btn.addEventListener('dblclick', (e) => { if (!getInput().trim()) { e.preventDefault(); openInvisiblePanel(); } });
             btn.addEventListener('touchend', (e) => {
@@ -430,7 +431,6 @@
             });
         }
 
-        // NUEVO: búsqueda en la web (Wikipedia ES, CORS abierto)
         function extractWebQuery(text) {
             const m = text.match(/(?:busca en la web|buscame|busca información de|busca informacion de|busca)\s+(.+)/i);
             if (!m) return null;
@@ -490,7 +490,6 @@
             } catch (e) { console.error(e); return `Lo siento, hubo un problema al conectar con la IA: ${e.message}. Intenta de nuevo.`; }
         }
 
-        // Responde y, si el modo voz está activo, lee la respuesta y vuelve a escuchar
         async function respond(text, opts) {
             await simulateAIResponse(text, opts);
             if (voiceMode) speak(text, () => { if (voiceMode) listenForConversation(); });
@@ -508,7 +507,6 @@
             userInput.value = ''; homeInput.value = '';
             autoResize(userInput); autoResize(homeInput);
 
-            // PRIORIDAD 1: Listas
             const activeLists = allConfigs.filter(c => c.active !== false);
             const normText = normalizeStr(text);
             const matched = activeLists.length ? activeLists.find(c => c.trigger && normText.includes(normalizeStr(c.trigger))) : null;
@@ -521,7 +519,6 @@
                 return;
             }
 
-            // PRIORIDAD 2: Capitales
             const geo = tryCapitalEffect(text);
             if (geo) {
                 const { db, ref, set } = window.firebaseDb;
@@ -530,11 +527,9 @@
                 return;
             }
 
-            // PRIORIDAD 3: Peticiones
             const pet = tryPetitionEffect(text);
             if (pet !== null) { await respond(pet); return; }
 
-            // PRIORIDAD 4: Imágenes
             const img = tryImageEffect(text);
             if (img) {
                 if (img.type === 'predetermined') {
@@ -547,14 +542,12 @@
                 return;
             }
 
-            // PRIORIDAD 5: Búsqueda en la web
             const wq = extractWebQuery(text);
             if (wq) {
                 const summary = await searchWeb(wq);
                 if (summary) { await respond(cleanMarkdown(summary), { thinking: thinkMode }); return; }
             }
 
-            // PRIORIDAD 6: IA
             const aiReply = await queryAI(text);
             await respond(aiReply, { thinking: thinkMode });
         }
