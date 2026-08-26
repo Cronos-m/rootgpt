@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RootGPT</title>
+    <title>ChatGPT</title>
     
     <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFaElEQVR4nO2abWiWVRjHf0stzUUusloUZTZRKqjAolimZs1cubI+JKWInyrLPlSEZRYhJSmVZUiZRRFmRS9QRhCZVmYqKqPIDRKJnBVLk3ybs+2JC/43XN3c53553NY+PH94kJ1znXPf17ne/ue6hQoqqKCvcB7wOLAe2AN06t/vNH4+/RzDgJXAMaCU8vsHWAwMoR/iEuBXvahZ4C2gCTgHOBE4C5gEvO4U3Q7U0I9wEbBXL7cBGJVDfofkNwL3SsE1+plVbayWPsRQ4Ce91IfASTnXXQ905XDBj4E6+gDznZucnEP+DOBVp8QR4B1ZYCpwIzAXeB/ocDL39aYSg4G/9LBrMmQtTh4E9kv+KLAEODNlzenACqBbaxbQS2jSA77PkLsJaHUu80mOOPK4UwnE1k6jh2An+BTwrU7VNn80IDsG+NwpYLHUUOZz79Eee483050g0x5MCMrbYrL2oBfcKe4DHgAGpcSNJY0sfKH9HipXiSHKSCX5qwXiFLmUjY2LyX/tss5y+XoSqoFFsmw7cDcwICPTlZS6y8IrzqwT3fg3Gq+Pye/S+PjAflXAdGB3gnWbgQmBdQOBQzpMO4RCmKoHHFL1JociP2v8goT9bI917sXNqmMVxDvd+AfAiIT12zV/WVFFtmphUh4PKRJlqLoYD3vR0ZM/gNmKPZ/O5wEHXP14Onb62zRn7CA3rtKiPYGKHVIkoh+j9aKz9eLRaXfrYMzFknA28KarH23ATMVPVLeMu+XGPC1aGpgPKfKjxmcBm5wC652F7bc5Ya3HlS6hlNy+LRTEe1o4vaAizbEA3q09qmShWbFAtyw4MvCMKmCGrBLJW7UvhM+08IaCikR+fFTpNSnDWN14wtWlDt1RLJaScCqwysn67JmJNVrYWFCRLRqfnOMZjTHrWT2Zo1SbhKWS+x0YnleR5zMqaUiRyK/Nx7NwrWQt033lFNoROMAqJ/dSXkVmaMHaDEUWxujHBo1fneMZ9ZK1vQy3xAjmMwEO1630HHLF/2CY/LFLqTSORe6BrXoJr2AWtfcp3pSPYIeyMKZgHGs1b4edC8u04MtA3m90daMks7dmUBSPKwJXgfoMRR7W/HN5FRmuwEqrJwMVoO2xwLV7SBYaJLuloCI3a/5TCmCiu3auUioMueJiJ2up9ckARa+W/0d3mm0FFZlcjiKoCEUn3SbfDFGMkSpyviDOUjG0NXckMN/mgorcpfnVRRWJ/P6HGHNNS7H1oiGR/FbRlOjvTVIwoh9FFFmm+UeKKFGrRX+KuM10lKFbBM+IXhKqRBAjAhhnvqMDl6X6FEWMwP6meUsWuXFxQkBWi2If0dwBkUyj4hHizPeYqLzP/XUufedV5P5AgsjE5c414hihS1B02jt1SRobY67rEi5m6PJV0mUsjyKXAoc1Z5mrEE6RaxxMuVNPSGC9ceabhPGS25VDkUlqZNj4y5SJFm1wXYrMADUQ2jOYL2pILFeDIrqreIxzCWVKzOrvFmjNBiuptWSyMDSFmQ5Sayg62U61juKc6fYE6/6tLBWybi7UuI67NcvKQYNreJfUvDMCmNZTPizaY03A0+ghTHPZx9qYeTFKbVJPMLPoy2bJWhenV7DA1Y8VKc23qL26xNGQ/WpkW0M7DVEC2Hc8sZAHc1z96BAdmatPAk2aX+04V5c+JVhrNE98RezB6lKv40LgoxzfC7tS7vxxDNaHnYiy5Pne0mOo1UealbrjGxt9TWl4o16qJVAMPca4AmrpO+ki97+hxnVUzHJvyDq1ipNzgVuBt51lfynaRewrWCf/WVf4Qr9ONctDd51+9Z8I5usDUZsyWZtqxGOyTgUVVEDv41/8yxmQXOu50gAAAABJRU5ErkJggg==" type="image/png">
     
@@ -44,44 +44,18 @@
         .typing-dot:nth-child(1) { animation-delay: -0.32s; }
         .typing-dot:nth-child(2) { animation-delay: -0.16s; }
         @keyframes typingBounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+        @keyframes pulseRed { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+        .listening { color: #ef4444 !important; animation: pulseRed 1s infinite; }
+        .voice-on { box-shadow: 0 0 0 3px rgba(59,130,246,0.5); }
+        .think-on { color: #fff !important; background: #3a3a3a; }
         
-        .ghost-key { 
-            background: rgba(30, 30, 30, 0.4); 
-            border: 1px solid rgba(100, 100, 100, 0.2); 
-            color: rgba(200, 200, 200, 0.25); 
-            transition: all 0.1s; 
-            border-radius: 12px; 
-            font-size: 1.5rem; 
-            font-weight: 400; 
-            touch-action: manipulation;
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
-        }
-        .ghost-key:active { 
-            background: rgba(50, 50, 50, 0.6); 
-            color: rgba(220, 220, 220, 0.5); 
-            transform: scale(0.95);
-        }
-        .ghost-cancel {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            color: rgba(239, 68, 68, 0.3);
-        }
-        .ghost-cancel:active {
-            background: rgba(239, 68, 68, 0.2);
-            color: rgba(239, 68, 68, 0.5);
-        }
-        .ghost-confirm { 
-            background: rgba(16, 163, 127, 0.15); 
-            border: 1px solid rgba(16, 163, 127, 0.3); 
-            color: rgba(16, 163, 127, 0.4); 
-        }
-        .ghost-confirm:active { 
-            background: rgba(16, 163, 127, 0.3); 
-            color: rgba(16, 163, 127, 0.6); 
-        }
-        
-        #send-btn { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+        .ghost-key { background: rgba(30,30,30,0.4); border: 1px solid rgba(100,100,100,0.2); color: rgba(200,200,200,0.25); transition: all 0.1s; border-radius: 12px; font-size: 1.5rem; font-weight: 400; touch-action: manipulation; -webkit-tap-highlight-color: transparent; user-select: none; }
+        .ghost-key:active { background: rgba(50,50,50,0.6); color: rgba(220,220,220,0.5); transform: scale(0.95); }
+        .ghost-cancel { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); color: rgba(239,68,68,0.3); }
+        .ghost-cancel:active { background: rgba(239,68,68,0.2); color: rgba(239,68,68,0.5); }
+        .ghost-confirm { background: rgba(16,163,127,0.15); border: 1px solid rgba(16,163,127,0.3); color: rgba(16,163,127,0.4); }
+        .ghost-confirm:active { background: rgba(16,163,127,0.3); color: rgba(16,163,127,0.6); }
+        #send-btn, #home-send { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
     </style>
 </head>
 <body class="h-full overflow-hidden flex flex-col">
@@ -90,21 +64,14 @@
         <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-72 bg-cgp-sidebar flex flex-col h-full transform -translate-x-full md:relative md:translate-x-0 transition-transform duration-300">
             <div class="flex items-center justify-between px-4 py-3">
                 <div class="flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white w-6 h-6 md:w-8 md:h-8">
-                        <line x1="8" y1="6" x2="21" y2="6"></line>
-                        <line x1="8" y1="12" x2="21" y2="12"></line>
-                        <line x1="8" y1="18" x2="21" y2="18"></line>
-                        <line x1="3" y1="6" x2="3.01" y2="6"></line>
-                        <line x1="3" y1="12" x2="3.01" y2="12"></line>
-                        <line x1="3" y1="18" x2="3.01" y2="18"></line>
-                    </svg>
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFaElEQVR4nO2ZWWyVVRDHr4iAtqJIUdwQNBo1ivoAEn2FRAwkREnEpNYFWSKiIWrLIgVaxKrBJSouMVFU4oZbQqK+KBpb6vaiCaYQERXcYxSNUBd+Zsycy3Tu+bZCaR/6f2lzvjnnzJwzZ+Y/c0ulfvSj9wEcAdQBLwHbgd+APcDnwGnANcDRpb4G4FDgBuBnsrELaAAGl/oCgGOANymOT4Dje1v5ocDHTrHNwALgXGAIUAWcDcwDPnWyXwItwGPAauBmYILc6MEy4HWjzD9APTAwRV4MejfH7ewAGoHqnlReHmvAv8D0DPmpwJaCbrYTmNgTyg8EvjAbrUiRFfd5K6LcL8Az6m61wE3Aw8A3Tk5uduaBUvw0YBWw1V33kIjsMOAB4O+I4rdIyE2JaNOB75wRU/ZHcXmI9wCdkZNsjNxOLKSKEo8ANTn3HAF8YOZ/LxGvO8qPBD5K8dPxRrZGw6PH28DYbu79tVmnpegCRwEdTpl3nFuUTwW40cnKO7ksYe1TgHXqUi8CpybITTPr/VgoAQLrzWShBLN0fK8ZP8TIL9Gx34FFCW+jGlgJ/OmM3a3vq0volPXdm5uUV/kpLkxebr6V4eYs1eHlkfUGAFdraAxrtrrDEHyrcvZg7mcfFuY1wD6gh9y3Mty4JB/BMjd+sXtH7wPj9Nt4YBOVkP0nqMxcM/54HuXHONcZkdOAZTq81Pj58+6UF9rTNW5SqyHZYq/mioaiBgjtDXgl8j3JgOU6LPym2fj5H8pCg6/Lt6qEcN2sMt6QgHvzGCCPKWBJAQNWuA3l71rgBA2JT5pvEh5n+NsQAKO1poihrpQF92hmFzCgyXxqDX7uZMTn243ce8D5CXpMirjV5DwG3GkmLChggFw/ymkqTtb5/BqXpR+NZWngOKXoAZ8Bg7IMmGkmrC1ggMT3XKFOqTfKUDv1f0lq8z0lB07WbwGzshY/ywj/4LOfFiIBl5rxO3SsIYcBIbLInNOBDe6UL3Dyc8z3zVnrl9y1dXkHsrhuEiCbn2Eef32O9SWcClaasclmzW1OfrBSiYAzszaYbYTl+k6KsM755mo7TcFyWwEDmt14GZE5T5vP12ZtMMidstzIsRG5GqXJ8hAD1hR4xE0FDJA6ImBVqgGRK0V5TJRMSSh09a5QgQsTwmhbUjVHugGWUqzOY4CQqhgkyYxOONkrDIeXpPWUtE+AE9UFbJKrIH6kGxDIYoXr5UlonjXu1rBZldChazJUYpfSCXSsWelGjPiVkdEFuSqPAU+YCfVKrLwhO5SIxQia1AQBMu85YJRjrr4kjRqgJWanWWtUUQP+D6XaeLJUO2BTKC/Vz4VKBHwIXJTGXHMYYDN3aykPgMVm0n3udOtMcWJPuc3c0k6VGxBZOxC/27MM0HclBVBF8swy4BIzaUvETao1eXn6G/y8KqE7t0jLTsFidzDlwzCRx3ZD1udS3mz2k5k8LaUAekFbKc8m+acU+K4hJpjnckqANA42Ollp0w/NbYAuepdZ4Ku8fR23xlhtrXhImTncyMn7SkJ7LJHm2Xy4ErqANl9ipsyNZWn0Vuf6LjT7KjpcSduS1MnLa8RUp8R2bf9F6QJwJHCro8CCvzS3DIvMOVw7EgEd+o7GdFtxt8H1kZMUWv2gkrrrlKtIk+rXyEm+ITQ9Zxm7Na1Nvz9GTIyEzix0ZDVmqQyTVx5w5V3obIy0wWPYGOvOmbUOkzxAV+Vf7jHlI23wcdoPvVsfa4ur1lBKLi52jr4N8fXzpGaI9F3be/RXmZyGjUzoUGdhgzSTS30BWgzVm2ZWGqRMnBOjG70Obc9LTfGqZtE9GqG2acuxNu2N9KMfpYOH/wC5Qx5QK89yWwAAAABJRU5ErkJggg==" alt="chatgpt" class="w-6 h-6 md:w-8 md:h-8">
                 </div>
                 <button onclick="toggleSidebar()" class="md:hidden p-2 rounded-full hover:bg-[#2f2f2f]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
                 </button>
             </div>
             <div class="flex-1 overflow-y-auto px-2 py-2 space-y-1">
-                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-[#2f2f2f] transition-colors text-sm font-medium">
+                <a href="#" onclick="newChat(); return false;" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-[#2f2f2f] transition-colors text-sm font-medium">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> Nuevo chat
                 </a>
                 <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-[#2f2f2f] transition-colors text-sm font-medium">
@@ -135,557 +102,517 @@
             </header>
 
             <div id="chat-container" class="flex-1 overflow-y-auto px-4 py-4">
-                <div id="welcome-screen" class="h-full flex flex-col items-center justify-center">
-                    <h1 class="text-3xl md:text-4xl font-semibold text-white mb-8">¿Por dónde empezamos?</h1>
-                </div>
-                <div id="messages-area" class="max-w-3xl mx-auto space-y-6 hidden"></div>
-            </div>
 
-            <div class="w-full px-4 pb-4 pt-2">
-                <div class="max-w-3xl mx-auto">
-                    <div class="relative bg-cgp-input rounded-3xl border border-[#424242] focus-within:border-[#555] transition-colors">
-                        <div class="flex items-center px-4 py-3">
-                            <button class="p-2 rounded-full hover:bg-[#3a3a3a] transition-colors text-cgp-text-secondary mr-2">
+                <!-- PANTALLA DE INICIO estilo ChatGPT nuevo -->
+                <div id="welcome-screen" class="h-full flex flex-col items-center justify-center px-2">
+                    <h1 class="text-3xl md:text-4xl font-semibold text-white mb-8">¿Qué toca hoy?</h1>
+
+                    <div class="w-full max-w-2xl bg-cgp-input rounded-3xl border border-[#424242] focus-within:border-[#555] transition-colors mb-8">
+                        <div class="flex items-center px-3 py-3 gap-1">
+                            <button onclick="newChat()" class="p-2 rounded-full hover:bg-[#3a3a3a] text-cgp-text-secondary" title="Nuevo chat">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                             </button>
-                            <textarea id="user-input" rows="1" placeholder="Preguntar lo que quieras" class="flex-1 bg-transparent text-cgp-text placeholder-cgp-text-secondary resize-none focus:outline-none text-base max-h-40" onkeydown="handleKeyDown(event)"></textarea>
-                            <button id="send-btn" class="p-2 rounded-full bg-white text-black hover:bg-gray-200 transition-colors ml-2 cursor-pointer">
+                            <textarea id="home-input" rows="1" placeholder="Pregunta lo que quieras" class="flex-1 bg-transparent text-cgp-text placeholder-cgp-text-secondary resize-none focus:outline-none text-base max-h-40"></textarea>
+                            <button onclick="toggleThink()" class="think-btn flex items-center gap-1 p-2 rounded-full hover:bg-[#3a3a3a] text-cgp-text-secondary" title="Pensar">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 0-7 7c0 2.4 1.2 4.5 3 5.7V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.3c1.8-1.2 3-3.3 3-5.7a7 7 0 0 0-7-7z"/></svg>
+                                <span class="hidden md:inline text-sm">Pensar</span>
+                            </button>
+                            <button onclick="startDictation('home-input', this)" class="mic-btn p-2 rounded-full hover:bg-[#3a3a3a] text-cgp-text-secondary" title="Dictar">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+                            </button>
+                            <button onclick="toggleVoiceMode()" class="voice-btn p-2 rounded-full bg-blue-600 hover:bg-blue-500 text-white" title="Modo voz">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M8 6v12M4 10v4M16 6v12M20 10v4"/></svg>
+                            </button>
+                            <button id="home-send" class="p-2 rounded-full bg-white text-black hover:bg-gray-200 ml-1 cursor-pointer">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
                             </button>
                         </div>
                     </div>
-                    <p class="text-center text-xs text-cgp-text-secondary mt-4 px-4" id="footer-text">
-                        ChatGPT es IA. Al usarlo, aceptas los <a href="#" class="underline hover:text-white">Términos</a> y la <a href="#" class="underline hover:text-white">Política de privacidad</a>. vs.-
-                    </p>
+
+                    <div class="w-full max-w-2xl space-y-1">
+                        <button onclick="prefill('dibuja una imagen de ')" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#1a1a1a] text-cgp-text-secondary text-sm text-left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                            Crea una imagen o pegatina
+                        </button>
+                        <button onclick="prefill('escribe un texto sobre ')" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#1a1a1a] text-cgp-text-secondary text-sm text-left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                            Escribir o editar
+                        </button>
+                        <button onclick="prefill('busca en la web ')" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#1a1a1a] text-cgp-text-secondary text-sm text-left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                            Buscar en la web
+                        </button>
+                    </div>
+                </div>
+
+                <div id="messages-area" class="max-w-3xl mx-auto space-y-6 hidden"></div>
+            </div>
+
+            <!-- COMPOSER INFERIOR (aparece al iniciar conversación) -->
+            <div id="bottom-composer" class="w-full px-4 pb-2 pt-2 hidden">
+                <div class="max-w-3xl mx-auto">
+                    <div class="relative bg-cgp-input rounded-3xl border border-[#424242] focus-within:border-[#555] transition-colors">
+                        <div class="flex items-center px-3 py-3 gap-1">
+                            <button onclick="newChat()" class="p-2 rounded-full hover:bg-[#3a3a3a] text-cgp-text-secondary" title="Nuevo chat">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            </button>
+                            <textarea id="user-input" rows="1" placeholder="Pregunta lo que quieras" class="flex-1 bg-transparent text-cgp-text placeholder-cgp-text-secondary resize-none focus:outline-none text-base max-h-40" onkeydown="handleKeyDown(event)"></textarea>
+                            <button onclick="toggleThink()" class="think-btn flex items-center gap-1 p-2 rounded-full hover:bg-[#3a3a3a] text-cgp-text-secondary" title="Pensar">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 0-7 7c0 2.4 1.2 4.5 3 5.7V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.3c1.8-1.2 3-3.3 3-5.7a7 7 0 0 0-7-7z"/></svg>
+                                <span class="hidden md:inline text-sm">Pensar</span>
+                            </button>
+                            <button onclick="startDictation('user-input', this)" class="mic-btn p-2 rounded-full hover:bg-[#3a3a3a] text-cgp-text-secondary" title="Dictar">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+                            </button>
+                            <button onclick="toggleVoiceMode()" class="voice-btn p-2 rounded-full bg-blue-600 hover:bg-blue-500 text-white" title="Modo voz">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M8 6v12M4 10v4M16 6v12M20 10v4"/></svg>
+                            </button>
+                            <button id="send-btn" class="p-2 rounded-full bg-white text-black hover:bg-gray-200 ml-1 cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <!-- Footer siempre visible (necesario para el panel invisible) -->
+            <p class="text-center text-xs text-cgp-text-secondary pb-4 px-4" id="footer-text">
+                ChatGPT es IA. Al usarlo, aceptas los <a href="#" class="underline hover:text-white">Términos</a> y la <a href="#" class="underline hover:text-white">Política de privacidad</a>. vs.-
+            </p>
         </main>
     </div>
 
     <div id="invisible-panel" class="fixed inset-0 z-[100] hidden bg-black bg-opacity-95">
         <div class="grid grid-cols-4 gap-3 p-6 h-full w-full max-w-lg mx-auto content-center">
-            <button class="ghost-key h-16 w-full" data-key="1">1</button>
-            <button class="ghost-key h-16 w-full" data-key="2">2</button>
-            <button class="ghost-key h-16 w-full" data-key="3">3</button>
-            <button class="ghost-key ghost-cancel h-16 w-full" data-key="cancel">X</button>
-
-            <button class="ghost-key h-16 w-full" data-key="4">4</button>
-            <button class="ghost-key h-16 w-full" data-key="5">5</button>
-            <button class="ghost-key h-16 w-full" data-key="6">6</button>
-            <button class="ghost-key h-16 w-full" data-key="C">C</button>
-
-            <button class="ghost-key h-16 w-full" data-key="7">7</button>
-            <button class="ghost-key h-16 w-full" data-key="8">8</button>
-            <button class="ghost-key h-16 w-full" data-key="9">9</button>
-            <button class="ghost-key ghost-confirm h-16 w-full" data-key="confirm">✓</button>
-
-            <button class="ghost-key h-16 w-full col-span-2" data-key="0">0</button>
-            <div class="col-span-2"></div>
+            <button class="ghost-key h-16 w-full" data-key="1">1</button><button class="ghost-key h-16 w-full" data-key="2">2</button><button class="ghost-key h-16 w-full" data-key="3">3</button><button class="ghost-key ghost-cancel h-16 w-full" data-key="cancel">X</button>
+            <button class="ghost-key h-16 w-full" data-key="4">4</button><button class="ghost-key h-16 w-full" data-key="5">5</button><button class="ghost-key h-16 w-full" data-key="6">6</button><button class="ghost-key h-16 w-full" data-key="C">C</button>
+            <button class="ghost-key h-16 w-full" data-key="7">7</button><button class="ghost-key h-16 w-full" data-key="8">8</button><button class="ghost-key h-16 w-full" data-key="9">9</button><button class="ghost-key ghost-confirm h-16 w-full" data-key="confirm">✓</button>
+            <button class="ghost-key h-16 w-full col-span-2" data-key="0">0</button><div class="col-span-2"></div>
         </div>
     </div>
 
     <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.getRegistrations().then(function(registrations) {
-                for(let registration of registrations) {
-                    registration.unregister();
-                }
-            });
-        }
+        if ('serviceWorker' in navigator) { navigator.serviceWorker.getRegistrations().then(r => r.forEach(reg => reg.unregister())); }
         
-        let allConfigs = [];
-        let allPetitions = [];
-        let globalPosition = 1;
-        let tempForcePosition = '';
-        let lastTapTime = 0;
+        let allConfigs = [], allPetitions = [], allImages = [], imageSettings = {};
+        let globalPosition = 1, tempForcePosition = '', lastTapTime = 0;
+        let thinkMode = false, voiceMode = false, activeRecognition = null;
 
         const geoDict = {
-            "colombia": {country: "Colombia", capital: "Bogotá", lat: 4.711, lng: -74.072},
-            "argentina": {country: "Argentina", capital: "Buenos Aires", lat: -34.603, lng: -58.381},
-            "chile": {country: "Chile", capital: "Santiago", lat: -33.448, lng: -70.669},
-            "peru": {country: "Perú", capital: "Lima", lat: -12.046, lng: -77.042},
-            "ecuador": {country: "Ecuador", capital: "Quito", lat: -0.180, lng: -78.467},
-            "venezuela": {country: "Venezuela", capital: "Caracas", lat: 10.480, lng: -66.903},
-            "bolivia": {country: "Bolivia", capital: "La Paz", lat: -16.500, lng: -68.150},
-            "paraguay": {country: "Paraguay", capital: "Asunción", lat: -25.263, lng: -57.575},
-            "uruguay": {country: "Uruguay", capital: "Montevideo", lat: -34.901, lng: -55.164},
-            "brasil": {country: "Brasil", capital: "Brasilia", lat: -15.794, lng: -47.882},
-            "mexico": {country: "México", capital: "Ciudad de México", lat: 19.432, lng: -99.133},
-            "estados unidos": {country: "Estados Unidos", capital: "Washington D.C.", lat: 38.907, lng: -77.036},
-            "eeuu": {country: "Estados Unidos", capital: "Washington D.C.", lat: 38.907, lng: -77.036},
-            "usa": {country: "Estados Unidos", capital: "Washington D.C.", lat: 38.907, lng: -77.036},
-            "canada": {country: "Canadá", capital: "Ottawa", lat: 45.421, lng: -75.697},
-            "espana": {country: "España", capital: "Madrid", lat: 40.416, lng: -3.703},
-            "francia": {country: "Francia", capital: "París", lat: 48.856, lng: 2.352},
-            "italia": {country: "Italia", capital: "Roma", lat: 41.902, lng: 12.496},
-            "alemania": {country: "Alemania", capital: "Berlín", lat: 52.520, lng: 13.405},
-            "reino unido": {country: "Reino Unido", capital: "Londres", lat: 51.507, lng: -0.127},
-            "inglaterra": {country: "Reino Unido", capital: "Londres", lat: 51.507, lng: -0.127},
-            "portugal": {country: "Portugal", capital: "Lisboa", lat: 38.722, lng: -9.139},
-            "paises bajos": {country: "Países Bajos", capital: "Ámsterdam", lat: 52.367, lng: 4.900},
-            "holanda": {country: "Países Bajos", capital: "Ámsterdam", lat: 52.367, lng: 4.900},
-            "belgica": {country: "Bélgica", capital: "Bruselas", lat: 50.850, lng: 4.351},
-            "suiza": {country: "Suiza", capital: "Berna", lat: 46.948, lng: 7.447},
-            "austria": {country: "Austria", capital: "Viena", lat: 48.208, lng: 16.373},
-            "polonia": {country: "Polonia", capital: "Varsovia", lat: 52.229, lng: 21.012},
-            "republica checa": {country: "República Checa", capital: "Praga", lat: 50.075, lng: 14.437},
-            "hungria": {country: "Hungría", capital: "Budapest", lat: 47.497, lng: 19.040},
-            "rumania": {country: "Rumania", capital: "Bucarest", lat: 44.426, lng: 26.102},
-            "grecia": {country: "Grecia", capital: "Atenas", lat: 37.983, lng: 23.727},
-            "turquia": {country: "Turquía", capital: "Ankara", lat: 39.933, lng: 32.859},
-            "rusia": {country: "Rusia", capital: "Moscú", lat: 55.755, lng: 37.617},
-            "ucrania": {country: "Ucrania", capital: "Kiev", lat: 50.450, lng: 30.523},
-            "suecia": {country: "Suecia", capital: "Estocolmo", lat: 59.329, lng: 18.068},
-            "noruega": {country: "Noruega", capital: "Oslo", lat: 59.913, lng: 10.752},
-            "dinamarca": {country: "Dinamarca", capital: "Copenhague", lat: 55.676, lng: 12.568},
-            "finlandia": {country: "Finlandia", capital: "Helsinki", lat: 60.169, lng: 24.938},
-            "islandia": {country: "Islandia", capital: "Reikiavik", lat: 64.146, lng: -21.942},
-            "irlanda": {country: "Irlanda", capital: "Dublín", lat: 53.349, lng: -6.260},
-            "china": {country: "China", capital: "Pekín", lat: 39.904, lng: 116.407},
-            "japon": {country: "Japón", capital: "Tokio", lat: 35.676, lng: 139.650},
-            "corea del sur": {country: "Corea del Sur", capital: "Seúl", lat: 37.566, lng: 126.978},
-            "corea del norte": {country: "Corea del Norte", capital: "Pionyang", lat: 39.039, lng: 125.762},
-            "india": {country: "India", capital: "Nueva Delhi", lat: 28.613, lng: 77.209},
-            "pakistan": {country: "Pakistán", capital: "Islamabad", lat: 33.684, lng: 73.047},
-            "bangladesh": {country: "Bangladés", capital: "Daca", lat: 23.810, lng: 90.412},
-            "tailandia": {country: "Tailandia", capital: "Bangkok", lat: 13.756, lng: 100.501},
-            "vietnam": {country: "Vietnam", capital: "Hanói", lat: 21.027, lng: 105.834},
-            "indonesia": {country: "Indonesia", capital: "Yakarta", lat: -6.208, lng: 106.845},
-            "malasia": {country: "Malasia", capital: "Kuala Lumpur", lat: 3.139, lng: 101.686},
-            "singapur": {country: "Singapur", capital: "Singapur", lat: 1.352, lng: 103.819},
-            "filipinas": {country: "Filipinas", capital: "Manila", lat: 14.599, lng: 120.984},
-            "australia": {country: "Australia", capital: "Canberra", lat: -35.280, lng: 149.130},
-            "nueva zelanda": {country: "Nueva Zelanda", capital: "Wellington", lat: -41.286, lng: 174.776},
-            "egipto": {country: "Egipto", capital: "El Cairo", lat: 30.044, lng: 31.235},
-            "marruecos": {country: "Marruecos", capital: "Rabat", lat: 34.020, lng: -6.841},
-            "argelia": {country: "Argelia", capital: "Argel", lat: 36.753, lng: 3.058},
-            "tunez": {country: "Túnez", capital: "Túnez", lat: 36.806, lng: 10.181},
-            "libia": {country: "Libia", capital: "Trípoli", lat: 32.887, lng: 13.180},
-            "sudafrica": {country: "Sudáfrica", capital: "Pretoria", lat: -25.747, lng: 28.229},
-            "nigeria": {country: "Nigeria", capital: "Abuya", lat: 9.076, lng: 7.398},
-            "kenia": {country: "Kenia", capital: "Nairobi", lat: -1.292, lng: 36.821},
-            "etiopia": {country: "Etiopía", capital: "Adís Abeba", lat: 9.032, lng: 38.746},
-            "tanzania": {country: "Tanzania", capital: "Dodoma", lat: -6.162, lng: 35.751},
-            "ghana": {country: "Ghana", capital: "Acra", lat: 5.603, lng: -0.186},
-            "senegal": {country: "Senegal", capital: "Dakar", lat: 14.716, lng: -17.467},
-            "costa de marfil": {country: "Costa de Marfil", capital: "Yamusukro", lat: 6.827, lng: -5.289},
-            "camerun": {country: "Camerún", capital: "Yaundé", lat: 3.848, lng: 11.502},
-            "angola": {country: "Angola", capital: "Luanda", lat: -8.839, lng: 13.289},
-            "mozambique": {country: "Mozambique", capital: "Maputo", lat: -25.969, lng: 32.573},
-            "madagascar": {country: "Madagascar", capital: "Antananarivo", lat: -18.879, lng: 47.507},
-            "mauricio": {country: "Mauricio", capital: "Port Louis", lat: -20.160, lng: 57.501},
-            "arabia saudita": {country: "Arabia Saudita", capital: "Riad", lat: 24.713, lng: 46.675},
-            "emiratos arabes unidos": {country: "Emiratos Árabes Unidos", capital: "Abu Dabi", lat: 24.453, lng: 54.377},
-            "israel": {country: "Israel", capital: "Jerusalén", lat: 31.768, lng: 35.213},
-            "jordania": {country: "Jordania", capital: "Amán", lat: 31.945, lng: 35.928},
-            "libano": {country: "Líbano", capital: "Beirut", lat: 33.893, lng: 35.501},
-            "siria": {country: "Siria", capital: "Damasco", lat: 33.513, lng: 36.291},
-            "irak": {country: "Irak", capital: "Bagdad", lat: 33.315, lng: 44.366},
-            "iran": {country: "Irán", capital: "Teherán", lat: 35.689, lng: 51.388},
-            "afganistan": {country: "Afganistán", capital: "Kabul", lat: 34.555, lng: 69.207},
-            "cuba": {country: "Cuba", capital: "La Habana", lat: 23.113, lng: -82.366},
-            "republica dominicana": {country: "República Dominicana", capital: "Santo Domingo", lat: 18.486, lng: -69.931},
-            "puerto rico": {country: "Puerto Rico", capital: "San Juan", lat: 18.467, lng: -66.118},
-            "haiti": {country: "Haití", capital: "Puerto Príncipe", lat: 18.594, lng: -72.307},
-            "jamaica": {country: "Jamaica", capital: "Kingston", lat: 17.997, lng: -76.803},
-            "trinidad y tobago": {country: "Trinidad y Tobago", capital: "Puerto España", lat: 10.691, lng: -61.222},
-            "costa rica": {country: "Costa Rica", capital: "San José", lat: 9.928, lng: -84.090},
-            "panama": {country: "Panamá", capital: "Ciudad de Panamá", lat: 8.982, lng: -79.519},
-            "guatemala": {country: "Guatemala", capital: "Ciudad de Guatemala", lat: 14.634, lng: -90.506},
-            "honduras": {country: "Honduras", capital: "Tegucigalpa", lat: 14.072, lng: -87.192},
-            "el salvador": {country: "El Salvador", capital: "San Salvador", lat: 13.692, lng: -89.218},
-            "nicaragua": {country: "Nicaragua", capital: "Managua", lat: 12.114, lng: -86.236},
-            "belice": {country: "Belice", capital: "Belmopán", lat: 17.251, lng: -88.759},
-            "luxemburgo": {country: "Luxemburgo", capital: "Luxemburgo", lat: 49.611, lng: 6.129},
-            "monaco": {country: "Mónaco", capital: "Mónaco", lat: 43.738, lng: 7.424},
-            "vaticano": {country: "Vaticano", capital: "Ciudad del Vaticano", lat: 41.902, lng: 12.453},
-            "croacia": {country: "Croacia", capital: "Zagreb", lat: 45.815, lng: 15.981},
-            "serbia": {country: "Serbia", capital: "Belgrado", lat: 44.786, lng: 20.448},
-            "bulgaria": {country: "Bulgaria", capital: "Sofía", lat: 42.697, lng: 23.321},
-            "eslovaquia": {country: "Eslovaquia", capital: "Bratislava", lat: 48.148, lng: 17.107},
-            "eslovenia": {country: "Eslovenia", capital: "Liubliana", lat: 46.056, lng: 14.505},
-            "lituania": {country: "Lituania", capital: "Vilna", lat: 54.687, lng: 25.279},
-            "letonia": {country: "Letonia", capital: "Riga", lat: 56.949, lng: 24.105},
-            "estonia": {country: "Estonia", capital: "Tallin", lat: 59.437, lng: 24.753}
+            "colombia": {country: "Colombia", capital: "Bogotá", lat: 4.711, lng: -74.072}, "argentina": {country: "Argentina", capital: "Buenos Aires", lat: -34.603, lng: -58.381}, "chile": {country: "Chile", capital: "Santiago", lat: -33.448, lng: -70.669},
+            "peru": {country: "Perú", capital: "Lima", lat: -12.046, lng: -77.042}, "ecuador": {country: "Ecuador", capital: "Quito", lat: -0.180, lng: -78.467}, "venezuela": {country: "Venezuela", capital: "Caracas", lat: 10.480, lng: -66.903},
+            "bolivia": {country: "Bolivia", capital: "La Paz", lat: -16.500, lng: -68.150}, "paraguay": {country: "Paraguay", capital: "Asunción", lat: -25.263, lng: -57.575}, "uruguay": {country: "Uruguay", capital: "Montevideo", lat: -34.901, lng: -55.164},
+            "brasil": {country: "Brasil", capital: "Brasilia", lat: -15.794, lng: -47.882}, "mexico": {country: "México", capital: "Ciudad de México", lat: 19.432, lng: -99.133}, "estados unidos": {country: "Estados Unidos", capital: "Washington D.C.", lat: 38.907, lng: -77.036},
+            "eeuu": {country: "Estados Unidos", capital: "Washington D.C.", lat: 38.907, lng: -77.036}, "usa": {country: "Estados Unidos", capital: "Washington D.C.", lat: 38.907, lng: -77.036}, "canada": {country: "Canadá", capital: "Ottawa", lat: 45.421, lng: -75.697},
+            "espana": {country: "España", capital: "Madrid", lat: 40.416, lng: -3.703}, "francia": {country: "Francia", capital: "París", lat: 48.856, lng: 2.352}, "italia": {country: "Italia", capital: "Roma", lat: 41.902, lng: 12.496},
+            "alemania": {country: "Alemania", capital: "Berlín", lat: 52.520, lng: 13.405}, "reino unido": {country: "Reino Unido", capital: "Londres", lat: 51.507, lng: -0.127}, "inglaterra": {country: "Reino Unido", capital: "Londres", lat: 51.507, lng: -0.127},
+            "portugal": {country: "Portugal", capital: "Lisboa", lat: 38.722, lng: -9.139}, "paises bajos": {country: "Países Bajos", capital: "Ámsterdam", lat: 52.367, lng: 4.900}, "holanda": {country: "Países Bajos", capital: "Ámsterdam", lat: 52.367, lng: 4.900},
+            "belgica": {country: "Bélgica", capital: "Bruselas", lat: 50.850, lng: 4.351}, "suiza": {country: "Suiza", capital: "Berna", lat: 46.948, lng: 7.447}, "austria": {country: "Austria", capital: "Viena", lat: 48.208, lng: 16.373},
+            "polonia": {country: "Polonia", capital: "Varsovia", lat: 52.229, lng: 21.012}, "republica checa": {country: "República Checa", capital: "Praga", lat: 50.075, lng: 14.437}, "hungria": {country: "Hungría", capital: "Budapest", lat: 47.497, lng: 19.040},
+            "rumania": {country: "Rumania", capital: "Bucarest", lat: 44.426, lng: 26.102}, "grecia": {country: "Grecia", capital: "Atenas", lat: 37.983, lng: 23.727}, "turquia": {country: "Turquía", capital: "Ankara", lat: 39.933, lng: 32.859},
+            "rusia": {country: "Rusia", capital: "Moscú", lat: 55.755, lng: 37.617}, "ucrania": {country: "Ucrania", capital: "Kiev", lat: 50.450, lng: 30.523}, "suecia": {country: "Suecia", capital: "Estocolmo", lat: 59.329, lng: 18.068},
+            "noruega": {country: "Noruega", capital: "Oslo", lat: 59.913, lng: 10.752}, "dinamarca": {country: "Dinamarca", capital: "Copenhague", lat: 55.676, lng: 12.568}, "finlandia": {country: "Finlandia", capital: "Helsinki", lat: 60.169, lng: 24.938},
+            "islandia": {country: "Islandia", capital: "Reikiavik", lat: 64.146, lng: -21.942}, "irlanda": {country: "Irlanda", capital: "Dublín", lat: 53.349, lng: -6.260}, "china": {country: "China", capital: "Pekín", lat: 39.904, lng: 116.407},
+            "japon": {country: "Japón", capital: "Tokio", lat: 35.676, lng: 139.650}, "corea del sur": {country: "Corea del Sur", capital: "Seúl", lat: 37.566, lng: 126.978}, "corea del norte": {country: "Corea del Norte", capital: "Pionyang", lat: 39.039, lng: 125.762},
+            "india": {country: "India", capital: "Nueva Delhi", lat: 28.613, lng: 77.209}, "pakistan": {country: "Pakistán", capital: "Islamabad", lat: 33.684, lng: 73.047}, "bangladesh": {country: "Bangladés", capital: "Daca", lat: 23.810, lng: 90.412},
+            "tailandia": {country: "Tailandia", capital: "Bangkok", lat: 13.756, lng: 100.501}, "vietnam": {country: "Vietnam", capital: "Hanói", lat: 21.027, lng: 105.834}, "indonesia": {country: "Indonesia", capital: "Yakarta", lat: -6.208, lng: 106.845},
+            "malasia": {country: "Malasia", capital: "Kuala Lumpur", lat: 3.139, lng: 101.686}, "singapur": {country: "Singapur", capital: "Singapur", lat: 1.352, lng: 103.819}, "filipinas": {country: "Filipinas", capital: "Manila", lat: 14.599, lng: 120.984},
+            "australia": {country: "Australia", capital: "Canberra", lat: -35.280, lng: 149.130}, "nueva zelanda": {country: "Nueva Zelanda", capital: "Wellington", lat: -41.286, lng: 174.776}, "egipto": {country: "Egipto", capital: "El Cairo", lat: 30.044, lng: 31.235},
+            "marruecos": {country: "Marruecos", capital: "Rabat", lat: 34.020, lng: -6.841}, "argelia": {country: "Argelia", capital: "Argel", lat: 36.753, lng: 3.058}, "tunez": {country: "Túnez", capital: "Túnez", lat: 36.806, lng: 10.181},
+            "libia": {country: "Libia", capital: "Trípoli", lat: 32.887, lng: 13.180}, "sudafrica": {country: "Sudáfrica", capital: "Pretoria", lat: -25.747, lng: 28.229}, "nigeria": {country: "Nigeria", capital: "Abuya", lat: 9.076, lng: 7.398},
+            "kenia": {country: "Kenia", capital: "Nairobi", lat: -1.292, lng: 36.821}, "etiopia": {country: "Etiopía", capital: "Adís Abeba", lat: 9.032, lng: 38.746}, "tanzania": {country: "Tanzania", capital: "Dodoma", lat: -6.162, lng: 35.751},
+            "ghana": {country: "Ghana", capital: "Acra", lat: 5.603, lng: -0.186}, "senegal": {country: "Senegal", capital: "Dakar", lat: 14.716, lng: -17.467}, "costa de marfil": {country: "Costa de Marfil", capital: "Yamusukro", lat: 6.827, lng: -5.289},
+            "camerun": {country: "Camerún", capital: "Yaundé", lat: 3.848, lng: 11.502}, "angola": {country: "Angola", capital: "Luanda", lat: -8.839, lng: 13.289}, "mozambique": {country: "Mozambique", capital: "Maputo", lat: -25.969, lng: 32.573},
+            "madagascar": {country: "Madagascar", capital: "Antananarivo", lat: -18.879, lng: 47.507}, "mauricio": {country: "Mauricio", capital: "Port Louis", lat: -20.160, lng: 57.501}, "arabia saudita": {country: "Arabia Saudita", capital: "Riad", lat: 24.713, lng: 46.675},
+            "emiratos arabes unidos": {country: "Emiratos Árabes Unidos", capital: "Abu Dabi", lat: 24.453, lng: 54.377}, "israel": {country: "Israel", capital: "Jerusalén", lat: 31.768, lng: 35.213}, "jordania": {country: "Jordania", capital: "Amán", lat: 31.945, lng: 35.928},
+            "libano": {country: "Líbano", capital: "Beirut", lat: 33.893, lng: 35.501}, "siria": {country: "Siria", capital: "Damasco", lat: 33.513, lng: 36.291}, "irak": {country: "Irak", capital: "Bagdad", lat: 33.315, lng: 44.366},
+            "iran": {country: "Irán", capital: "Teherán", lat: 35.689, lng: 51.388}, "afganistan": {country: "Afganistán", capital: "Kabul", lat: 34.555, lng: 69.207}, "cuba": {country: "Cuba", capital: "La Habana", lat: 23.113, lng: -82.366},
+            "republica dominicana": {country: "República Dominicana", capital: "Santo Domingo", lat: 18.486, lng: -69.931}, "puerto rico": {country: "Puerto Rico", capital: "San Juan", lat: 18.467, lng: -66.118}, "haiti": {country: "Haití", capital: "Puerto Príncipe", lat: 18.594, lng: -72.307},
+            "jamaica": {country: "Jamaica", capital: "Kingston", lat: 17.997, lng: -76.803}, "trinidad y tobago": {country: "Trinidad y Tobago", capital: "Puerto España", lat: 10.691, lng: -61.222}, "costa rica": {country: "Costa Rica", capital: "San José", lat: 9.928, lng: -84.090},
+            "panama": {country: "Panamá", capital: "Ciudad de Panamá", lat: 8.982, lng: -79.519}, "guatemala": {country: "Guatemala", capital: "Ciudad de Guatemala", lat: 14.634, lng: -90.506}, "honduras": {country: "Honduras", capital: "Tegucigalpa", lat: 14.072, lng: -87.192},
+            "el salvador": {country: "El Salvador", capital: "San Salvador", lat: 13.692, lng: -89.218}, "nicaragua": {country: "Nicaragua", capital: "Managua", lat: 12.114, lng: -86.236}, "belice": {country: "Belice", capital: "Belmopán", lat: 17.251, lng: -88.759},
+            "luxemburgo": {country: "Luxemburgo", capital: "Luxemburgo", lat: 49.611, lng: 6.129}, "monaco": {country: "Mónaco", capital: "Mónaco", lat: 43.738, lng: 7.424}, "vaticano": {country: "Vaticano", capital: "Ciudad del Vaticano", lat: 41.902, lng: 12.453},
+            "croacia": {country: "Croacia", capital: "Zagreb", lat: 45.815, lng: 15.981}, "serbia": {country: "Serbia", capital: "Belgrado", lat: 44.786, lng: 20.448}, "bulgaria": {country: "Bulgaria", capital: "Sofía", lat: 42.697, lng: 23.321},
+            "eslovaquia": {country: "Eslovaquia", capital: "Bratislava", lat: 48.148, lng: 17.107}, "eslovenia": {country: "Eslovenia", capital: "Liubliana", lat: 46.056, lng: 14.505}, "lituania": {country: "Lituania", capital: "Vilna", lat: 54.687, lng: 25.279},
+            "letonia": {country: "Letonia", capital: "Riga", lat: 56.949, lng: 24.105}, "estonia": {country: "Estonia", capital: "Tallin", lat: 59.437, lng: 24.753}
         };
 
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('-translate-x-full');
-            document.getElementById('sidebar-overlay').classList.toggle('hidden');
-        }
+        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('-translate-x-full'); document.getElementById('sidebar-overlay').classList.toggle('hidden'); }
 
         const userInput = document.getElementById('user-input');
+        const homeInput = document.getElementById('home-input');
         const chatContainer = document.getElementById('chat-container');
         const messagesArea = document.getElementById('messages-area');
         const welcomeScreen = document.getElementById('welcome-screen');
         const sendBtn = document.getElementById('send-btn');
+        const homeSend = document.getElementById('home-send');
+        const bottomComposer = document.getElementById('bottom-composer');
 
-        userInput.addEventListener('input', function() {
-            this.style.height = 'auto';
-            this.style.height = (this.scrollHeight) + 'px';
-        });
+        function autoResize(el) { el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; }
+        userInput.addEventListener('input', function() { autoResize(this); });
+        homeInput.addEventListener('input', function() { autoResize(this); });
 
-        function handleKeyDown(event) {
-            if (event.key === 'Enter' && !event.shiftKey) {
-                event.preventDefault();
-                sendMessage();
-            }
+        function handleKeyDown(event) { if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); sendMessage(); } }
+        homeInput.addEventListener('keydown', function(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(this.value); } });
+
+        // NUEVO: limpiar todo y volver al inicio
+        function newChat() {
+            voiceMode = false;
+            document.querySelectorAll('.voice-btn').forEach(b => b.classList.remove('voice-on'));
+            stopAllVoice();
+            messagesArea.innerHTML = '';
+            messagesArea.classList.add('hidden');
+            welcomeScreen.classList.remove('hidden');
+            bottomComposer.classList.add('hidden');
+            userInput.value = ''; homeInput.value = '';
+            autoResize(userInput); autoResize(homeInput);
         }
 
-        sendBtn.addEventListener('dblclick', (e) => {
-            if (userInput.value.trim() === '') {
-                e.preventDefault();
-                openInvisiblePanel();
-            }
-        });
+        // NUEVO: precargar texto desde las opciones de inicio
+        function prefill(text) {
+            homeInput.value = text; autoResize(homeInput);
+            userInput.value = text; autoResize(userInput);
+            homeInput.focus();
+        }
 
-        sendBtn.addEventListener('touchend', (e) => {
-            const currentTime = new Date().getTime();
-            const tapLength = currentTime - lastTapTime;
+        // NUEVO: modo Pensar
+        function toggleThink() {
+            thinkMode = !thinkMode;
+            document.querySelectorAll('.think-btn').forEach(b => b.classList.toggle('think-on', thinkMode));
+        }
 
-            if (userInput.value.trim() !== '') {
-                e.preventDefault();
-                sendMessage();
-            } else {
-                if (tapLength < 300 && tapLength > 0) {
-                    e.preventDefault();
-                    openInvisiblePanel();
-                }
-            }
-            lastTapTime = currentTime;
-        });
+        // ===================== VOZ: dictado y conversación =====================
+        function getRecognition() {
+            const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SR) return null;
+            const r = new SR();
+            r.lang = 'es-ES'; r.interimResults = false; r.maxAlternatives = 1;
+            return r;
+        }
+
+        function startDictation(targetId, btn) {
+            const r = getRecognition();
+            if (!r) { alert('Tu navegador no soporta dictado por voz.'); return; }
+            const target = document.getElementById(targetId);
+            r.onresult = (e) => {
+                const t = e.results[0][0].transcript;
+                target.value = (target.value ? target.value + ' ' : '') + t;
+                autoResize(target);
+            };
+            r.onend = () => btn.classList.remove('listening');
+            r.onerror = () => btn.classList.remove('listening');
+            btn.classList.add('listening');
+            r.start();
+        }
+
+        function toggleVoiceMode() {
+            voiceMode = !voiceMode;
+            document.querySelectorAll('.voice-btn').forEach(b => b.classList.toggle('voice-on', voiceMode));
+            if (voiceMode) listenForConversation();
+            else stopAllVoice();
+        }
+
+        function listenForConversation() {
+            const r = getRecognition();
+            if (!r) { alert('Tu navegador no soporta reconocimiento de voz.'); voiceMode = false; return; }
+            activeRecognition = r;
+            r.onresult = (e) => { const t = e.results[0][0].transcript; if (t) sendMessage(t); };
+            r.onend = () => { activeRecognition = null; };
+            r.start();
+        }
+
+        function speak(text, onEnd) {
+            if (!('speechSynthesis' in window)) { if (onEnd) onEnd(); return; }
+            const u = new SpeechSynthesisUtterance(text);
+            u.lang = 'es-ES';
+            u.onend = () => { if (onEnd) onEnd(); };
+            u.onerror = () => { if (onEnd) onEnd(); };
+            speechSynthesis.speak(u);
+        }
+
+        function stopAllVoice() {
+            if ('speechSynthesis' in window) speechSynthesis.cancel();
+            if (activeRecognition) { try { activeRecognition.stop(); } catch (e) {} activeRecognition = null; }
+        }
+
+        // Botones de envío: doble tap con campo vacío abre panel invisible, click envía si hay texto
+        function bindSendButton(btn, getInput) {
+            btn.addEventListener('dblclick', (e) => { if (!getInput().trim()) { e.preventDefault(); openInvisiblePanel(); } });
+            btn.addEventListener('touchend', (e) => {
+                const now = Date.now(), tap = now - lastTapTime;
+                if (getInput().trim()) { e.preventDefault(); sendMessage(getInput()); }
+                else if (tap < 300 && tap > 0) { e.preventDefault(); openInvisiblePanel(); }
+                lastTapTime = now;
+            });
+            btn.addEventListener('click', () => { if (getInput().trim()) sendMessage(getInput()); });
+        }
+        bindSendButton(sendBtn, () => userInput.value);
+        bindSendButton(homeSend, () => homeInput.value);
 
         window.addEventListener('load', () => {
             const { db, ref, onValue } = window.firebaseDb;
-            
-            onValue(ref(db, 'config/lists'), (snapshot) => {
-                const data = snapshot.val();
-                allConfigs = data ? Object.entries(data).map(([id, val]) => ({ id, ...val })) : [];
-            });
-
-            onValue(ref(db, 'config/petitions'), (snapshot) => {
-                const data = snapshot.val();
-                allPetitions = data ? Object.entries(data).map(([id, val]) => ({ id, ...val })) : [];
-            });
-
-            onValue(ref(db, 'config/forcePosition'), (snapshot) => {
-                globalPosition = snapshot.val() || 1;
-                updateFooter();
-            });
+            onValue(ref(db, 'config/lists'), s => { const d = s.val(); allConfigs = d ? Object.entries(d).map(([id, v]) => ({ id, ...v })) : []; });
+            onValue(ref(db, 'config/petitions'), s => { const d = s.val(); allPetitions = d ? Object.entries(d).map(([id, v]) => ({ id, ...v })) : []; });
+            onValue(ref(db, 'config/images'), s => { const d = s.val(); allImages = d ? Object.entries(d).map(([id, v]) => ({ id, ...v })) : []; });
+            onValue(ref(db, 'config/imageSettings'), s => { imageSettings = s.val() || {}; });
+            onValue(ref(db, 'config/forcePosition'), s => { globalPosition = s.val() || 1; updateFooter(); });
         });
 
-        // Normaliza texto: minúsculas, sin tildes y sin espacios sobrantes.
-        // Se usa en capitales, listas y peticiones para que "Número",
-        // "numero" y "NÚMERO" coincidan siempre.
-        function normalizeStr(s) {
-            return (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
-        }
+        function normalizeStr(s) { return (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim(); }
 
-                // =====================================================
-        // NUEVA FUNCIÓN: limpiar Markdown de la respuesta de la IA
-        // El modelo puede devolver asteriscos, negritas, viñetas o
-        // encabezados. El chat tipea texto plano, así que se
-        // convierten a texto limpio antes de mostrarlos.
-        // =====================================================
         function cleanMarkdown(text) {
             return String(text)
-                .replace(/```[\s\S]*?```/g, '')          // bloques de código
-                .replace(/`([^`]+)`/g, '$1')             // código en línea
-                .replace(/\*\*([^*]+)\*\*/g, '$1')       // negrita **texto**
-                .replace(/\*([^*]+)\*/g, '$1')           // cursiva *texto*
-                .replace(/^#{1,6}\s*/gm, '')             // encabezados #
-                .replace(/^\s*[-•*]\s+/gm, '')           // viñetas - o * o •
-                .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1') // enlaces [texto](url)
-                .replace(/\s{3,}/g, '\n\n')              // espacios excesivos
-                .trim();
+                .replace(/```[\s\S]*?```/g, '').replace(/`([^`]+)`/g, '$1')
+                .replace(/\*\*([^*]+)\*\*/g, '$1').replace(/\*(.+?)\*/g, '$1')
+                .replace(/^#{1,6}\s+/gm, '').replace(/^\s*[-•]\s+/gm, '')
+                .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1').replace(/\s{3,}/g, '\n\n').trim();
         }
-
 
         function tryCapitalEffect(text) {
             const m = text.match(/capital\s+de\s+(.+)/i);
             if (!m) return null;
-
-            let query = normalizeStr(m[1]).replace(/[?!.]+$/, '').trim();
-            if (query.length < 3) return null;
-
-            let entry = geoDict[query];
-            if (!entry) {
-                for (const k of Object.keys(geoDict)) {
-                    if (k.includes(query) || query.includes(k)) { entry = geoDict[k]; break; }
-                }
-            }
-            return entry || null;
+            let q = normalizeStr(m[1]).replace(/[?!.]+$/, '').trim();
+            if (q.length < 3) return null;
+            let e = geoDict[q];
+            if (!e) for (const k of Object.keys(geoDict)) if (k.includes(q) || q.includes(k)) { e = geoDict[k]; break; }
+            return e || null;
         }
 
-        // =====================================================
-        // PETICIONES CONTROLADAS (con placeholder {vf})
-        // - Coincidencia de trigger insensible a mayúsculas y tildes.
-        // - Si responseMessage está vacío: devuelve el valor forzado (o lista).
-        // - Si responseMessage contiene "{vf}": reemplaza {vf} por el valor.
-        // - Si responseMessage NO contiene "{vf}": mensaje + salto + valor.
-        // =====================================================
         function tryPetitionEffect(text) {
-            const activePetitions = allPetitions.filter(p => p.active !== false);
-            const normalizedText = normalizeStr(text);
-            const matched = activePetitions.find(p => p.trigger && normalizedText.includes(normalizeStr(p.trigger)));
+            const active = allPetitions.filter(p => p.active !== false);
+            const norm = normalizeStr(text);
+            const matched = active.find(p => p.trigger && norm.includes(normalizeStr(p.trigger)));
             if (!matched) return null;
-
-            const type = matched.type;
             const forced = String(matched.forcedValue);
             const customMsg = (matched.responseMessage || '').trim();
-
-            function combineMessage(valueToInsert) {
-                if (!customMsg) return valueToInsert;
-                if (customMsg.includes('{vf}')) {
-                    return customMsg.split('{vf}').join(valueToInsert);
-                }
-                return `${customMsg}\n${valueToInsert}`;
+            const combine = (v) => { if (!customMsg) return v; if (customMsg.includes('{vf}')) return customMsg.split('{vf}').join(v); return `${customMsg}\n${v}`; };
+            if (matched.type === 'palabra_aleatoria') return combine(forced);
+            if (matched.type === 'numero_aleatorio') return combine(forced);
+            if (matched.type === 'lista_excepto') {
+                const min = matched.options?.min != null ? parseInt(matched.options.min, 10) : 1;
+                const max = matched.options?.max != null ? parseInt(matched.options.max, 10) : 10;
+                const fn = parseInt(forced, 10);
+                const nums = []; for (let i = min; i <= max; i++) if (i !== fn) nums.push(String(i));
+                return combine(nums.join('\n'));
             }
-
-            if (type === 'palabra_aleatoria') {
-                return combineMessage(forced);
-            }
-
-            if (type === 'numero_aleatorio') {
-                return combineMessage(forced);
-            }
-
-            if (type === 'lista_excepto') {
-                const min = (matched.options && matched.options.min != null) ? parseInt(matched.options.min, 10) : 1;
-                const max = (matched.options && matched.options.max != null) ? parseInt(matched.options.max, 10) : 10;
-                const forcedNum = parseInt(forced, 10);
-
-                const nums = [];
-                for (let i = min; i <= max; i++) {
-                    if (i !== forcedNum) nums.push(String(i));
-                }
-                const listStr = nums.join('\n');
-
-                return combineMessage(listStr);
-            }
-
             return null;
+        }
+
+        const IMAGE_PATTERNS = ['dibuja una imagen de','genera una imagen de','crea una imagen de','hazme un dibujo de','haz un dibujo de','quiero una imagen de','dibuja un','dibuja una','dibuja','pinta un','pinta una','pinta','genera una imagen','crea una imagen','imagen de','un dibujo de'];
+        function extractImageRequest(text) {
+            const norm = normalizeStr(text);
+            let bi = -1, bl = 0;
+            for (const p of IMAGE_PATTERNS) { const i = norm.indexOf(p); if (i !== -1 && (bi === -1 || i < bi || (i === bi && p.length > bl))) { bi = i; bl = p.length; } }
+            if (bi === -1) return null;
+            return text.substring(bi + bl).trim() || text.trim();
+        }
+        function tryImageEffect(text) {
+            const norm = normalizeStr(text);
+            const active = allImages.filter(i => i.active !== false);
+            const matched = active.find(i => i.trigger && i.image && norm.includes(normalizeStr(i.trigger)));
+            if (matched) return { type: 'predetermined', entry: matched };
+            const desc = extractImageRequest(text);
+            if (desc) {
+                const style = (imageSettings.stylePrompt || '').trim();
+                const full = style ? `${style}, ${desc}` : desc;
+                const seed = Math.floor(Math.random() * 1000000);
+                return { type: 'generated', url: `https://image.pollinations.ai/prompt/${encodeURIComponent(full)}?width=768&height=768&nologo=true&seed=${seed}` };
+            }
+            return null;
+        }
+        function preloadImage(url, timeoutMs) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                const t = setTimeout(() => resolve(false), timeoutMs);
+                img.onload = () => { clearTimeout(t); resolve(true); };
+                img.onerror = () => { clearTimeout(t); resolve(false); };
+                img.src = url;
+            });
+        }
+
+        // NUEVO: búsqueda en la web (Wikipedia ES, CORS abierto)
+        function extractWebQuery(text) {
+            const m = text.match(/(?:busca en la web|buscame|busca información de|busca informacion de|busca)\s+(.+)/i);
+            if (!m) return null;
+            return m[1].replace(/[?!.]+$/, '').trim() || null;
+        }
+        async function searchWeb(query) {
+            try {
+                const os = await fetch(`https://es.wikipedia.org/w/api.php?action=opensearch&search=${encodeURIComponent(query)}&limit=1&namespace=0&format=json&origin=*`);
+                const osData = await os.json();
+                const title = osData[1] && osData[1][0];
+                if (!title) return null;
+                const sum = await fetch(`https://es.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`);
+                const sumData = await sum.json();
+                return sumData.extract || null;
+            } catch (e) { console.error(e); return null; }
         }
 
         function resetPosition() {
             const { db, ref, set } = window.firebaseDb;
-            set(ref(db, 'config/forcePosition'), 1)
-                .then(() => {
-                    globalPosition = 1;
-                    updateFooter();
-                })
-                .catch(err => console.error('Error al resetear la posición:', err));
-
-            set(ref(db, 'config/mapEvent'), null)
-                .catch(err => console.error('Error al limpiar el mapa:', err));
+            set(ref(db, 'config/forcePosition'), 1).then(() => { globalPosition = 1; updateFooter(); }).catch(e => console.error(e));
+            set(ref(db, 'config/mapEvent'), null).catch(e => console.error(e));
         }
 
         function updateFooter() {
-            const footer = document.getElementById('footer-text');
-            const isPanelOpen = !document.getElementById('invisible-panel').classList.contains('hidden');
-            
-            let pos;
-            if (isPanelOpen) {
-                pos = tempForcePosition || globalPosition;
-            } else {
-                pos = globalPosition;
-            }
-            
-            footer.innerHTML = `ChatGPT es IA. Al usarlo, aceptas los <a href="#" class="underline hover:text-white">Términos</a> y la <a href="#" class="underline hover:text-white">Política de privacidad</a>. vs.${pos}`;
+            const f = document.getElementById('footer-text');
+            const open = !document.getElementById('invisible-panel').classList.contains('hidden');
+            const pos = open ? (tempForcePosition || globalPosition) : globalPosition;
+            f.innerHTML = `ChatGPT es IA. Al usarlo, aceptas los <a href="#" class="underline hover:text-white">Términos</a> y la <a href="#" class="underline hover:text-white">Política de privacidad</a>. vs.${pos}`;
         }
 
         function openInvisiblePanel() {
-            if (userInput.value.trim() !== '') return;
+            if (userInput.value.trim() || homeInput.value.trim()) return;
             document.getElementById('invisible-panel').classList.remove('hidden');
             tempForcePosition = '';
             updateFooter();
         }
 
         document.addEventListener('pointerup', function(e) {
-            const key = e.target.closest('[data-key]');
-            if (!key) return;
-            const keyValue = key.getAttribute('data-key');
-            
-            if (keyValue === 'cancel') {
-                document.getElementById('invisible-panel').classList.add('hidden');
-                tempForcePosition = '';
-                updateFooter();
-            } else if (keyValue === 'C') {
-                tempForcePosition = '';
-                updateFooter();
-            } else if (keyValue === 'confirm') {
+            const key = e.target.closest('[data-key]'); if (!key) return;
+            const kv = key.getAttribute('data-key');
+            if (kv === 'cancel') { document.getElementById('invisible-panel').classList.add('hidden'); tempForcePosition = ''; updateFooter(); }
+            else if (kv === 'C') { tempForcePosition = ''; updateFooter(); }
+            else if (kv === 'confirm') {
                 if (tempForcePosition) {
                     const { db, ref, set } = window.firebaseDb;
-                    set(ref(db, 'config/forcePosition'), parseInt(tempForcePosition, 10))
-                        .then(() => {
-                            document.getElementById('invisible-panel').classList.add('hidden');
-                            tempForcePosition = '';
-                            updateFooter();
-                        })
-                        .catch(err => console.error('Error:', err));
-                } else {
-                    document.getElementById('invisible-panel').classList.add('hidden');
-                    updateFooter();
-                }
-            } else {
-                if (tempForcePosition.length < 2) {
-                    tempForcePosition += keyValue;
-                    updateFooter();
-                }
-            }
+                    set(ref(db, 'config/forcePosition'), parseInt(tempForcePosition, 10)).then(() => { document.getElementById('invisible-panel').classList.add('hidden'); tempForcePosition = ''; updateFooter(); }).catch(e => console.error(e));
+                } else { document.getElementById('invisible-panel').classList.add('hidden'); updateFooter(); }
+            } else { if (tempForcePosition.length < 2) { tempForcePosition += kv; updateFooter(); } }
         });
 
-        async function queryAI(userMessage) {
+        async function queryAI(msg) {
             try {
-                const res = await fetch('/api/chat', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: userMessage })
-                });
-
-                if (!res.ok) {
-                    const err = await res.json().catch(() => ({ error: 'Respuesta inválida del servidor' }));
-                    throw new Error(err.error || `HTTP ${res.status}`);
-                }
-
-                const data = await res.json();
-                return cleanMarkdown(data.reply || 'Sin respuesta del modelo.');
-            } catch (err) {
-                console.error('Error al consultar la IA:', err);
-                return `Lo siento, hubo un problema al conectar con la IA: ${err.message}. Por favor, intenta de nuevo en unos segundos.`;
-            }
+                const res = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: msg }) });
+                if (!res.ok) { const e = await res.json().catch(() => ({ error: 'Error' })); throw new Error(e.error || `HTTP ${res.status}`); }
+                const d = await res.json();
+                return cleanMarkdown(d.reply || 'Sin respuesta del modelo.');
+            } catch (e) { console.error(e); return `Lo siento, hubo un problema al conectar con la IA: ${e.message}. Intenta de nuevo.`; }
         }
 
-        async function sendMessage() {
-            const text = userInput.value.trim();
+        // Responde y, si el modo voz está activo, lee la respuesta y vuelve a escuchar
+        async function respond(text, opts) {
+            await simulateAIResponse(text, opts);
+            if (voiceMode) speak(text, () => { if (voiceMode) listenForConversation(); });
+        }
+
+        async function sendMessage(textParam) {
+            const text = (textParam !== undefined ? textParam : userInput.value).trim();
             if (!text) return;
 
             welcomeScreen.classList.add('hidden');
             messagesArea.classList.remove('hidden');
+            bottomComposer.classList.remove('hidden');
 
             appendMessage('user', text);
-            userInput.value = '';
-            userInput.style.height = 'auto';
+            userInput.value = ''; homeInput.value = '';
+            autoResize(userInput); autoResize(homeInput);
 
-            // PRIORIDAD 1: Modo magia (solo listas ACTIVAS)
-            // Coincidencia insensible a mayúsculas y tildes
+            // PRIORIDAD 1: Listas
             const activeLists = allConfigs.filter(c => c.active !== false);
-            const normalizedText = normalizeStr(text);
-            const matched = activeLists.length
-                ? activeLists.find(c => c.trigger && normalizedText.includes(normalizeStr(c.trigger)))
-                : null;
-
+            const normText = normalizeStr(text);
+            const matched = activeLists.length ? activeLists.find(c => c.trigger && normText.includes(normalizeStr(c.trigger))) : null;
             if (matched) {
-                const normTrigger = normalizeStr(matched.trigger);
-                const triggerIndex = normalizedText.indexOf(normTrigger);
-                let requestText = text.substring(triggerIndex + normTrigger.length).trim();
-                if (!requestText) requestText = matched.trigger;
-
-                const processedList = processForcedList(matched);
-                const responseText = `Aquí tienes una lista de ${requestText}:\n\n${processedList.join('\n')}`;
-                await simulateAIResponse(responseText);
+                const nt = normalizeStr(matched.trigger);
+                const ti = normText.indexOf(nt);
+                let req = text.substring(ti + nt.length).trim() || matched.trigger;
+                const list = processForcedList(matched);
+                await respond(`Aquí tienes una lista de ${req}:\n\n${list.join('\n')}`);
                 return;
             }
 
-            // PRIORIDAD 2: Efecto de capitales (mapa en segunda pantalla)
+            // PRIORIDAD 2: Capitales
             const geo = tryCapitalEffect(text);
             if (geo) {
                 const { db, ref, set } = window.firebaseDb;
-                set(ref(db, 'config/mapEvent'), {
-                    country: geo.country,
-                    capital: geo.capital,
-                    lat: geo.lat,
-                    lng: geo.lng,
-                    query: text,
-                    updatedAt: Date.now()
-                }).catch(err => console.error('Error al publicar el evento de mapa:', err));
-
-                await simulateAIResponse(`La capital de ${geo.country} es ${geo.capital}.`);
+                set(ref(db, 'config/mapEvent'), { country: geo.country, capital: geo.capital, lat: geo.lat, lng: geo.lng, query: text, updatedAt: Date.now() }).catch(e => console.error(e));
+                await respond(`La capital de ${geo.country} es ${geo.capital}.`);
                 return;
             }
 
-            // PRIORIDAD 3: Peticiones controladas (solo activas)
-            const petitionResult = tryPetitionEffect(text);
-            if (petitionResult !== null) {
-                await simulateAIResponse(petitionResult);
+            // PRIORIDAD 3: Peticiones
+            const pet = tryPetitionEffect(text);
+            if (pet !== null) { await respond(pet); return; }
+
+            // PRIORIDAD 4: Imágenes
+            const img = tryImageEffect(text);
+            if (img) {
+                if (img.type === 'predetermined') {
+                    const f = parseFloat(img.entry.fakeSeconds);
+                    await simulateImageResponse(img.entry.image, img.entry.responseMessage || '', isNaN(f) ? 5 : f);
+                } else {
+                    await simulateImageResponse(img.url, '', 3);
+                }
+                if (voiceMode) speak('Aquí tienes tu imagen.', () => { if (voiceMode) listenForConversation(); });
                 return;
             }
 
-            // PRIORIDAD 4: IA real (Groq vía proxy seguro)
+            // PRIORIDAD 5: Búsqueda en la web
+            const wq = extractWebQuery(text);
+            if (wq) {
+                const summary = await searchWeb(wq);
+                if (summary) { await respond(cleanMarkdown(summary), { thinking: thinkMode }); return; }
+            }
+
+            // PRIORIDAD 6: IA
             const aiReply = await queryAI(text);
-            await simulateAIResponse(aiReply);
+            await respond(aiReply, { thinking: thinkMode });
         }
 
         function processForcedList(config) {
             const pos = globalPosition || 1;
-            
-            let rawList = config.list;
-            if (rawList && typeof rawList === 'object' && !Array.isArray(rawList)) {
-                rawList = Object.values(rawList);
-            }
-
-            let newList = (rawList || []).map(item => String(item).replace(/^\d+\.\s*/, '').trim()).filter(item => item);
-
-            const forcedItemNormalized = config.forcedItem.toLowerCase().trim();
-            let originalIndex = -1;
-
-            for (let i = 0; i < newList.length; i++) {
-                if (newList[i].toLowerCase() === forcedItemNormalized) {
-                    originalIndex = i;
-                    break;
-                }
-            }
-
-            if (originalIndex !== -1) {
-                newList.splice(originalIndex, 1);
-            }
-
-            let adjustedPosition = pos - 1;
-            if (adjustedPosition < 0) adjustedPosition = 0;
-            if (adjustedPosition > newList.length) adjustedPosition = newList.length;
-
-            newList.splice(adjustedPosition, 0, config.forcedItem);
-
-            return newList.map((item, index) => `${index + 1}. ${item}`);
+            let raw = config.list;
+            if (raw && typeof raw === 'object' && !Array.isArray(raw)) raw = Object.values(raw);
+            let list = (raw || []).map(i => String(i).replace(/^\d+\.\s*/, '').trim()).filter(i => i);
+            const fn = config.forcedItem.toLowerCase().trim();
+            let oi = list.findIndex(i => i.toLowerCase() === fn);
+            if (oi !== -1) list.splice(oi, 1);
+            let ap = pos - 1; if (ap < 0) ap = 0; if (ap > list.length) ap = list.length;
+            list.splice(ap, 0, config.forcedItem);
+            return list.map((i, idx) => `${idx + 1}. ${i}`);
         }
 
         function appendMessage(role, content) {
-            const messageDiv = document.createElement('div');
-            if (role === 'user') {
-                messageDiv.className = `flex justify-end mb-6`;
-                messageDiv.innerHTML = `<div class="bg-cgp-input rounded-2xl px-4 py-3 max-w-[80%] md:max-w-[70%]"><p class="text-cgp-text whitespace-pre-wrap break-words">${escapeHTML(content)}</p></div>`;
-            } else {
-                messageDiv.className = `flex justify-start mb-6`;
-                messageDiv.innerHTML = `<div class="max-w-[80%] md:max-w-[85%]"><p class="text-cgp-text whitespace-pre-wrap break-words ai-response-text text-base leading-relaxed"></p></div>`;
-            }
-            messagesArea.appendChild(messageDiv);
+            const d = document.createElement('div');
+            if (role === 'user') { d.className = 'flex justify-end mb-6'; d.innerHTML = `<div class="bg-cgp-input rounded-2xl px-4 py-3 max-w-[80%] md:max-w-[70%]"><p class="text-cgp-text whitespace-pre-wrap break-words">${escapeHTML(content)}</p></div>`; }
+            else { d.className = 'flex justify-start mb-6'; d.innerHTML = `<div class="max-w-[80%] md:max-w-[85%]"><p class="text-cgp-text whitespace-pre-wrap break-words ai-response-text text-base leading-relaxed"></p></div>`; }
+            messagesArea.appendChild(d); chatContainer.scrollTop = chatContainer.scrollHeight; return d;
+        }
+
+        async function simulateAIResponse(inputText, opts) {
+            const thinking = opts && opts.thinking;
+            const d = appendMessage('ai', ''); const el = d.querySelector('.ai-response-text');
+            el.innerHTML = thinking
+                ? `<div class="flex items-center gap-2 pt-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-cgp-text-secondary"><path d="M12 2a7 7 0 0 0-7 7c0 2.4 1.2 4.5 3 5.7V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.3c1.8-1.2 3-3.3 3-5.7a7 7 0 0 0-7-7z"/></svg><span class="text-cgp-text-secondary text-sm">Pensando...</span></div>`
+                : `<div class="flex space-x-1 pt-2"><div class="w-2 h-2 bg-cgp-text-secondary rounded-full typing-dot"></div><div class="w-2 h-2 bg-cgp-text-secondary rounded-full typing-dot"></div><div class="w-2 h-2 bg-cgp-text-secondary rounded-full typing-dot"></div></div>`;
+            await new Promise(r => setTimeout(r, thinking ? 3000 : 100));
+            el.innerHTML = '';
+            await typeWriter(el, inputText, 2);
+        }
+
+        async function simulateImageResponse(imageUrl, caption, minSeconds) {
+            const d = appendMessage('ai', ''); const el = d.querySelector('.ai-response-text');
+            el.innerHTML = `<div class="flex items-center gap-3 pt-2"><div class="flex space-x-1"><div class="w-2 h-2 bg-cgp-text-secondary rounded-full typing-dot"></div><div class="w-2 h-2 bg-cgp-text-secondary rounded-full typing-dot"></div><div class="w-2 h-2 bg-cgp-text-secondary rounded-full typing-dot"></div></div><span class="text-cgp-text-secondary text-sm">Pintando tu imagen...</span></div>`;
             chatContainer.scrollTop = chatContainer.scrollHeight;
-            return messageDiv;
-        }
-
-        async function simulateAIResponse(inputText) {
-            const aiMessageDiv = appendMessage('ai', '');
-            const textElement = aiMessageDiv.querySelector('.ai-response-text');
-            textElement.innerHTML = `<div class="flex space-x-1 pt-2"><div class="w-2 h-2 bg-cgp-text-secondary rounded-full typing-dot"></div><div class="w-2 h-2 bg-cgp-text-secondary rounded-full typing-dot"></div><div class="w-2 h-2 bg-cgp-text-secondary rounded-full typing-dot"></div></div>`;
-            await new Promise(resolve => setTimeout(resolve, 100)); 
-            textElement.innerHTML = '';
-            await typeWriter(textElement, inputText, 2); 
-        }
-
-        async function typeWriter(element, text, speed) {
-            const actualSpeed = text.includes('\n') ? 1 : speed;
-            for (let i = 0; i < text.length; i++) {
-                element.innerHTML += text.charAt(i);
-                chatContainer.scrollTop = chatContainer.scrollHeight;
-                await new Promise(resolve => setTimeout(resolve, actualSpeed));
+            const delay = new Promise(r => setTimeout(r, (minSeconds || 0) * 1000));
+            const load = preloadImage(imageUrl, 45000);
+            const res = await Promise.all([delay, load]);
+            if (res[1]) {
+                el.innerHTML = `<img src="${imageUrl}" alt="Imagen generada" class="rounded-2xl w-full" style="max-height:420px; object-fit:cover;">` + (caption ? `<p class="text-cgp-text mt-3 whitespace-pre-wrap break-words">${escapeHTML(caption)}</p>` : '');
+            } else {
+                el.innerHTML = '';
+                await typeWriter(el, 'Lo siento, no pude terminar el dibujo en este momento. Intenta de nuevo.', 2);
+                return;
             }
+            chatContainer.scrollTop = chatContainer.scrollHeight;
         }
 
-        function escapeHTML(str) {
-            const div = document.createElement('div');
-            div.appendChild(document.createTextNode(str));
-            return div.innerHTML;
+        async function typeWriter(el, txt, spd) {
+            const s = txt.includes('\n') ? 1 : spd;
+            for (let i = 0; i < txt.length; i++) { el.innerHTML += txt.charAt(i); chatContainer.scrollTop = chatContainer.scrollHeight; await new Promise(r => setTimeout(r, s)); }
         }
+
+        function escapeHTML(str) { const d = document.createElement('div'); d.appendChild(document.createTextNode(str)); return d.innerHTML; }
     </script>
 </body>
 </html>
