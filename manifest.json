@@ -4,7 +4,7 @@
     "short_name": "RootGPT",
     "description": "Asistente conversacional con efectos de magia",
     "start_url": "/index.html",
-    "scope": "/",
+    "scope": "/index.html",
     "display": "standalone",
     "display_override": ["standalone", "minimal-ui"],
     "orientation": "any",
