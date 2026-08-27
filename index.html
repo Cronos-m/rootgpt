@@ -508,17 +508,12 @@
 
         function normKey(s) { return (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '').trim(); }
 
-        // Elige el prompt base: 1) trigger que coincida, 2) prompt activo más reciente, 3) estilo global
-        function getPromptBase(text) {
+        // PROMPT SECRETO: si el mensaje contiene el trigger de un prompt guardado,
+        // se genera EXACTAMENTE ese prompt, sin añadir nada más.
+        function findSecretPrompt(text) {
             const norm = normalizeStr(text);
             const byTrigger = allPrompts.find(p => p.prompt && p.trigger && norm.includes(normalizeStr(p.trigger)));
-            if (byTrigger) return byTrigger.prompt.trim();
-            const activos = allPrompts.filter(p => p.active === true && p.prompt);
-            if (activos.length) {
-                activos.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
-                return activos[0].prompt.trim();
-            }
-            return (imageSettings.stylePrompt || '').trim();
+            return byTrigger ? byTrigger.prompt.trim() : null;
         }
 
         function buildImageUrl(promptText) {
@@ -528,16 +523,30 @@
 
         function tryImageEffect(text) {
             const norm = normalizeStr(text);
+
+            // 1) Imagen predeterminada (Base64/URL) con generación fingida
             const activeImages = allImages.filter(i => i.active !== false);
             const matched = activeImages.find(i => i.trigger && i.image && norm.includes(normalizeStr(i.trigger)));
             if (matched) return { type: 'predetermined', entry: matched };
 
+            // 2) Prompt secreto por trigger: se usa EXACTAMENTE el prompt guardado
+            const secret = findSecretPrompt(text);
+            if (secret) return { type: 'generated', full: secret };
+
+            // 3) Verbos de imagen: combina base (prompt activo o estilo global) con la descripción
             const description = extractImageRequest(text);
             if (description) {
-                const base = getPromptBase(text);
+                const activos = allPrompts.filter(p => p.active === true && p.prompt);
+                let base = '';
+                if (activos.length) {
+                    activos.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+                    base = activos[0].prompt.trim();
+                } else {
+                    base = (imageSettings.stylePrompt || '').trim();
+                }
                 const descClean = description.trim();
-                const generic = ['imagen', 'una imagen', 'un dibujo', 'dibujo', 'imagen de', 'una imagen de', 'foto', 'una foto'].includes(descClean.toLowerCase());
-                const full = base ? (generic ? base : `${base}, ${descClean}`) : descClean;
+                const generic = ['imagen', 'una imagen', 'un dibujo', 'dibujo', 'imagen de', 'una imagen de', 'foto', 'una foto', 'aleatoria', 'una imagen aleatoria', 'imagen aleatoria'].includes(descClean.toLowerCase());
+                const full = base ? (generic ? base : `${base}, ${descClean}`) : (generic ? 'una imagen aleatoria' : descClean);
                 return { type: 'generated', full };
             }
             return null;
