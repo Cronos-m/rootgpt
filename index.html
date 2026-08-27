@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content">
-    <title>RootGPT</title>
+    <title>ChatGPT</title>
     
-    <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFaElEQVR4nO2abWiWVRjHf0stzUUusloUZTZRKqjAolimZs1cubI+JKWInyrLPlSEZRYhJSmVZUiZRRFmRS9QRhCZVmYqKqPIDRKJnBVLk3ybs+2JC/43XN3c53553NY+PH94kJ1znXPf17ne/ue6hQoqqKCvcB7wOLAe2AN06t/vNH4+/RzDgJXAMaCU8vsHWAwMoR/iEuBXvahZ4C2gCTgHOBE4C5gEvO4U3Q7U0I9wEbBXL7cBGJVDfofkNwL3SsE1+plVbayWPsRQ4Ce91IfASTnXXQ905XDBj4E6+gDznZucnEP+DOBVp8QR4B1ZYCpwIzAXeB/ocDL39aYSg4G/9LBrMmQtTh4E9kv+KLAEODNlzenACqBbaxbQS2jSA77PkLsJaHUu80mOOPK4UwnE1k6jh2An+BTwrU7VNn80IDsG+NwpYLHUUOZz79Eee483050g0x5MCMrbYrL2oBfcKe4DHgAGpcSNJY0sfKH9HipXiSHKSCX5qwXiFLmUjY2LyX/tss5y+XoSqoFFsmw7cDcwICPTlZS6y8IrzqwT3fg3Gq+Pye/S+PjAflXAdGB3gnWbgQmBdQOBQzpMO4RCmKoHHFL1JociP2v8goT9bI917sXNqmMVxDvd+AfAiIT12zV/WVFFtmphUh4PKRJlqLoYD3vR0ZM/gNmKPZ/O5wEHXP14Onb62zRn7CA3rtKiPYGKHVIkoh+j9aKz9eLRaXfrYMzFknA28KarH23ATMVPVLeMu+XGPC1aGpgPKfKjxmcBm5wC652F7bc5Ya3HlS6hlNy+LRTEe1o4vaAizbEA3q09qmShWbFAtyw4MvCMKmCGrBLJW7UvhM+08IaCikR+fFTpNSnDWN14wtWlDt1RLJaScCqwysn67JmJNVrYWFCRLRqfnOMZjTHrWT2Zo1SbhKWS+x0YnleR5zMqaUiRyK/Nx7NwrWQt033lFNoROMAqJ/dSXkVmaMHaDEUWxujHBo1fneMZ9ZK1vQy3xAjmMwEO1630HHLF/2CY/LFLqTSORe6BrXoJr2AWtfcp3pSPYIeyMKZgHGs1b4edC8u04MtA3m90daMks7dmUBSPKwJXgfoMRR7W/HN5FRmuwEqrJwMVoO2xwLV7SBYaJLuloCI3a/5TCmCiu3auUioMueJiJ2up9ckARa+W/0d3mm0FFZlcjiKoCEUn3SbfDFGMkSpyviDOUjG0NXckMN/mgorcpfnVRRWJ/P6HGHNNS7H1oiGR/FbRlOjvTVIwoh9FFFmm+UeKKFGrRX+KuM10lKFbBM+IXhKqRBAjAhhnvqMDl6X6FEWMwP6meUsWuXFxQkBWi2If0dwBkUyj4hHizPeYqLzP/XUufedV5P5AgsjE5c414hihS1B02jt1SRobY67rEi5m6PJV0mUsjyKXAoc1Z5mrEE6RaxxMuVNPSGC9ceabhPGS25VDkUlqZNj4y5SJFm1wXYrMADUQ2jOYL2pILFeDIrqreIxzCWVKzOrvFmjNBiuptWSyMDSFmQ5Sayg62U61juKc6fYE6/6tLBWybi7UuI67NcvKQYNreJfUvDMCmNZTPizaY03A0+ghTHPZx9qYeTFKbVJPMLPoy2bJWhenV7DA1Y8VKc23qL26xNGQ/WpkW0M7DVEC2Hc8sZAHc1z96BAdmatPAk2aX+04V5c+JVhrNE98RezB6lKv40LgoxzfC7tS7vxxDNaHnYiy5Pne0mOo1UealbrjGxt9TWl4o16qJVAMPca4AmrpO+ki97+hxnVUzHJvyDq1ipNzgVuBt51lfynaRewrWCf/WVf4Qr9ONctDd51+9Z8I5usDUZsyWZtqxGOyTgUVVEDv41/8yxmQXOu50gAAAABJRU5ErkJggg==" type="image/png">
+    <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFaElEQVR4nO2abWiWVRjHf0stzUUusloUZTZRKqjAolimZs1cubI+JKWInyrLPlSEZRYhJSmVZUiZRRFmRS9QRhCZVmYqKqPIDRKJnBVLk3ybs+2JC/43XN3c53553NY+PH94kJ1znXPf17ne/ue6hQoqqKCvcB7wOLAe2AN06t/vNH4+/RzDgJXAMaCU8vsHWAwMoR/iEuBXvahZ4C2gCTgHOBE4C5gEvO4U3Q7U0I9wEbBXL7cBGJVDfofkNwL3SsE1+plVbayWPsRQ4Ce91IfASTnXXQ905XDBj4E6+gDznZucnEP+DOBVp8QR4B1ZYCpwIzAXeB/ocDL39aYSg4G/9LBrMmQtTh4E9kv+KLAEODNlzenACqBbaxbQS2jSA77PkLsJaHUu80mOOPK4UwnE1k6jh2An+BTwrU7VNn80IDsG+NwpYLHUUOZz79Eee483050g0x5MCMrbYrL2oBfcKe4DHgAGpcSNJY0sfKH9HipXiSHKSCX5qwXiFLmUjY2LyX/tss5y+XoSqoFFsmw7cDcwICPTlZS6y8IrzqwT3fg3Gq+Pye/S+PjAflXAdGB3gnWbgQmBdQOBQzpMO4RCmKoHHFL1JociP2v8goT9bI917sXNqmMVxDvd+AfAiIT12zV/WVFFtmphUh4PKRJlqLoYD3vR0ZM/gNmKPZ/O5wEHXP14Onb62zRn7CA3rtKiPYGKHVIkoh+j9aKz9eLRaXfrYMzFknA28KarH23ATMVPVLeMu+XGPC1aGpgPKfKjxmcBm5wC652F7bc5Ya3HlS6hlNy+LRTEe1o4vaAizbEA3q09qmShWbFAtyw4MvCMKmCGrBLJW7UvhM+08IaCikR+fFTpNSnDWN14wtWlDt1RLJaScCqwysn67JmJNVrYWFCRLRqfnOMZjTHrWT2Zo1SbhKWS+x0YnleR5zMqaUiRyK/Nx7NwrWQt033lFNoROMAqJ/dSXkVmaMHaDEUWxujHBo1fneMZ9ZK1vQy3xAjmMwEO1630HHLF/2CY/LFLqTSORe6BrXoJr2AWtfcp3pSPYIeyMKZgHGs1b4edC8u04MtA3m90daMks7dmUBSPKwJXgfoMRR7W/HN5FRmuwEqrJwMVoO2xwLV7SBYaJLuloCI3a/5TCmCiu3auUioMueJiJ2up9ckARa+W/0d3mm0FFZlcjiKoCEUn3SbfDFGMkSpyviDOUjG0NXckMN/mgorcpfnVRRWJ/P6HGHNNS7H1oiGR/FbRlOjvTVIwoh9FFFmm+UeKKFGrRX+KuM10lKFbBM+IXhKqRBAjAhhnvqMDl6X6FEWMwP6meUsWuXFxQkBWi2If0dwBkUyj4hHizPeYqLzP/XUufedV5P5AgsjE5c414hihS1B02jt1SRobY67rEi5m6PJV0mUsjyKXAoc1Z5mrEE6RaxxMuVNPSGC9cebhPGS25VDkUlqZNj4y5SJFm1wXYrMADUQ2jOYL2pILFeDIrqreIxzCWVKzOrvFmjNBiuptWSyMDSFmQ5Sayg62U61juKc6fYE6/6tLBWybi7UuI67NcvKQYNreJfUvDMCmNZTPizaY03A0+ghTHPZx9qYeTFKbVJPMLPoy2bJWhenV7DA1Y8VKc23qL26xNGQ/WpkW0M7DVEC2Hc8sZAHc1z96BAdmatPAk2aX+04V5c+JVhrNE98RezB6lKv40LgoxzfC7tS7vxxDNaHnYiy5Pne0mOo1UealbrjGxt9TWl4o16qJVAMPca4AmrpO+ki97+hxnVUzHJvyDq1ipNzgVuBt51lfynaRewrWCf/WVf4Qr9ONctDd51+9Z8I5usDUZsyWZtqxGOyTgUVVEDv41/8yxmQXOu50gAAAABJRU5ErkJggg==" type="image/png">
     
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#000000">
@@ -58,6 +58,7 @@
         .think-on { color: #fff !important; background: #3a3a3a; }
         .safe-top { padding-top: env(safe-area-inset-top); }
         .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+        @media (max-width: 767px) { #footer-text.in-conversation { display: none; } }
         
         .ghost-key { background: rgba(30,30,30,0.4); border: 1px solid rgba(100,100,100,0.2); color: rgba(200,200,200,0.25); transition: all 0.1s; border-radius: 12px; font-size: 1.5rem; font-weight: 400; touch-action: manipulation; -webkit-tap-highlight-color: transparent; user-select: none; }
         .ghost-key:active { background: rgba(50,50,50,0.6); color: rgba(220,220,220,0.5); transform: scale(0.95); }
@@ -71,13 +72,16 @@
 <body class="h-full overflow-hidden flex flex-col">
 
     <div class="flex h-full min-h-0">
-        <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-72 bg-cgp-sidebar flex flex-col h-full transform -translate-x-full md:relative md:translate-x-0 transition-transform duration-300">
+
+        <!-- MENÚ LATERAL: drawer overlay en móvil Y escritorio -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-72 bg-cgp-sidebar flex flex-col h-full transform -translate-x-full transition-transform duration-300">
             <div class="flex items-center justify-between px-4 py-3">
                 <div class="flex items-center gap-2">
-                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFaElEQVR4nO2ZWWyVVRDHr4iAtqJIUdwQNBo1ivoAEn2FRAwkREnEpNYFWSKiIWrLIgVaxKrBJSouMVFU4oZbQqK+KBpb6vaiCaYQERXcYxSNUBd+Zsycy3Tu+bZCaR/6f2lzvjnnzJwzZ+Y/c0ulfvSj9wEcAdQBLwHbgd+APcDnwGnANcDRpb4G4FDgBuBnsrELaAAGl/oCgGOANymOT4Dje1v5ocDHTrHNwALgXGAIUAWcDcwDPnWyXwItwGPAauBmYILc6MEy4HWjzD9APTAwRV4MejfH7ewAGoHqnlReHmvAv8D0DPmpwJaCbrYTmNgTyg8EvjAbrUiRFfd5K6LcL8Az6m61wE3Aw8A3Tk5uduaBUvw0YBWw1V33kIjsMOAB4O+I4rdIyE2JaNOB75wRU/ZHcXmI9wCdkZNsjNxOLKSKEo8ANTn3HAF8YOZ/LxGvO8qPBD5K8dPxRrZGw6PH28DYbu79tVmnpegCRwEdTpl3nFuUTwW40cnKO7ksYe1TgHXqUi8CpybITTPr/VgoAQLrzWShBLN0fK8ZP8TIL9Gx34FFCW+jGlgJ/OmM3a3vq0volPXdm5uUV/kpLkxebr6V4eYs1eHlkfUGAFdraAxrtrrDEHyrcvZg7mcfFuY1wD6gh9y3Mty4JB/BMjd+sXtH7wPj9Nt4YBOVkP0nqMxcM/54HuXHONcZkdOAZTq81Pj58+6UF9rTNW5SqyHZYq/mioaiBgjtDXgl8j3JgOU6LPym2fj5H8pCg6/Lt6qEcN2sMt6QgHvzGCCPKWBJAQNWuA3l71rgBA2JT5pvEh5n+NsQAKO1poihrpQF92hmFzCgyXxqDX7uZMTn243ce8D5CXpMirjV5DwG3GkmLChggFw/ymkqTtb5/BqXpR+NZWngOKXoAZ8Bg7IMmGkmrC1ggMT3XKFOqTfKUDv1f0lq8z0lB07WbwGzshY/ywj/4LOfFiIBl5rxO3SsIYcBIbLInNOBDe6UL3Dyc8z3zVnrl9y1dXkHsrhuEiCbn2Eef32O9SWcClaasclmzW1OfrBSiYAzszaYbYTl+k6KsM755mo7TcFyWwEDmt14GZE5T5vP12ZtMMidstzIsRG5GqXJ8hAD1hR4xE0FDJA6ImBVqgGRK0V5TJRMSSh09a5QgQsTwmhbUjVHugGWUqzOY4CQqhgkyYxOONkrDIeXpPWUtE+AE9UFbJKrIH6kGxDIYoXr5UlonjXu1rBZldChazJUYpfSCXSsWelGjPiVkdEFuSqPAU+YCfVKrLwhO5SIxQia1AQBMu85YJRjrr4kjRqgJWanWWtUUQP+D6XaeLJUO2BTKC/Vz4VKBHwIXJTGXHMYYDN3aykPgMVm0n3udOtMcWJPuc3c0k6VGxBZOxC/27MM0HclBVBF8swy4BIzaUvETao1eXn6G/y8KqE7t0jLTsFidzDlwzCRx3ZD1udS3mz2k5k8LaUAekFbKc8m+acU+K4hJpjnckqANA42Ollp0w/NbYAuepdZ4Ku8fR23xlhtrXhImTncyMn7SkJ7LJHm2Xy4ErqANl9ipsyNZWn0Vuf6LjT7KjpcSduS1MnLa8RUp8R2bf9F6QJwJHCro8CCvzS3DIvMOVw7EgEd+o7GdFtxt8H1kZMUWv2gkrrrlKtIk+rXyEm+ITQ9Zxm7Na1Nvz9GTIyEzix0ZDVmqQyTVx5w5V3obIy0wWPYGOvOmbUOkzxAV+Vf7jHlI23wcdoPvVsfa4ur1lBKLi52jr4N8fXzpGaI9F3be/RXmZyGjUzoUGdhgzSTS30BWgzVm2ZWGqRMnBOjG70Obc9LTfGqZtE9GqG2acuxNu2N9KMfpYOH/wC5Qx5QK89yWwAAAABJRU5ErkJggg==" alt="chatgpt" class="w-6 h-6 md:w-8 md:h-8">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFaElEQVR4nO2ZWWyVVRDHr4iAtqJIUdwQNBo1ivoAEn2FRAwkREnEpNYFWSKiIWrLIgVaxKrBJSouMVFU4oZbQqK+KBpb6vaiCaYQERXcYxSNUBd+Zsycy3Tu+bZCaR/6f2lzvjnnzJwzZ+Y/c0ulfvSj9wEcAdQBLwHbgd+APcDnwGnANcDRpb4G4FDgBuBnsrELaAAGl/oCgGOANymOT4Dje1v5ocDHTrHNwALgXGAIUAWcDcwDPnWyXwItwGPAauBmYILc6MEy4HWjzD9APTAwRV4MejfH7ewAGoHqnlReHmvAv8D0DPmpwJaCbrYTmNgTyg8EvjAbrUiRFfd5K6LcL8Az6m61wE3Aw8A3Tk5uduaBUvw0YBWw1V33kIjsMOAB4O+I4rdIyE2JaNOB75wRU/ZHcXmI9wCdkZNsjNxOLKSKEo8ANTn3HAF8YOZ/LxGvO8qPBD5K8dPxRrZGw6PH28DYbu79tVmnpegCRwEdTpl3nFuUTwW40cnKO7ksYe1TgHXqUi8CpybITTPr/VgoAQLrzWShBLN0fK8ZP8TIL9Gx34FFCW+jGlgJ/OmM3a3vq0volPXdm5uUV/kpLkxebr6V4eYs1eHlkfUGAFdraAxrtrrDEHyrcvZg7mcfFuY1wD6gh9y3Mty4JB/BMjd+sXtH7wPj9Nt4YBOVkP0nqMxcM/54HuXHONcZkdOAZTq81Pj58+6UF9rTNW5SqyHZYq/mioaiBgjtDXgl8j3JgOU6LPym2fj5H8pCg6/Lt6qEcN2sMt6QgHvzGCCPKWBJAQNWuA3l71rgBA2JT5pvEh5n+NsQAKO1poihrpQF92hmFzCgyXxqDX7uZMTn243ce8D5CXpMirjV5DwG3GkmLChggFw/ymkqTtb5/BqXpR+NZWngOKXoAZ8Bg7IMmGkmrC1ggMT3XKFOqTfKUDv1f0lq8z0lB07WbwGzshY/ywj/4LOfFiIBl5rxO3SsIYcBIbLInNOBDe6UL3Dyc8z3zVnrl9y1dXkHsrhuEiCbn2Eef32O9SWcClaasclmzW1OfrBSiYAzszaYbYTl+k6KsM755mo7TcFyWwEDmt14GZE5T5vP12ZtMMidstzIsRG5GqXJ8hAD1hR4xE0FDJA6ImBVqgGRK0V5TJRMSSh09a5QgQsTwmhbUjVHugGWUqzOY4CQqhgkyYxOONkrDIeXpPWUtE+AE9UFbJKrIH6kGxDIYoXr5UlonjXu1rBZldChazJUYpfSCXSsWelGjPiVkdEFuSqPAU+YCfVKrLwhO5SIxQia1AQBMu85YJRjrr4kjRqgJWanWWtUUQP+D6XaeLJUO2BTKC/Vz4VKBHwIXJTGXHMYYDN3aykPgMVm0n3udOtMcWJPuc3c0k6VGxBZOxC/27MM0HclBVBF8swy4BIzaUvETao1eXn6G/y8KqE7t0jLTsFidzDlwzCRx3ZD1udS3mz2k5k8LaUAekFbKc8m+acU+K4hJpjnckqANA42Ollp0w/NbYAuepdZ4Ku8fR23xlhtrXhImTncyMn7SkJ7LJHm2Xy4ErqANl9ipsyNZWn0Vuf6LjT7KjpcSduS1MnLa8RUp8R2bf9F6QJwJHCro8CCvzS3DIvMOVw7EgEd+o7GdFtxt8H1kZMUWv2gkrrrlKtIk+rXyEm+ITQ9Zxm7Na1Nvz9GTIyEzix0ZDVmqQyTVx5w5V3obIy0wWPYGOvOmbUOkzxAV+Vf7jHlI23wcdoPvVsfa4ur1lBKLi52jr4N8fXzpGaI9F3be/RXmZyGjUzoUGdhgzSTS30BWgzVm2ZWGqRMnBOjG70Obc9LTfGqZtE9GqG2acuxNu2N9KMfpYOH/wC5Qx5QK89yWwAAAABJRU5ErkJggg==" alt="chatgpt" class="w-6 h-6">
+                    <span class="text-white font-semibold">ChatGPT</span>
                 </div>
-                <button onclick="toggleSidebar()" class="md:hidden p-2 rounded-full hover:bg-[#2f2f2f]">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                <button onclick="toggleSidebar()" class="p-2 rounded-full hover:bg-[#2f2f2f]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 </button>
             </div>
             <div class="flex-1 overflow-y-auto px-2 py-2 space-y-1">
@@ -90,80 +94,93 @@
                 <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-[#2f2f2f] transition-colors text-sm font-medium">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Complementos
                 </a>
-                <div class="border-t border-[#2f2f2f] my-3"></div>
-                <div class="px-3 py-4">
-                    <h3 class="text-base font-semibold text-white mb-2">Obtén respuestas personalizadas</h3>
-                    <p class="text-sm text-cgp-text-secondary mb-4">Inicia sesión para obtener respuestas basadas en chats guardados.</p>
-                    <button onclick="resetPosition()" class="w-full bg-[#2f2f2f] hover:bg-[#3a3a3a] text-white font-medium py-3 rounded-lg transition-colors mb-2">Iniciar sesión</button>
-                    <button class="w-full bg-transparent border border-[#424242] hover:bg-[#2f2f2f] text-white font-medium py-3 rounded-lg transition-colors">Regístrate gratis</button>
-                </div>
+            </div>
+            <div class="p-3 border-t border-[#2f2f2f]">
+                <p class="text-xs text-gray-600 text-center">ChatGPT vs 2.2</p>
             </div>
         </aside>
-        <div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden md:hidden" onclick="toggleSidebar()"></div>
+        <div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden" onclick="toggleSidebar()"></div>
 
         <main class="flex-1 flex flex-col h-full min-w-0 bg-cgp-black relative overflow-x-hidden">
-            <header class="flex items-center justify-between px-4 py-3 md:hidden safe-top">
-                <button onclick="toggleSidebar()" class="p-2 rounded-full hover:bg-[#2f2f2f]">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+
+            <!-- BARRA SUPERIOR: móvil (hamburguesa | marca | sesión) y escritorio (marca+chevron | sesión+registro) -->
+            <header class="relative flex items-center justify-between px-4 py-3 safe-top">
+                <button onclick="toggleSidebar()" class="md:hidden p-3 rounded-full bg-[#1a1a1a] hover:bg-[#2f2f2f]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="14" y2="15"/></svg>
                 </button>
+                <button onclick="toggleSidebar()" class="hidden md:flex items-center gap-2 text-white hover:opacity-80">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFaElEQVR4nO2ZWWyVVRDHr4iAtqJIUdwQNBo1ivoAEn2FRAwkREnEpNYFWSKiIWrLIgVaxKrBJSouMVFU4oZbQqK+KBpb6vaiCaYQERXcYxSNUBd+Zsycy3Tu+bZCaR/6f2lzvjnnzJwzZ+Y/c0ulfvSj9wEcAdQBLwHbgd+APcDnwGnANcDRpb4G4FDgBuBnsrELaAAGl/oCgGOANymOT4Dje1v5ocDHTrHNwALgXGAIUAWcDcwDPnWyXwItwGPAauBmYILc6MEy4HWjzD9APTAwRV4MejfH7ewAGoHqnlReHmvAv8D0DPmpwJaCbrYTmNgTyg8EvjAbrUiRFfd5K6LcL8Az6m61wE3Aw8A3Tk5uduaBUvw0YBWw1V33kIjsMOAB4O+I4rdIyE2JaNOB75wRU/ZHcXmI9wCdkZNsjNxOLKSKEo8ANTn3HAF8YOZ/LxGvO8qPBD5K8dPxRrZGw6PH28DYbu79tVmnpegCRwEdTpl3nFuUTwW40cnKO7ksYe1TgHXqUi8CpybITTPr/VgoAQLrzWShBLN0fK8ZP8TIL9Gx34FFCW+jGlgJ/OmM3a3vq0volPXdm5uUV/kpLkxebr6V4eYs1eHlkfUGAFdraAxrtrrDEHyrcvZg7mcfFuY1wD6gh9y3Mty4JB/BMjd+sXtH7wPj9Nt4YBOVkP0nqMxcM/54HuXHONcZkdOAZTq81Pj58+6UF9rTNW5SqyHZYq/mioaiBgjtDXgl8j3JgOU6LPym2fj5H8pCg6/Lt6qEcN2sMt6QgHvzGCCPKWBJAQNWuA3l71rgBA2JT5pvEh5n+NsQAKO1poihrpQF92hmFzCgyXxqDX7uZMTn243ce8D5CXpMirjV5DwG3GkmLChggFw/ymkqTtb5/BqXpR+NZWngOKXoAZ8Bg7IMmGkmrC1ggMT3XKFOqTfKUDv1f0lq8z0lB07WbwGzshY/ywj/4LOfFiIBl5rxO3SsIYcBIbLInNOBDe6UL3Dyc8z3zVnrl9y1dXkHsrhuEiCbn2Eef32O9SWcClaasclmzW1OfrBSiYAzszaYbYTl+k6KsM755mo7TcFyWwEDmt14GZE5T5vP12ZtMMidstzIsRG5GqXJ8hAD1hR4xE0FDJA6ImBVqgGRK0V5TJRMSSh09a5QgQsTwmhbUjVHugGWUqzOY4CQqhgkyYxOONkrDIeXpPWUtE+AE9UFbJKrIH6kGxDIYoXr5UlonjXu1rBZldChazJUYpfSCXSsWelGjPiVkdEFuSqPAU+YCfVKrLwhO5SIxQia1AQBMu85YJRjrr4kjRqgJWanWWtUUQP+D6XaeLJUO2BTKC/Vz4VKBHwIXJTGXHMYYDN3aykPgMVm0n3udOtMcWJPuc3c0k6VGxBZOxC/27MM0HclBVBF8swy4BIzaUvETao1eXn6G/y8KqE7t0jLTsFidzDlwzCRx3ZD1udS3mz2k5k8LaUAekFbKc8m+acU+K4hJpjnckqANA42Ollp0w/NbYAuepdZ4Ku8fR23xlhtrXhImTncyMn7SkJ7LJHm2Xy4ErqANl9ipsyNZWn0Vuf6LjT7KjpcSduS1MnLa8RUp8R2bf9F6QJwJHCro8CCvzS3DIvMOVw7EgEd+o7GdFtxt8H1kZMUWv2gkrrrlKtIk+rXyEm+ITQ9Zxm7Na1Nvz9GTIyEzix0ZDVmqQyTVx5w5V3obIy0wWPYGOvOmbUOkzxAV+Vf7jHlI23wcdoPvVsfa4ur1lBKLi52jr4N8fXzpGaI9F3be/RXmZyGjUzoUGdhgzSTS30BWgzVm2ZWGqRMnBOjG70Obc9LTfGqZtE9GqG2acuxNu2N9KMfpYOH/wC5Qx5QK89yWwAAAABJRU5ErkJggg==" alt="chatgpt" class="w-7 h-7">
+                    <span class="font-semibold text-lg">ChatGPT</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div id="mobile-brand" class="md:hidden absolute left-1/2 -translate-x-1/2 text-white font-semibold text-base">ChatGPT</div>
                 <div class="flex items-center gap-2">
                     <button onclick="resetPosition()" class="px-4 py-2 bg-white text-black font-medium rounded-full text-sm hover:bg-gray-200 transition-colors">Iniciar sesión</button>
+                    <button class="hidden md:block px-4 py-2 bg-[#1a1a1a] border border-[#333] text-white font-medium rounded-full text-sm hover:bg-[#2f2f2f] transition-colors">Regístrate gratis</button>
                 </div>
             </header>
 
             <div id="chat-container" class="flex-1 min-h-0 overflow-y-auto px-4 py-4">
 
-                <div id="welcome-screen" class="h-full flex flex-col px-2">
-                    <div class="flex-1 flex items-end justify-center pb-6 md:pb-8">
-                        <h1 class="text-3xl md:text-4xl font-semibold text-white text-center">¿Qué toca hoy?</h1>
-                    </div>
+                <!-- INICIO centrado: título + composer + chips (chips se ocultan al escribir) -->
+                <div id="welcome-screen" class="h-full flex flex-col px-1">
+                    <div class="flex-1 flex flex-col items-center justify-center py-4">
+                        <h1 class="text-3xl md:text-4xl font-semibold text-white text-center mb-8 px-2">
+                            <span class="md:hidden">¿Qué toca hoy?</span><span class="hidden md:inline">¿Por dónde empezamos?</span>
+                        </h1>
 
-                    <div class="w-full max-w-2xl mx-auto pb-4 md:pb-0">
-                        <div class="bg-cgp-input rounded-3xl border border-[#424242] focus-within:border-[#555] transition-colors mb-4 md:mb-8">
-                            <div class="flex items-center px-3 py-3 gap-1">
-                                <button onclick="newChat()" class="p-2 rounded-full hover:bg-[#3a3a3a] text-cgp-text-secondary flex-shrink-0" title="Nuevo chat">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                                </button>
-                                <textarea id="home-input" rows="1" placeholder="Pregunta lo que quieras" class="flex-1 min-w-0 bg-transparent text-cgp-text placeholder-cgp-text-secondary resize-none focus:outline-none text-base max-h-40"></textarea>
-                                <button onclick="toggleThink()" class="think-btn hidden md:flex items-center gap-1 p-2 rounded-full hover:bg-[#3a3a3a] text-cgp-text-secondary flex-shrink-0" title="Pensar">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 0-7 7c0 2.4 1.2 4.5 3 5.7V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.3c1.8-1.2 3-3.3 3-5.7a7 7 0 0 0-7-7z"/></svg>
-                                    <span class="text-sm">Pensar</span>
-                                </button>
-                                <button onclick="startDictation('home-input', this)" class="mic-btn p-2 rounded-full hover:bg-[#3a3a3a] text-cgp-text-secondary flex-shrink-0" title="Dictar">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
-                                </button>
-                                <button onclick="toggleVoiceMode()" class="voice-btn p-2 rounded-full bg-blue-600 hover:bg-blue-500 text-white flex-shrink-0" title="Modo voz">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M8 6v12M4 10v4M16 6v12M20 10v4"/></svg>
-                                </button>
-                                <button id="home-send" class="p-2 rounded-full bg-white text-black hover:bg-gray-200 ml-1 cursor-pointer flex-shrink-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
-                                </button>
+                        <div class="w-full max-w-3xl">
+                            <div class="bg-cgp-input rounded-3xl border border-[#424242] focus-within:border-[#555] transition-colors">
+                                <div class="flex items-center px-3 py-3 gap-1">
+                                    <button onclick="newChat()" class="p-2 rounded-full hover:bg-[#3a3a3a] text-cgp-text-secondary flex-shrink-0" title="Nuevo chat">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                                    </button>
+                                    <textarea id="home-input" rows="1" placeholder="Pregunta lo que quieras" class="flex-1 min-w-0 bg-transparent text-cgp-text placeholder-cgp-text-secondary resize-none focus:outline-none text-base max-h-40"></textarea>
+                                    <button onclick="toggleThink()" class="think-btn hidden md:flex items-center gap-1 p-2 rounded-full hover:bg-[#3a3a3a] text-cgp-text-secondary flex-shrink-0" title="Pensar">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 0-7 7c0 2.4 1.2 4.5 3 5.7V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.3c1.8-1.2 3-3.3 3-5.7a7 7 0 0 0-7-7z"/></svg>
+                                        <span class="text-sm">Pensar</span>
+                                    </button>
+                                    <button onclick="startDictation('home-input', this)" class="mic-btn p-2 rounded-full hover:bg-[#3a3a3a] text-cgp-text-secondary flex-shrink-0" title="Dictar">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+                                    </button>
+                                    <button onclick="toggleVoiceMode()" class="voice-btn p-2 rounded-full bg-blue-600 hover:bg-blue-500 text-white flex-shrink-0" title="Modo voz">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M8 6v12M4 10v4M16 6v12M20 10v4"/></svg>
+                                    </button>
+                                    <button id="home-send" class="p-2 rounded-full bg-white text-black hover:bg-gray-200 ml-1 cursor-pointer flex-shrink-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="flex md:flex-col gap-2 overflow-x-auto md:overflow-visible pb-2 md:pb-0 -mx-2 px-2 md:mx-0 md:px-0 max-w-full">
-                            <button onclick="prefill('dibuja una imagen de ')" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#1a1a1a] text-cgp-text-secondary text-sm text-left whitespace-nowrap md:whitespace-normal flex-shrink-0 md:flex-shrink md:w-full">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                        <!-- CHIPS: pequeños, sin borde gris, pegados -->
+                        <div id="home-chips" class="mt-3 w-full max-w-3xl flex flex-wrap items-center justify-center gap-1">
+                            <button onclick="prefill('dibuja una imagen de ')" class="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-[#1a1a1a] text-cgp-text-secondary text-xs font-medium whitespace-nowrap transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
                                 Crea una imagen o pegatina
                             </button>
-                            <button onclick="prefill('escribe un texto sobre ')" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#1a1a1a] text-cgp-text-secondary text-sm text-left whitespace-nowrap md:whitespace-normal flex-shrink-0 md:flex-shrink md:w-full">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                            <button onclick="prefill('escribe un texto sobre ')" class="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-[#1a1a1a] text-cgp-text-secondary text-xs font-medium whitespace-nowrap transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
                                 Escribir o editar
                             </button>
-                            <button onclick="prefill('busca en la web ')" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#1a1a1a] text-cgp-text-secondary text-sm text-left whitespace-nowrap md:whitespace-normal flex-shrink-0 md:flex-shrink md:w-full">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                            <button onclick="prefill('busca en la web ')" class="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-[#1a1a1a] text-cgp-text-secondary text-xs font-medium whitespace-nowrap transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
                                 Buscar en la web
                             </button>
                         </div>
                     </div>
-
-                    <div class="flex-1 hidden md:block"></div>
                 </div>
 
                 <div id="messages-area" class="max-w-3xl mx-auto space-y-6 hidden"></div>
             </div>
 
-            <div id="bottom-composer" class="w-full px-4 pb-2 pt-2 hidden">
+            <!-- PIE: texto legal en inicio, texto corto en conversación; siempre con vs.X (posición de lista) -->
+            <p class="text-center text-xs text-cgp-text-secondary pb-2 px-4" id="footer-text">
+                ChatGPT es IA. Al usarlo, aceptas los <a href="#" class="underline hover:text-white">Términos</a> y la <a href="#" class="underline hover:text-white">Política de privacidad</a>. vs.-
+            </p>
+
+            <!-- COMPOSER DE CONVERSACIÓN -->
+            <div id="bottom-composer" class="w-full px-4 pb-4 pt-2 hidden safe-bottom">
                 <div class="max-w-3xl mx-auto">
                     <div class="relative bg-cgp-input rounded-3xl border border-[#424242] focus-within:border-[#555] transition-colors">
                         <div class="flex items-center px-3 py-3 gap-1">
@@ -188,13 +205,10 @@
                     </div>
                 </div>
             </div>
-
-            <p class="text-center text-xs text-cgp-text-secondary pb-4 px-4 safe-bottom" id="footer-text">
-                ChatGPT es IA. Al usarlo, aceptas los <a href="#" class="underline hover:text-white">Términos</a> y la <a href="#" class="underline hover:text-white">Política de privacidad</a>. vs.-
-            </p>
         </main>
     </div>
 
+    <!-- PANEL INVISIBLE con indicador tenue de posición para el mago -->
     <div id="invisible-panel" class="fixed inset-0 z-[100] hidden bg-black bg-opacity-95">
         <div class="grid grid-cols-4 gap-3 p-6 h-full w-full max-w-lg mx-auto content-center">
             <button class="ghost-key h-16 w-full" data-key="1">1</button><button class="ghost-key h-16 w-full" data-key="2">2</button><button class="ghost-key h-16 w-full" data-key="3">3</button><button class="ghost-key ghost-cancel h-16 w-full" data-key="cancel">X</button>
@@ -202,6 +216,7 @@
             <button class="ghost-key h-16 w-full" data-key="7">7</button><button class="ghost-key h-16 w-full" data-key="8">8</button><button class="ghost-key h-16 w-full" data-key="9">9</button><button class="ghost-key ghost-confirm h-16 w-full" data-key="confirm">✓</button>
             <button class="ghost-key h-16 w-full col-span-2" data-key="0">0</button><div class="col-span-2"></div>
         </div>
+        <div id="panel-position" class="absolute bottom-6 inset-x-0 text-center text-xs text-gray-600">vs.-</div>
     </div>
 
     <script>
@@ -210,6 +225,7 @@
         let allConfigs = [], allPetitions = [], allImages = [], imageSettings = {};
         let globalPosition = 1, tempForcePosition = '', lastTapTime = 0;
         let thinkMode = false, voiceMode = false, activeRecognition = null;
+        let inConversation = false;
 
         const geoDict = {
             "colombia": {country: "Colombia", capital: "Bogotá", lat: 4.711, lng: -74.072}, "argentina": {country: "Argentina", capital: "Buenos Aires", lat: -34.603, lng: -58.381}, "chile": {country: "Chile", capital: "Santiago", lat: -33.448, lng: -70.669},
@@ -260,12 +276,17 @@
         const sendBtn = document.getElementById('send-btn');
         const homeSend = document.getElementById('home-send');
         const bottomComposer = document.getElementById('bottom-composer');
+        const mobileBrand = document.getElementById('mobile-brand');
+        const footerText = document.getElementById('footer-text');
+        const homeChips = document.getElementById('home-chips');
 
         function autoResize(el) { el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; }
         userInput.addEventListener('input', function() { autoResize(this); });
-        homeInput.addEventListener('input', function() { autoResize(this); });
+        homeInput.addEventListener('input', function() {
+            autoResize(this);
+            homeChips.classList.toggle('hidden', this.value.trim() !== '');
+        });
 
-        // Comportamiento ChatGPT: al enfocar el teclado, el composer queda visible
         function keepComposerVisible(el) {
             setTimeout(() => {
                 chatContainer.scrollTop = chatContainer.scrollHeight;
@@ -275,9 +296,7 @@
         userInput.addEventListener('focus', () => keepComposerVisible(userInput));
         homeInput.addEventListener('focus', () => keepComposerVisible(homeInput));
         if (window.visualViewport) {
-            window.visualViewport.addEventListener('resize', () => {
-                chatContainer.scrollTop = chatContainer.scrollHeight;
-            });
+            window.visualViewport.addEventListener('resize', () => { chatContainer.scrollTop = chatContainer.scrollHeight; });
         }
 
         function handleKeyDown(event) { if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); sendMessage(); } }
@@ -291,6 +310,11 @@
             messagesArea.classList.add('hidden');
             welcomeScreen.classList.remove('hidden');
             bottomComposer.classList.add('hidden');
+            mobileBrand.classList.remove('hidden');
+            footerText.classList.remove('in-conversation');
+            homeChips.classList.remove('hidden');
+            inConversation = false;
+            updateFooter();
             userInput.value = ''; homeInput.value = '';
             autoResize(userInput); autoResize(homeInput);
         }
@@ -298,6 +322,7 @@
         function prefill(text) {
             homeInput.value = text; autoResize(homeInput);
             userInput.value = text; autoResize(userInput);
+            homeChips.classList.add('hidden');
             homeInput.focus();
         }
 
@@ -322,6 +347,7 @@
                 const t = e.results[0][0].transcript;
                 target.value = (target.value ? target.value + ' ' : '') + t;
                 autoResize(target);
+                if (target === homeInput) homeChips.classList.toggle('hidden', target.value.trim() !== '');
             };
             r.onend = () => btn.classList.remove('listening');
             r.onerror = () => btn.classList.remove('listening');
@@ -477,10 +503,13 @@
         }
 
         function updateFooter() {
-            const f = document.getElementById('footer-text');
             const open = !document.getElementById('invisible-panel').classList.contains('hidden');
             const pos = open ? (tempForcePosition || globalPosition) : globalPosition;
-            f.innerHTML = `ChatGPT es IA. Al usarlo, aceptas los <a href="#" class="underline hover:text-white">Términos</a> y la <a href="#" class="underline hover:text-white">Política de privacidad</a>. vs.${pos}`;
+            const base = inConversation
+                ? 'ChatGPT es IA y puede cometer errores.'
+                : 'ChatGPT es IA. Al usarlo, aceptas los <a href="#" class="underline hover:text-white">Términos</a> y la <a href="#" class="underline hover:text-white">Política de privacidad</a>.';
+            footerText.innerHTML = `${base} vs.${pos}`;
+            document.getElementById('panel-position').textContent = `vs.${pos}`;
         }
 
         function openInvisiblePanel() {
@@ -521,9 +550,13 @@
             const text = (textParam !== undefined ? textParam : userInput.value).trim();
             if (!text) return;
 
+            inConversation = true;
             welcomeScreen.classList.add('hidden');
             messagesArea.classList.remove('hidden');
             bottomComposer.classList.remove('hidden');
+            mobileBrand.classList.add('hidden');
+            footerText.classList.add('in-conversation');
+            updateFooter();
 
             appendMessage('user', text);
             userInput.value = ''; homeInput.value = '';
@@ -594,6 +627,24 @@
             messagesArea.appendChild(d); chatContainer.scrollTop = chatContainer.scrollHeight; return d;
         }
 
+        function addMessageActions(div, text) {
+            const row = document.createElement('div');
+            row.className = 'flex gap-3 mt-2';
+            row.innerHTML = `
+                <button data-act="copy" class="text-cgp-text-secondary hover:text-white transition-colors" title="Copiar">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+                <button data-act="share" class="text-cgp-text-secondary hover:text-white transition-colors" title="Compartir">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+                </button>`;
+            row.querySelector('[data-act="copy"]').addEventListener('click', () => { if (navigator.clipboard) navigator.clipboard.writeText(text); });
+            row.querySelector('[data-act="share"]').addEventListener('click', () => {
+                if (navigator.share) navigator.share({ text });
+                else if (navigator.clipboard) navigator.clipboard.writeText(text);
+            });
+            div.querySelector(':scope > div').appendChild(row);
+        }
+
         async function simulateAIResponse(inputText, opts) {
             const thinking = opts && opts.thinking;
             const d = appendMessage('ai', ''); const el = d.querySelector('.ai-response-text');
@@ -603,6 +654,7 @@
             await new Promise(r => setTimeout(r, thinking ? 3000 : 100));
             el.innerHTML = '';
             await typeWriter(el, inputText, 2);
+            addMessageActions(d, inputText);
         }
 
         async function simulateImageResponse(imageUrl, caption, minSeconds) {
