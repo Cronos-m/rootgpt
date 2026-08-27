@@ -6,7 +6,7 @@
     "start_url": "/map.html",
     "scope": "/map.html",
     "display": "standalone",
-    "display_override": ["standalone", "minimal-ui"],
+    "display_override": ["standalone", "fullscreen"],
     "orientation": "any",
     "background_color": "#000000",
     "theme_color": "#000000",
