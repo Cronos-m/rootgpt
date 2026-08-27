@@ -270,8 +270,8 @@
         }
         syncThemeColor();
         window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', syncThemeColor);
-        
-        let allConfigs = [], allPetitions = [], allImages = [], imageSettings = {}, imagePrompts = [];
+
+        let allConfigs = [], allPetitions = [], allImages = [], imageSettings = {}, allPrompts = [];
         let globalPosition = 1, tempForcePosition = '', lastTapTime = 0;
         let thinkMode = false, voiceMode = false, activeRecognition = null;
         let inConversation = false;
@@ -453,10 +453,7 @@
             onValue(ref(db, 'config/petitions'), s => { const d = s.val(); allPetitions = d ? Object.entries(d).map(([id, v]) => ({ id, ...v })) : []; });
             onValue(ref(db, 'config/images'), s => { const d = s.val(); allImages = d ? Object.entries(d).map(([id, v]) => ({ id, ...v })) : []; });
             onValue(ref(db, 'config/imageSettings'), s => { imageSettings = s.val() || {}; });
-            onValue(ref(db, 'config/imagePrompts'), s => {
-                const d = s.val();
-                imagePrompts = d ? Object.entries(d).map(([id, v]) => ({ id, ...v })) : [];
-            });
+            onValue(ref(db, 'config/imagePrompts'), s => { const d = s.val(); allPrompts = d ? Object.entries(d).map(([id, v]) => ({ id, ...v })) : []; });
             onValue(ref(db, 'config/forcePosition'), s => { globalPosition = s.val() || 1; updateFooter(); });
         });
 
@@ -509,15 +506,24 @@
             return text.substring(bi + bl).trim() || text.trim();
         }
 
-        // NUEVO: obtener el prompt activo guardado (si existe)
-        function getActivePrompt() {
-            return imagePrompts.find(p => p.active && p.prompt) || null;
+        function normKey(s) { return (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '').trim(); }
+
+        // Elige el prompt base: 1) trigger que coincida, 2) prompt activo más reciente, 3) estilo global
+        function getPromptBase(text) {
+            const norm = normalizeStr(text);
+            const byTrigger = allPrompts.find(p => p.prompt && p.trigger && norm.includes(normalizeStr(p.trigger)));
+            if (byTrigger) return byTrigger.prompt.trim();
+            const activos = allPrompts.filter(p => p.active === true && p.prompt);
+            if (activos.length) {
+                activos.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+                return activos[0].prompt.trim();
+            }
+            return (imageSettings.stylePrompt || '').trim();
         }
 
-        // NUEVO: buscar prompt guardado por trigger específico
-        function findPromptByTrigger(text) {
-            const norm = normalizeStr(text);
-            return imagePrompts.find(p => p.trigger && p.prompt && norm.includes(normalizeStr(p.trigger))) || null;
+        function buildImageUrl(promptText) {
+            const seed = Math.floor(Math.random() * 1000000);
+            return `https://image.pollinations.ai/prompt/${encodeURIComponent(promptText)}?width=768&height=768&nologo=true&model=flux&seed=${seed}`;
         }
 
         function tryImageEffect(text) {
@@ -528,21 +534,11 @@
 
             const description = extractImageRequest(text);
             if (description) {
-                // NUEVO: si hay un prompt activo guardado, se usa como base en lugar del stylePrompt global
-                const activePrompt = getActivePrompt();
-                const promptByTrigger = findPromptByTrigger(text);
-                let basePrompt = (imageSettings.stylePrompt || '').trim();
-                
-                if (promptByTrigger) {
-                    basePrompt = promptByTrigger.prompt;
-                } else if (activePrompt) {
-                    basePrompt = activePrompt.prompt;
-                }
-                
-                // Concatenar: base + descripción del espectador
-                const full = basePrompt ? `${basePrompt}, ${description}` : description;
-                const seed = Math.floor(Math.random() * 1000000);
-                return { type: 'generated', url: `https://image.pollinations.ai/prompt/${encodeURIComponent(full)}?width=768&height=768&nologo=true&seed=${seed}` };
+                const base = getPromptBase(text);
+                const descClean = description.trim();
+                const generic = ['imagen', 'una imagen', 'un dibujo', 'dibujo', 'imagen de', 'una imagen de', 'foto', 'una foto'].includes(descClean.toLowerCase());
+                const full = base ? (generic ? base : `${base}, ${descClean}`) : descClean;
+                return { type: 'generated', full };
             }
             return null;
         }
@@ -555,6 +551,19 @@
                 img.onerror = () => { clearTimeout(t); resolve(false); };
                 img.src = url;
             });
+        }
+
+        async function simulateImageResponse(imageUrl, caption, minSeconds) {
+            const d = appendMessage('ai', ''); const el = d.querySelector('.ai-response-text');
+            el.innerHTML = `<div class="flex items-center gap-3 pt-2"><div class="flex space-x-1"><div class="w-2 h-2 bg-cgp-text-secondary rounded-full typing-dot"></div><div class="w-2 h-2 bg-cgp-text-secondary rounded-full typing-dot"></div><div class="w-2 h-2 bg-cgp-text-secondary rounded-full typing-dot"></div></div><span class="text-cgp-text-secondary text-sm">Pintando tu imagen...</span></div>`;
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            const delay = new Promise(r => setTimeout(r, (minSeconds || 0) * 1000));
+            const load = preloadImage(imageUrl, 60000);
+            const res = await Promise.all([delay, load]);
+            if (!res[1]) { d.remove(); return false; }
+            el.innerHTML = `<img src="${imageUrl}" alt="Imagen generada" class="rounded-2xl w-full" style="max-height:420px; object-fit:cover;">` + (caption ? `<p class="text-cgp-text mt-3 whitespace-pre-wrap break-words">${escapeHTML(caption)}</p>` : '');
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            return true;
         }
 
         function extractWebQuery(text) {
@@ -665,13 +674,17 @@
 
             const img = tryImageEffect(text);
             if (img) {
+                let ok = false;
                 if (img.type === 'predetermined') {
                     const f = parseFloat(img.entry.fakeSeconds);
-                    await simulateImageResponse(img.entry.image, img.entry.responseMessage || '', isNaN(f) ? 5 : f);
+                    ok = await simulateImageResponse(img.entry.image, img.entry.responseMessage || '', isNaN(f) ? 5 : f);
+                    if (!ok) await simulateAIResponse('Lo siento, la imagen guardada no se pudo cargar.');
                 } else {
-                    await simulateImageResponse(img.url, '', 3);
+                    ok = await simulateImageResponse(buildImageUrl(img.full), '', 3);
+                    if (!ok) ok = await simulateImageResponse(buildImageUrl(img.full), '', 2);
+                    if (!ok) await simulateAIResponse('Lo siento, el servicio de imágenes no respondió. Intenta de nuevo en unos segundos.');
                 }
-                if (voiceMode) speak('Aquí tienes tu imagen.', () => { if (voiceMode) listenForConversation(); });
+                if (ok && voiceMode) speak('Aquí tienes tu imagen.', () => { if (voiceMode) listenForConversation(); });
                 return;
             }
 
@@ -733,23 +746,6 @@
             el.innerHTML = '';
             await typeWriter(el, inputText, 2);
             addMessageActions(d, inputText);
-        }
-
-        async function simulateImageResponse(imageUrl, caption, minSeconds) {
-            const d = appendMessage('ai', ''); const el = d.querySelector('.ai-response-text');
-            el.innerHTML = `<div class="flex items-center gap-3 pt-2"><div class="flex space-x-1"><div class="w-2 h-2 bg-cgp-text-secondary rounded-full typing-dot"></div><div class="w-2 h-2 bg-cgp-text-secondary rounded-full typing-dot"></div><div class="w-2 h-2 bg-cgp-text-secondary rounded-full typing-dot"></div></div><span class="text-cgp-text-secondary text-sm">Pintando tu imagen...</span></div>`;
-            chatContainer.scrollTop = chatContainer.scrollHeight;
-            const delay = new Promise(r => setTimeout(r, (minSeconds || 0) * 1000));
-            const load = preloadImage(imageUrl, 45000);
-            const res = await Promise.all([delay, load]);
-            if (res[1]) {
-                el.innerHTML = `<img src="${imageUrl}" alt="Imagen generada" class="rounded-2xl w-full" style="max-height:420px; object-fit:cover;">` + (caption ? `<p class="text-cgp-text mt-3 whitespace-pre-wrap break-words">${escapeHTML(caption)}</p>` : '');
-            } else {
-                el.innerHTML = '';
-                await typeWriter(el, 'Lo siento, no pude terminar el dibujo en este momento. Intenta de nuevo.', 2);
-                return;
-            }
-            chatContainer.scrollTop = chatContainer.scrollHeight;
         }
 
         async function typeWriter(el, txt, spd) {
