@@ -20,7 +20,9 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     
+
     <script src="https://cdn.tailwindcss.com"></script>
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
@@ -114,9 +116,20 @@
             .ghost-cancel { background: rgba(239,68,68,0.08); color: rgba(239,68,68,0.6); }
             .ghost-confirm { background: rgba(16,163,127,0.1); color: rgba(16,163,127,0.7); }
         }
+
+        /* VISOR DE IMAGEN (modal a pantalla completa) */
+        #image-modal { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.92); display: none; flex-direction: column; align-items: center; justify-content: center; padding: 16px; }
+        #image-modal.open { display: flex; }
     </style>
 </head>
 <body class="h-full overflow-hidden flex flex-col">
+
+    <!-- VISOR DE IMAGEN (modal a pantalla completa) -->
+    <div id="image-modal" onclick="closeImageModal(event)">
+        <button onclick="closeImageModal(event, true)" style="position:absolute; top:12px; right:12px; background:transparent; border:none; color:#ffffff; font-size:32px; line-height:1; cursor:pointer;">&times;</button>
+        <img id="image-modal-img" src="" alt="Imagen ampliada" onclick="event.stopPropagation()" style="max-width:95%; max-height:78vh; border-radius:12px; box-shadow:0 0 30px rgba(16,163,127,0.35);">
+        <button onclick="event.stopPropagation(); downloadModalImage()" style="margin-top:14px; background:#10a37f; color:#000000; border:none; padding:10px 24px; border-radius:8px; font-weight:bold; cursor:pointer;">Descargar</button>
+    </div>
 
     <div class="flex h-full min-h-0">
 
@@ -138,7 +151,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg> Imágenes
                 </a>
                 <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-cgp-input transition-colors text-sm font-medium">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Complementos
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82V9a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a2 2 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Complementos
                 </a>
             </div>
             <div class="p-3 border-t border-cgp-border">
@@ -207,7 +220,7 @@
                                 Escribir o editar
                             </button>
                             <button onclick="prefill('busca en la web ')" class="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-cgp-input text-cgp-text-secondary text-xs font-medium whitespace-nowrap transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10z"/></svg>
                                 Buscar en la web
                             </button>
                         </div>
@@ -252,7 +265,7 @@
     <div id="invisible-panel" class="fixed inset-0 z-[100] hidden bg-black bg-opacity-95">
         <div class="grid grid-cols-4 gap-3 p-6 h-full w-full max-w-lg mx-auto content-center">
             <button class="ghost-key h-16 w-full" data-key="1">1</button><button class="ghost-key h-16 w-full" data-key="2">2</button><button class="ghost-key h-16 w-full" data-key="3">3</button><button class="ghost-key ghost-cancel h-16 w-full" data-key="cancel">X</button>
-            <button class="ghost-key h-16 w-full" data-key="4">4</button><button class="ghost-key h-16 w-full" data-key="5">5</button><button class="ghost-key h-16 w-full" data-key="6">6</button><button class="ghost-key h-16 w-full" data-key="C">C</button>
+            <button class="ghost-key h-16 w-full" data-key="4">4</button><button class="ghost-key h-16 w-full" data-key="5">5</button><button class="ghost-key h-16 w-full" data-key="6">6</button><button class="ghost-key ghost-cancel h-16 w-full" data-key="C">C</button>
             <button class="ghost-key h-16 w-full" data-key="7">7</button><button class="ghost-key h-16 w-full" data-key="8">8</button><button class="ghost-key h-16 w-full" data-key="9">9</button><button class="ghost-key ghost-confirm h-16 w-full" data-key="confirm">✓</button>
             <button class="ghost-key h-16 w-full col-span-2" data-key="0">0</button><div class="col-span-2"></div>
         </div>
@@ -279,7 +292,7 @@
         const geoDict = {
             "colombia": {country: "Colombia", capital: "Bogotá", lat: 4.711, lng: -74.072}, "argentina": {country: "Argentina", capital: "Buenos Aires", lat: -34.603, lng: -58.381}, "chile": {country: "Chile", capital: "Santiago", lat: -33.448, lng: -70.669},
             "peru": {country: "Perú", capital: "Lima", lat: -12.046, lng: -77.042}, "ecuador": {country: "Ecuador", capital: "Quito", lat: -0.180, lng: -78.467}, "venezuela": {country: "Venezuela", capital: "Caracas", lat: 10.480, lng: -66.903},
-            "bolivia": {country: "Bolivia", capital: "La Paz", lat: -16.500, lng: -68.150}, "paraguay": {country: "Paraguay", capital: "Asunción", lat: -25.263, lng: -57.575}, "uruguay": {country: "Uruguay", capital: "Montevideo", lat: -34.901, lng: -55.164},
+            "bolivia": {country: "Bolivia", capital: "La Paz", lat: -16.500, lng: -68.150}, "paraguay": {country: "Paraguay", capital: "Asunción", lat: -25.250, lng: -57.575}, "uruguay": {country: "Uruguay", capital: "Montevideo", lat: -34.901, lng: -55.164},
             "brasil": {country: "Brasil", capital: "Brasilia", lat: -15.794, lng: -47.882}, "mexico": {country: "México", capital: "Ciudad de México", lat: 19.432, lng: -99.133}, "estados unidos": {country: "Estados Unidos", capital: "Washington D.C.", lat: 38.907, lng: -77.036},
             "eeuu": {country: "Estados Unidos", capital: "Washington D.C.", lat: 38.907, lng: -77.036}, "usa": {country: "Estados Unidos", capital: "Washington D.C.", lat: 38.907, lng: -77.036}, "canada": {country: "Canadá", capital: "Ottawa", lat: 45.421, lng: -75.697},
             "espana": {country: "España", capital: "Madrid", lat: 40.416, lng: -3.703}, "francia": {country: "Francia", capital: "París", lat: 48.856, lng: 2.352}, "italia": {country: "Italia", capital: "Roma", lat: 41.902, lng: 12.496},
@@ -294,7 +307,7 @@
             "japon": {country: "Japón", capital: "Tokio", lat: 35.676, lng: 139.650}, "corea del sur": {country: "Corea del Sur", capital: "Seúl", lat: 37.566, lng: 126.978}, "corea del norte": {country: "Corea del Norte", capital: "Pionyang", lat: 39.039, lng: 125.762},
             "india": {country: "India", capital: "Nueva Delhi", lat: 28.613, lng: 77.209}, "pakistan": {country: "Pakistán", capital: "Islamabad", lat: 33.684, lng: 73.047}, "bangladesh": {country: "Bangladés", capital: "Daca", lat: 23.810, lng: 90.412},
             "tailandia": {country: "Tailandia", capital: "Bangkok", lat: 13.756, lng: 100.501}, "vietnam": {country: "Vietnam", capital: "Hanói", lat: 21.027, lng: 105.834}, "indonesia": {country: "Indonesia", capital: "Yakarta", lat: -6.208, lng: 106.845},
-            "malasia": {country: "Malasia", capital: "Kuala Lumpur", lat: 3.139, lng: 101.686}, "singapur": {country: "Singapur", capital: "Singapur", lat: 1.352, lng: 103.819}, "filipinas": {country: "Filipinas", capital: "Manila", lat: 14.599, lng: 120.984},
+            "malasia": {country: "Malasia", capital: "Kuala Lumpur", lat: 3.139, lng: 101.166}, "singapur": {country: "Singapur", capital: "Singapur", lat: 1.352, lng: 103.819}, "filipinas": {country: "Filipinas", capital: "Manila", lat: 14.599, lng: 120.984},
             "australia": {country: "Australia", capital: "Canberra", lat: -35.280, lng: 149.130}, "nueva zelanda": {country: "Nueva Zelanda", capital: "Wellington", lat: -41.286, lng: 174.776}, "egipto": {country: "Egipto", capital: "El Cairo", lat: 30.044, lng: 31.235},
             "marruecos": {country: "Marruecos", capital: "Rabat", lat: 34.020, lng: -6.841}, "argelia": {country: "Argelia", capital: "Argel", lat: 36.753, lng: 3.058}, "tunez": {country: "Túnez", capital: "Túnez", lat: 36.806, lng: 10.181},
             "libia": {country: "Libia", capital: "Trípoli", lat: 32.887, lng: 13.180}, "sudafrica": {country: "Sudáfrica", capital: "Pretoria", lat: -25.747, lng: 28.229}, "nigeria": {country: "Nigeria", capital: "Abuya", lat: 9.076, lng: 7.398},
@@ -570,9 +583,45 @@
             const load = preloadImage(imageUrl, 60000);
             const res = await Promise.all([delay, load]);
             if (!res[1]) { d.remove(); return false; }
-            el.innerHTML = `<img src="${imageUrl}" alt="Imagen generada" class="rounded-2xl w-full" style="max-height:420px; object-fit:cover;">` + (caption ? `<p class="text-cgp-text mt-3 whitespace-pre-wrap break-words">${escapeHTML(caption)}</p>` : '');
+            el.innerHTML = `<img src="${imageUrl}" alt="Imagen generada" class="rounded-2xl w-full" style="max-height:420px; object-fit:cover; cursor:zoom-in;" onclick="openImageModal(this.src)">` + (caption ? `<p class="text-cgp-text mt-3 whitespace-pre-wrap break-words">${escapeHTML(caption)}</p>` : '');
             chatContainer.scrollTop = chatContainer.scrollHeight;
             return true;
+        }
+
+        // ===== VISOR DE IMAGEN (modal a pantalla completa) =====
+        function openImageModal(src) {
+            document.getElementById('image-modal-img').src = src;
+            document.getElementById('image-modal').classList.add('open');
+        }
+
+        function closeImageModal(event, force) {
+            if (force === true || event.target.id === 'image-modal') {
+                document.getElementById('image-modal').classList.remove('open');
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') document.getElementById('image-modal').classList.remove('open');
+        });
+
+        async function downloadModalImage() {
+            const src = document.getElementById('image-modal-img').src;
+            const ext = src.includes('image/png') ? 'png' : 'jpg';
+            try {
+                const res = await fetch(src);
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                const blob = await res.blob();
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'rootgpt-imagen.' + ext;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                setTimeout(() => URL.revokeObjectURL(url), 1000);
+            } catch (e) {
+                window.open(src, '_blank');
+            }
         }
 
         function extractWebQuery(text) {
@@ -582,7 +631,7 @@
         }
         async function searchWeb(query) {
             try {
-                const os = await fetch(`https://es.wikipedia.org/w/api.php?action=opensearch&search=${encodeURIComponent(query)}&limit=1&namespace=0&format=json&origin=*`);
+                const os = await fetch(`https://es.wikipedia.org/api.php?action=opensearch&search=${encodeURIComponent(query)}&limit=1&namespace=0&format=json&origin=*`);
                 const osData = await os.json();
                 const title = osData[1] && osData[1][0];
                 if (!title) return null;
