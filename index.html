@@ -4,22 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content">
     <title>ChatGPT</title>
-   
+
     <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFaElEQVR4nO2ZWWyVVRDHr4iAtqJIUdwQNBo1ivoAEn2FRAwkREnEpNYFWSKiIWrLIgVaxKrBJSouMVFU4oZbQqK+KBpb6vaiCaYQERXcYxSNUBd+Zsycy3Tu+bZCaR/6f2lzvjnnzJwzZ+Y/c0ulfvSj9wEcAdQBLwHbgd+APcDnwGvANcDRpb4G4FDgBuBnsrELaAAGl/oCgGOANymOT4Dje1v5ocDHTrHNwALgXGAIUAWcDcwDPnWyXwItwGPAauBmYILc6MEy4HWjzD9APTAwRV4MejfH7ewAGoHqnlReHmvAv8D0DPmpwJaCbrYTmNgTyg8EvjAbrUiRFfd5K6LcL8Az6m61wE3Aw8A3Tk5uduaBUvw0YBWw1V33kIjsMOAB4O+I4rdIyE2JaNOB75wRU/ZHcXmI9wCdkZNsjNxOLKSKEo8ANTn3HAF8YOZ/LxGvO8qPBD5K8dPxRrZGw6PH28DYbu79tVmnpegCRwEdTpl3nFuUTwW40cnKO7ksYe1TgHXqUi8CpybITTPr/VgoAQLrzWShBLN0fK8ZP8TIL9Gx34FFCW+jGlgJ/OmM3a3vq0volPXdm5uUV/kpLkxebr6V4eYs1eHlkfUGAFdraAxrtrrDEHyrcvZg7mcfFuY1wD6gh9y3Mty4JB/BMjd+sXtH7wPj9Nt4YBOVkP0nqMxcM/54HuXHONcZkdOAZTq81Pj58+6UF9rTNW5SqyHZYq/mioaiBgjtDXgl8j3JgOU6LPym2fj5H8pCg6/Lt6qEcN2sMt6QgHvzGCCPKWBJAQNWuA3l71rgBA2JT5pvEh5n+NsQAKO1poihrpQF92hmFzCgyXxqDX7uZMTn243ce8D5CXpMirjV5DwG3GkmLChggFw/ymkqTtb5/BqXpR+NZWngOKXoAZ8Bg7IMmGkmrC1ggMT3XKFOqTfKUDv1f0lq8z0lB07WbwGzshY/ywj/4LOfFiIBl5rxO3SsIYcBIbLInNOBDe6UL3Dyc8z3zVnrl9y1dXkHsrhuEiCbn2Eef32O9SWcClaasclmzW1OfrBSiYAzszaYbYTl+k6KsM755mo7TcFyWwEDmt14GZE5T5vP12ZtMMidstzIsRG5GqXJ8hAD1hR4xE0FDJA6ImBVqgGRK0V5TJRMSSh09a5QgQsTwmhbUjVHugGWUqzOY4CQqhgkyYxOONkrDIeXpPWUtE+AE9UFbJKrIH6kGxDIYoXr5UlonjXu1rBZldChazJUYpfSCXSsWelGjPiVkdEFuSqPAU+YCfVKrLwhO5SIxQia1AQBMu85YJRjrr4kjRqgJWanWWtUUQP+D6XaeLJUO2BTKC/Vz4VKBHwIXJTGXHMYYDN3aykPgMVm0n3udOtMcWJPuc3c0k6VGxBZOxC/27MM0HclBVBF8swy4BIzaUvETao1eXn6G/y8KqE7t0jLTsFidzDlwzCRx3ZD1udS3mz2k5k8LaUAekFbKc8m+acU+K4hJpjnckqANA42Ollp0w/NbYAuepdZ4Ku8fR23xlhtrXhImTncyMn7SkJ7LJHm2Xy4ErqANl9ipsyNZWn0Vuf6LjT7KjpcSduS1MnLa8RUp8R2bf9F6QJwJHCro8CCvzS3DIvMOVw7EgEd+o7GdFtxt8H1kZMUWv2gkrrrlKtIk+rXyEm+ITQ9Zxm7Na1Nvz9GTIyEzix0ZDVmqQyTVx5w5V3obIy0wWPYGOvOmbUOkzxAV+Vf7jHlI23wcdoPvVsfa4ur1lBKLi52jr4N8fXzpGaI9F3be/RXmZyGjUzoUGdhgzSTS30BWgzVm2ZWGqRMnBOjG70Obc9LTfGqZtE9GqG2acuxNu2N9KMfpYOH/wC5Qx5QK89yWwAAAABJRU5ErkJggg==">
     <link rel="icon" type="image/png" sizes="192x192" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFaElEQVR4nO2ZWWyVVRDHr4iAtqJIUdwQNBo1ivoAEn2FRAwkREnEpNYFWSKiIWrLIgVaxKrBJSouMVFU4oZbQqK+KBpb6vaiCaYQERXcYxSNUBd+Zsycy3Tu+bZCaR/6f2lzvjnnzJwzZ+Y/c0ulfvSj9wEcAdQBLwHbgd+APcDnwGvANcDRpb4G4FDgBuBnsrELaAAGl/oCgGOANymOT4Dje1v5ocDHTrHNwALgXGAIUAWcDcwDPnWyXwItwGPAauBmYILc6MEy4HWjzD9APTAwRV4MejfH7ewAGoHqnlReHmvAv8D0DPmpwJaCbrYTmNgTyg8EvjAbrUiRFfd5K6LcL8Az6m61wE3Aw8A3Tk5uduaBUvw0YBWw1V33kIjsMOAB4O+I4rdIyE2JaNOB75wRU/ZHcXmI9wCdkZNsjNxOLKSKEo8ANTn3HAF8YOZ/LxGvO8qPBD5K8dPxRrZGw6PH28DYbu79tVmnpegCRwEdTpl3nFuUTwW40cnKO7ksYe1TgHXqUi8CpybITTPr/VgoAQLrzWShBLN0fK8ZP8TIL9Gx34FFCW+jGlgJ/OmM3a3vq0volPXdm5uUV/kpLkxebr6V4eYs1eHlkfUGAFdraAxrtrrDEHyrcvZg7mcfFuY1wD6gh9y3Mty4JB/BMjd+sXtH7wPj9Nt4YBOVkP0nqMxcM/54HuXHONcZkdOAZTq81Pj58+6UF9rTNW5SqyHZYq/mioaiBgjtDXgl8j3JgOU6LPym2fj5H8pCg6/Lt6qEcN2sMt6QgHvzGCCPKWBJAQNWuA3l71rgBA2JT5pvEh5n+NsQAKO1poihrpQF92hmFzCgyXxqDX7uZMTn243ce8D5CXpMirjV5DwG3GkmLChggFw/ymkqTtb5/BqXpR+NZWngOKXoAZ8Bg7IMmGkmrC1ggMT3XKFOqTfKUDv1f0lq8z0lB07WbwGzshY/ywj/4LOfFiIBl5rxO3SsIYcBIbLInNOBDe6UL3Dyc8z3zVnrl9y1dXkHsrhuEiCbn2Eef32O9SWcClaasclmzW1OfrBSiYAzszaYbYTl+k6KsM755mo7TcFyWwEDmt14GZE5T5vP12ZtMMidstzIsRG5GqXJ8hAD1hR4xE0FDJA6ImBVqgGRK0V5TJRMSSh09a5QgQsTwmhbUjVHugGWUqzOY4CQqhgkyYxOONkrDIeXpPWUtE+AE9UFbJKrIH6kGxDIYoXr5UlonjXu1rBZldChazJUYpfSCXSsWelGjPiVkdEFuSqPAU+YCfVKrLwhO5SIxQia1AQBMu85YJRjrr4kjRqgJWanWWtUUQP+D6XaeLJUO2BTKC/Vz4VKBHwIXJTGXHMYYDN3aykPgMVm0n3udOtMcWJPuc3c0k6VGxBZOxC/27MM0HclBVBF8swy4BIzaUvETao1eXn6G/y8KqE7t0jLTsFidzDlwzCRx3ZD1udS3mz2k5k8LaUAekFbKc8m+acU+K4hJpjnckqANA42Ollp0w/NbYAuepdZ4Ku8fR23xlhtrXhImTncyMn7SkJ7LJHm2Xy4ErqANl9ipsyNZWn0Vuf6LjT7KjpcSduS1MnLa8RUp8R2bf9F6QJwJHCro8CCvzS3DIvMOVw7EgEd+o7GdFtxt8H1kZMUWv2gkrrrlKtIk+rXyEm+ITQ9Zxm7Na1Nvz9GTIyEzix0ZDVmqQyTVx5w5V3obIy0wWPYGOvOmbUOkzxAV+Vf7jHlI23wcdoPvVsfa4ur1lBKLi52jr4N8fXzpGaI9F3be/RXmZyGjUzoUGdhgzSTS30BWgzVm2ZWGqRMnBOjG70Obc9LTfGqZtE9GqG2acuxNu2N9KMfpYOH/wC5Qx5QK89yWwAAAABJRU5ErkJggg==">
     <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFaElEQVR4nO2ZWWyVVRDHr4iAtqJIUdwQNBo1ivoAEn2FRAwkREnEpNYFWSKiIWrLIgVaxKrBJSouMVFU4oZbQqK+KBpb6vaiCaYQERXcYxSNUBd+Zsycy3Tu+bZCaR/6f2lzvjnnzJwzZ+Y/c0ulfvSj9wEcAdQBLwHbgd+APcDnwGvANcDRpb4G4FDgBuBnsrELaAAGl/oCgGOANymOT4Dje1v5ocDHTrHNwALgXGAIUAWcDcwDPnWyXwItwGPAauBmYILc6MEy4HWjzD9APTAwRV4MejfH7ewAGoHqnlReHmvAv8D0DPmpwJaCbrYTmNgTyg8EvjAbrUiRFfd5K6LcL8Az6m61wE3Aw8A3Tk5uduaBUvw0YBWw1V33kIjsMOAB4O+I4rdIyE2JaNOB75wRU/ZHcXmI9wCdkZNsjNxOLKSKEo8ANTn3HAF8YOZ/LxGvO8qPBD5K8dPxRrZGw6PH28DYbu79tVmnpegCRwEdTpl3nFuUTwW40cnKO7ksYe1TgHXqUi8CpybITTPr/VgoAQLrzWShBLN0fK8ZP8TIL9Gx34FFCW+jGlgJ/OmM3a3vq0volPXdm5uUV/kpLkxebr6V4eYs1eHlkfUGAFdraAxrtrrDEHyrcvZg7mcfFuY1wD6gh9y3Mty4JB/BMjd+sXtH7wPj9Nt4YBOVkP0nqMxcM/54HuXHONcZkdOAZTq81Pj58+6UF9rTNW5SqyHZYq/mioaiBgjtDXgl8j3JgOU6LPym2fj5H8pCg6/Lt6qEcN2sMt6QgHvzGCCPKWBJAQNWuA3l71rgBA2JT5pvEh5n+NsQAKO1poihrpQF92hmFzCgyXxqDX7uZMTn243ce8D5CXpMirjV5DwG3GkmLChggFw/ymkqTtb5/BqXpR+NZWngOKXoAZ8Bg7IMmGkmrC1ggMT3XKFOqTfKUDv1f0lq8z0lB07WbwGzshY/ywj/4LOfFiIBl5rxO3SsIYcBIbLInNOBDe6UL3Dyc8z3zVnrl9y1dXkHsrhuEiCbn2Eef32O9SWcClaasclmzW1OfrBSiYAzszaYbYTl+k6KsM755mo7TcFyWwEDmt14GZE5T5vP12ZtMMidstzIsRG5GqXJ8hAD1hR4xE0FDJA6ImBVqgGRK0V5TJRMSSh09a5QgQsTwmhbUjVHugGWUqzOY4CQqhgkyYxOONkrDIeXpPWUtE+AE9UFbJKrIH6kGxDIYoXr5UlonjXu1rBZldChazJUYpfSCXSsWelGjPiVkdEFuSqPAU+YCfVKrLwhO5SIxQia1AQBMu85YJRjrr4kjRqgJWanWWtUUQP+D6XaeLJUO2BTKC/Vz4VKBHwIXJTGXHMYYDN3aykPgMVm0n3udOtMcWJPuc3c0k6VGxBZOxC/27MM0HclBVBF8swy4BIzaUvETao1eXn6G/y8KqE7t0jLTsFidzDlwzCRx3ZD1udS3mz2k5k8LaUAekFbKc8m+acU+K4hJpjnckqANA42Ollp0w/NbYAuepdZ4Ku8fR23xlhtrXhImTncyMn7SkJ7LJHm2Xy4ErqANl9ipsyNZWn0Vuf6LjT7KjpcSduS1MnLa8RUp8R2bf9F6QJwJHCro8CCvzS3DIvMOVw7EgEd+o7GdFtxt8H1kZMUWv2gkrrrlKtIk+rXyEm+ITQ9Zxm7Na1Nvz9GTIyEzix0ZDVmqQyTVx5w5V3obIy0wWPYGOvOmbUOkzxAV+Vf7jHlI23wcdoPvVsfa4ur1lBKLi52jr4N8fXzpGaI9F3be/RXmZyGjUzoUGdhgzSTS30BWgzVm2ZWGqRMnBOjG70Obc9LTfGqZtE9GqG2acuxNu2N9KMfpYOH/wC5Qx5QK89yWwAAAABJRU5ErkJggg==">
-       
+
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#000000">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="ChatGPT">
-    
+
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    
 
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -61,7 +60,6 @@
         }
     </script>
     <style>
-        /* Modo oscuro por defecto */
         :root {
             --cgp-bg: #000000;
             --cgp-surface: #171717;
@@ -71,7 +69,6 @@
             --cgp-text: #ececec;
             --cgp-text-secondary: #b4b4b4;
         }
-        /* Modo claro automático según el sistema */
         @media (prefers-color-scheme: light) {
             :root {
                 --cgp-bg: #ffffff;
@@ -100,7 +97,7 @@
         .safe-top { padding-top: env(safe-area-inset-top); }
         .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
         @media (max-width: 767px) { #footer-text.in-conversation { display: none; } }
-        
+
         .ghost-key { background: rgba(30,30,30,0.4); border: 1px solid rgba(100,100,100,0.2); color: rgba(200,200,200,0.25); transition: all 0.1s; border-radius: 12px; font-size: 1.5rem; font-weight: 400; touch-action: manipulation; -webkit-tap-highlight-color: transparent; user-select: none; }
         .ghost-key:active { background: rgba(50,50,50,0.6); color: rgba(220,220,220,0.5); transform: scale(0.95); }
         .ghost-cancel { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); color: rgba(239,68,68,0.3); }
@@ -109,7 +106,6 @@
         .ghost-confirm:active { background: rgba(16,163,127,0.3); color: rgba(16,163,127,0.6); }
         #send-btn, #home-send { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 
-        /* Ajustes para modo claro en botones e interacciones */
         @media (prefers-color-scheme: light) {
             .ghost-key { background: rgba(240,240,240,0.8); border-color: rgba(0,0,0,0.1); color: rgba(0,0,0,0.6); }
             .ghost-key:active { background: rgba(220,220,220,0.9); color: rgba(0,0,0,0.8); }
@@ -117,19 +113,26 @@
             .ghost-confirm { background: rgba(16,163,127,0.1); color: rgba(16,163,127,0.7); }
         }
 
-        /* VISOR DE IMAGEN (modal a pantalla completa) */
-        #image-modal { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.92); display: none; flex-direction: column; align-items: center; justify-content: center; padding: 16px; }
+        /* ===== VISOR DE IMAGEN (estilo ChatGPT) ===== */
+        #image-modal { position: fixed; inset: 0; z-index: 9999; background: #000; display: none; align-items: center; justify-content: center; }
         #image-modal.open { display: flex; }
+        #image-modal img { max-width: min(92vw, 1024px); max-height: calc(100dvh - 200px); object-fit: contain; }
+        .viewer-topbar { position: absolute; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: center; padding: 16px; }
+        .viewer-tools { display: none; align-items: center; gap: 2px; background: #2f2f2f; border-radius: 9999px; padding: 4px; }
+        @media (min-width: 768px) { .viewer-tools { display: flex; } }
+        .viewer-tool { display: flex; align-items: center; gap: 8px; background: transparent; border: none; color: #ececec; font-size: 14px; font-weight: 600; padding: 8px 12px; border-radius: 9999px; cursor: pointer; }
+        .viewer-tool:hover { background: #424242; }
+        .viewer-actions { position: absolute; top: 12px; right: 12px; display: flex; align-items: center; gap: 4px; }
+        .viewer-icon { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: transparent; border: none; color: #ececec; border-radius: 9999px; cursor: pointer; }
+        .viewer-icon:hover { background: #2f2f2f; }
+        #viewer-zoom { position: absolute; top: 60px; right: 12px; display: flex; align-items: center; gap: 6px; background: #2f2f2f; color: #ececec; border: none; border-radius: 9999px; padding: 10px 14px; font-size: 14px; font-weight: 600; cursor: pointer; }
+        .viewer-bottombar { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); width: min(92vw, 880px); background: #2f2f2f; border-radius: 9999px; display: flex; align-items: center; gap: 8px; padding: 8px 8px 8px 16px; }
+        .viewer-input { flex: 1; color: #8e8ea0; font-size: 15px; }
+        .viewer-bottombar .viewer-icon { width: 36px; height: 36px; }
+        .viewer-send { width: 36px; height: 36px; border-radius: 9999px; background: #676768; color: #0d0d0d; border: none; display: flex; align-items: center; justify-content: center; }
     </style>
 </head>
 <body class="h-full overflow-hidden flex flex-col">
-
-    <!-- VISOR DE IMAGEN (modal a pantalla completa) -->
-    <div id="image-modal" onclick="closeImageModal(event)">
-        <button onclick="closeImageModal(event, true)" style="position:absolute; top:12px; right:12px; background:transparent; border:none; color:#ffffff; font-size:32px; line-height:1; cursor:pointer;">&times;</button>
-        <img id="image-modal-img" src="" alt="Imagen ampliada" onclick="event.stopPropagation()" style="max-width:95%; max-height:78vh; border-radius:12px; box-shadow:0 0 30px rgba(16,163,127,0.35);">
-        <button onclick="event.stopPropagation(); downloadModalImage()" style="margin-top:14px; background:#10a37f; color:#000000; border:none; padding:10px 24px; border-radius:8px; font-weight:bold; cursor:pointer;">Descargar</button>
-    </div>
 
     <div class="flex h-full min-h-0">
 
@@ -151,7 +154,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg> Imágenes
                 </a>
                 <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-cgp-input transition-colors text-sm font-medium">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82V9a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a2 2 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Complementos
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82V9a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Complementos
                 </a>
             </div>
             <div class="p-3 border-t border-cgp-border">
@@ -220,7 +223,7 @@
                                 Escribir o editar
                             </button>
                             <button onclick="prefill('busca en la web ')" class="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-cgp-input text-cgp-text-secondary text-xs font-medium whitespace-nowrap transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10z"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
                                 Buscar en la web
                             </button>
                         </div>
@@ -265,17 +268,72 @@
     <div id="invisible-panel" class="fixed inset-0 z-[100] hidden bg-black bg-opacity-95">
         <div class="grid grid-cols-4 gap-3 p-6 h-full w-full max-w-lg mx-auto content-center">
             <button class="ghost-key h-16 w-full" data-key="1">1</button><button class="ghost-key h-16 w-full" data-key="2">2</button><button class="ghost-key h-16 w-full" data-key="3">3</button><button class="ghost-key ghost-cancel h-16 w-full" data-key="cancel">X</button>
-            <button class="ghost-key h-16 w-full" data-key="4">4</button><button class="ghost-key h-16 w-full" data-key="5">5</button><button class="ghost-key h-16 w-full" data-key="6">6</button><button class="ghost-key ghost-cancel h-16 w-full" data-key="C">C</button>
+            <button class="ghost-key h-16 w-full" data-key="4">4</button><button class="ghost-key h-16 w-full" data-key="5">5</button><button class="ghost-key h-16 w-full" data-key="6">6</button><button class="ghost-key h-16 w-full" data-key="C">C</button>
             <button class="ghost-key h-16 w-full" data-key="7">7</button><button class="ghost-key h-16 w-full" data-key="8">8</button><button class="ghost-key h-16 w-full" data-key="9">9</button><button class="ghost-key ghost-confirm h-16 w-full" data-key="confirm">✓</button>
             <button class="ghost-key h-16 w-full col-span-2" data-key="0">0</button><div class="col-span-2"></div>
         </div>
         <div id="panel-position" class="absolute bottom-6 inset-x-0 text-center text-xs text-gray-600">vs.-</div>
     </div>
 
+    <!-- ===== VISOR DE IMAGEN (estilo ChatGPT) ===== -->
+    <div id="image-modal" onclick="closeImageModal(event)">
+        <div class="viewer-topbar" onclick="event.stopPropagation()">
+            <div class="viewer-tools">
+                <button class="viewer-tool" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/><line x1="12" y1="8" x2="12" y2="14"/><line x1="9" y1="11" x2="15" y2="11"/></svg>
+                    Comentar
+                </button>
+                <button class="viewer-tool" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 16l8-8"/><circle cx="9" cy="9" r="1.5"/></svg>
+                    Quitar fondo
+                </button>
+                <button class="viewer-tool" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 20H7L3 16a1.4 1.4 0 0 1 0-2L13 4l7 7-9 9z"/><path d="M13 4l7 7"/></svg>
+                    Borrar
+                </button>
+                <button class="viewer-tool" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                    Redimensionar
+                </button>
+            </div>
+            <div class="viewer-actions">
+                <button class="viewer-icon" type="button" title="Compartir" onclick="shareViewerImage(event)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                </button>
+                <button class="viewer-icon" type="button" title="Descargar" onclick="downloadModalImage(event)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </button>
+                <button class="viewer-icon" type="button" title="Más opciones">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>
+                </button>
+            </div>
+        </div>
+        <button id="viewer-zoom" type="button" onclick="event.stopPropagation()">
+            <span id="viewer-zoom-label">100 %</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <img id="image-modal-img" src="" alt="Imagen ampliada" onclick="event.stopPropagation()" onload="updateViewerZoom()">
+        <div class="viewer-bottombar" onclick="event.stopPropagation()">
+            <button class="viewer-icon" type="button" title="Añadir">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+            <div class="viewer-input">Describir las ediciones</div>
+            <button class="viewer-tool" type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 0-7 7c0 2.4 1.2 4.5 3 5.7V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.3c1.8-1.2 3-3.3 3-5.7a7 7 0 0 0-7-7z"/></svg>
+                Pensar
+            </button>
+            <button class="viewer-icon" type="button" title="Dictar">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+            </button>
+            <button class="viewer-send" type="button" title="Enviar">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+            </button>
+        </div>
+    </div>
+
     <script>
         if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW no registrado', err)); }); }
 
-        // Ajuste dinámico del theme-color de la PWA según el modo del sistema
         function syncThemeColor() {
             const meta = document.querySelector('meta[name="theme-color"]');
             const isLight = window.matchMedia('(prefers-color-scheme: light)').matches;
@@ -292,7 +350,7 @@
         const geoDict = {
             "colombia": {country: "Colombia", capital: "Bogotá", lat: 4.711, lng: -74.072}, "argentina": {country: "Argentina", capital: "Buenos Aires", lat: -34.603, lng: -58.381}, "chile": {country: "Chile", capital: "Santiago", lat: -33.448, lng: -70.669},
             "peru": {country: "Perú", capital: "Lima", lat: -12.046, lng: -77.042}, "ecuador": {country: "Ecuador", capital: "Quito", lat: -0.180, lng: -78.467}, "venezuela": {country: "Venezuela", capital: "Caracas", lat: 10.480, lng: -66.903},
-            "bolivia": {country: "Bolivia", capital: "La Paz", lat: -16.500, lng: -68.150}, "paraguay": {country: "Paraguay", capital: "Asunción", lat: -25.250, lng: -57.575}, "uruguay": {country: "Uruguay", capital: "Montevideo", lat: -34.901, lng: -55.164},
+            "bolivia": {country: "Bolivia", capital: "La Paz", lat: -16.500, lng: -68.150}, "paraguay": {country: "Paraguay", capital: "Asunción", lat: -25.263, lng: -57.575}, "uruguay": {country: "Uruguay", capital: "Montevideo", lat: -34.901, lng: -55.164},
             "brasil": {country: "Brasil", capital: "Brasilia", lat: -15.794, lng: -47.882}, "mexico": {country: "México", capital: "Ciudad de México", lat: 19.432, lng: -99.133}, "estados unidos": {country: "Estados Unidos", capital: "Washington D.C.", lat: 38.907, lng: -77.036},
             "eeuu": {country: "Estados Unidos", capital: "Washington D.C.", lat: 38.907, lng: -77.036}, "usa": {country: "Estados Unidos", capital: "Washington D.C.", lat: 38.907, lng: -77.036}, "canada": {country: "Canadá", capital: "Ottawa", lat: 45.421, lng: -75.697},
             "espana": {country: "España", capital: "Madrid", lat: 40.416, lng: -3.703}, "francia": {country: "Francia", capital: "París", lat: 48.856, lng: 2.352}, "italia": {country: "Italia", capital: "Roma", lat: 41.902, lng: 12.496},
@@ -307,7 +365,7 @@
             "japon": {country: "Japón", capital: "Tokio", lat: 35.676, lng: 139.650}, "corea del sur": {country: "Corea del Sur", capital: "Seúl", lat: 37.566, lng: 126.978}, "corea del norte": {country: "Corea del Norte", capital: "Pionyang", lat: 39.039, lng: 125.762},
             "india": {country: "India", capital: "Nueva Delhi", lat: 28.613, lng: 77.209}, "pakistan": {country: "Pakistán", capital: "Islamabad", lat: 33.684, lng: 73.047}, "bangladesh": {country: "Bangladés", capital: "Daca", lat: 23.810, lng: 90.412},
             "tailandia": {country: "Tailandia", capital: "Bangkok", lat: 13.756, lng: 100.501}, "vietnam": {country: "Vietnam", capital: "Hanói", lat: 21.027, lng: 105.834}, "indonesia": {country: "Indonesia", capital: "Yakarta", lat: -6.208, lng: 106.845},
-            "malasia": {country: "Malasia", capital: "Kuala Lumpur", lat: 3.139, lng: 101.166}, "singapur": {country: "Singapur", capital: "Singapur", lat: 1.352, lng: 103.819}, "filipinas": {country: "Filipinas", capital: "Manila", lat: 14.599, lng: 120.984},
+            "malasia": {country: "Malasia", capital: "Kuala Lumpur", lat: 3.139, lng: 101.686}, "singapur": {country: "Singapur", capital: "Singapur", lat: 1.352, lng: 103.819}, "filipinas": {country: "Filipinas", capital: "Manila", lat: 14.599, lng: 120.984},
             "australia": {country: "Australia", capital: "Canberra", lat: -35.280, lng: 149.130}, "nueva zelanda": {country: "Nueva Zelanda", capital: "Wellington", lat: -41.286, lng: 174.776}, "egipto": {country: "Egipto", capital: "El Cairo", lat: 30.044, lng: 31.235},
             "marruecos": {country: "Marruecos", capital: "Rabat", lat: 34.020, lng: -6.841}, "argelia": {country: "Argelia", capital: "Argel", lat: 36.753, lng: 3.058}, "tunez": {country: "Túnez", capital: "Túnez", lat: 36.806, lng: 10.181},
             "libia": {country: "Libia", capital: "Trípoli", lat: 32.887, lng: 13.180}, "sudafrica": {country: "Sudáfrica", capital: "Pretoria", lat: -25.747, lng: 28.229}, "nigeria": {country: "Nigeria", capital: "Abuya", lat: 9.076, lng: 7.398},
@@ -521,8 +579,6 @@
 
         function normKey(s) { return (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '').trim(); }
 
-        // PROMPT SECRETO: si el mensaje contiene el trigger de un prompt guardado,
-        // se genera EXACTAMENTE ese prompt, sin añadir nada más.
         function findSecretPrompt(text) {
             const norm = normalizeStr(text);
             const byTrigger = allPrompts.find(p => p.prompt && p.trigger && norm.includes(normalizeStr(p.trigger)));
@@ -537,16 +593,13 @@
         function tryImageEffect(text) {
             const norm = normalizeStr(text);
 
-            // 1) Imagen predeterminada (Base64/URL) con generación fingida
             const activeImages = allImages.filter(i => i.active !== false);
             const matched = activeImages.find(i => i.trigger && i.image && norm.includes(normalizeStr(i.trigger)));
             if (matched) return { type: 'predetermined', entry: matched };
 
-            // 2) Prompt secreto por trigger: se usa EXACTAMENTE el prompt guardado
             const secret = findSecretPrompt(text);
             if (secret) return { type: 'generated', full: secret };
 
-            // 3) Verbos de imagen: combina base (prompt activo o estilo global) con la descripción
             const description = extractImageRequest(text);
             if (description) {
                 const activos = allPrompts.filter(p => p.active === true && p.prompt);
@@ -588,10 +641,11 @@
             return true;
         }
 
-        // ===== VISOR DE IMAGEN (modal a pantalla completa) =====
+        // ===== VISOR DE IMAGEN =====
         function openImageModal(src) {
+            const modal = document.getElementById('image-modal');
             document.getElementById('image-modal-img').src = src;
-            document.getElementById('image-modal').classList.add('open');
+            modal.classList.add('open');
         }
 
         function closeImageModal(event, force) {
@@ -604,7 +658,28 @@
             if (e.key === 'Escape') document.getElementById('image-modal').classList.remove('open');
         });
 
-        async function downloadModalImage() {
+        function updateViewerZoom() {
+            const img = document.getElementById('image-modal-img');
+            const label = document.getElementById('viewer-zoom-label');
+            if (!img.naturalWidth || !img.naturalHeight) return;
+            const availW = Math.min(window.innerWidth * 0.92, 1024);
+            const availH = window.innerHeight - 200;
+            const scale = Math.min(availW / img.naturalWidth, availH / img.naturalHeight, 1);
+            label.textContent = Math.max(Math.round(scale * 100), 5) + ' %';
+        }
+
+        async function shareViewerImage(event) {
+            event.stopPropagation();
+            const src = document.getElementById('image-modal-img').src;
+            if (navigator.share) {
+                try { await navigator.share({ title: 'ChatGPT', url: src }); } catch (e) {}
+            } else if (navigator.clipboard) {
+                navigator.clipboard.writeText(src);
+            }
+        }
+
+        async function downloadModalImage(event) {
+            if (event) event.stopPropagation();
             const src = document.getElementById('image-modal-img').src;
             const ext = src.includes('image/png') ? 'png' : 'jpg';
             try {
@@ -631,7 +706,7 @@
         }
         async function searchWeb(query) {
             try {
-                const os = await fetch(`https://es.wikipedia.org/api.php?action=opensearch&search=${encodeURIComponent(query)}&limit=1&namespace=0&format=json&origin=*`);
+                const os = await fetch(`https://es.wikipedia.org/w/api.php?action=opensearch&search=${encodeURIComponent(query)}&limit=1&namespace=0&format=json&origin=*`);
                 const osData = await os.json();
                 const title = osData[1] && osData[1][0];
                 if (!title) return null;
